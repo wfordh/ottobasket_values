@@ -224,7 +224,7 @@ def calc_fantasy_pts(stats_df, is_simple_scoring=True):
         + stats_df["fta_game"] * scoring_dict["fta"]
         + stats_df["ftm_game"] * scoring_dict["ftm"]
     )
-    fantasy_df["proj_fantasy_pts_fs"] = (
+    fantasy_df["roto_val"] = (
         stats_df["pts_game_fs"] * scoring_dict["points"]
         + stats_df["reb_game_fs"] * scoring_dict["rebounds"]
         + stats_df["ast_game_fs"] * scoring_dict["assists"]
@@ -277,12 +277,12 @@ def calc_roto_value(df, is_full_strength=True):
         league_averages["fg3m_game_fs"] / league_averages["fg3a_game_fs"]
     )
     league_stdevs = df[roto_cols].std()
-    value_df = df[["player", "nba_player_id", "surplus_position"]].copy()
+    value_df = df[["player", "nba_player_id"]].copy()
     value_df["aFGM"] = (
         df["fgm_game_fs"] - league_averages["fg_pct_fs"] * df["fga_game_fs"]
     )
     value_df["aFG3M"] = (
-        df["fgm_game_fs"] - league_averages["fg_pct_fs"] * df["fga_game_fs"]
+        df["fg3m_game_fs"] - league_averages["fg3_pct_fs"] * df["fg3a_game_fs"]
     )
     value_df["vPTS"] = (
         df["pts_game_fs"] - league_averages["pts_game_fs"]
@@ -299,9 +299,9 @@ def calc_roto_value(df, is_full_strength=True):
     value_df["vSTL"] = (
         df["stl_game_fs"] - league_averages["stl_game_fs"]
     ) / league_stdevs["stl_game_fs"]
-    # swap order for TOV
+    # swap order for TOV? or actually maybe not?
     value_df["vTOV"] = (
-        -df["tov_game_fs"] + league_averages["tov_game_fs"]
+        df["tov_game_fs"] - league_averages["tov_game_fs"]
     ) / league_stdevs["tov_game_fs"]
     value_df["vFTM"] = (
         df["ftm_game_fs"] - league_averages["ftm_game_fs"]
@@ -309,13 +309,16 @@ def calc_roto_value(df, is_full_strength=True):
     value_df["vFGM"] = value_df.aFGM / value_df.aFGM.std()
     value_df["vFG3M"] = value_df.aFG3M / value_df.aFG3M.std()
     value_df["total_value"] = value_df.drop(
-        ["player", "nba_player_id", "surplus_position", "aFGM", "aFG3M"], axis=1
+        ["player", "nba_player_id", "aFGM", "aFG3M"], axis=1
     ).sum(axis=1)
     print(value_df.head())
-    position_mins = value_df.groupby("surplus_position").total_value.min().to_dict()
-    value_df[
-        "total_value_posn_adj"
-    ] = value_df.total_value + value_df.surplus_position.map(position_mins)
+    # ignore positional adjustments for now since need surplus position so need to calc
+    # later on than this
+    # position_mins = value_df.groupby("surplus_position").total_value.min().to_dict()
+    # value_df[
+    #     "total_value_posn_adj"
+    # ] = value_df.total_value + value_df.surplus_position.map(position_mins)
+    value_df.to_csv("./data/roto_values_df.csv", index=False)
     return value_df.total_value
 
 
@@ -419,6 +422,7 @@ def main():
     per_game_df = calc_per_game_projections(stats_df)
 
     fantasy_pts_df = calc_fantasy_pts(per_game_df, is_simple_scoring=True)
+    fantasy_pts_df['roto_val'] = calc_roto_value(fantasy_pts_df)
 
     # going with full strength projections so players who are out are included
     fantasy_pts_df["is_center"] = fantasy_pts_df.Position.str.contains("C").map(
@@ -432,13 +436,13 @@ def main():
     )
     fantasy_pts_df["center_rk"] = fantasy_pts_df.groupby(
         "is_center"
-    ).proj_fantasy_pts_fs.rank(ascending=False, na_option="bottom")
+    ).roto_val.rank(ascending=False, na_option="bottom")
     fantasy_pts_df["forward_rk"] = fantasy_pts_df.groupby(
         "is_forward"
-    ).proj_fantasy_pts_fs.rank(ascending=False, na_option="bottom")
+    ).roto_val.rank(ascending=False, na_option="bottom")
     fantasy_pts_df["guard_rk"] = fantasy_pts_df.groupby(
         "is_guard"
-    ).proj_fantasy_pts_fs.rank(ascending=False, na_option="bottom")
+    ).roto_val.rank(ascending=False, na_option="bottom")
     fantasy_pts_df["center_rk"] = fantasy_pts_df.apply(
         lambda row: row.center_rk if row.is_center else None, axis="columns"
     )
@@ -462,13 +466,13 @@ def main():
     total_position_surplus = {
         "C": fantasy_pts_df.loc[
             (fantasy_pts_df.center_rk < 24) & (fantasy_pts_df.surplus_position == "C")
-        ].proj_fantasy_pts_fs.sum(),
+        ].roto_val.sum(),
         "F": fantasy_pts_df.loc[
             (fantasy_pts_df.forward_rk < 37) & (fantasy_pts_df.surplus_position == "F")
-        ].proj_fantasy_pts_fs.sum(),
+        ].roto_val.sum(),
         "G": fantasy_pts_df.loc[
             (fantasy_pts_df.guard_rk < 43) & (fantasy_pts_df.surplus_position == "G")
-        ].proj_fantasy_pts_fs.sum(),
+        ].roto_val.sum(),
     }
 
     center_surplus_factor = (
@@ -490,7 +494,7 @@ def main():
             (fantasy_pts_df.is_center)
             & (~fantasy_pts_df.nba_player_id.isin(draftable_players))
         ]
-        .sort_values(by="proj_fantasy_pts_fs", ascending=False)
+        .sort_values(by="roto_val", ascending=False)
         .nba_player_id.head(12)
         .tolist()
     )
@@ -499,7 +503,7 @@ def main():
             (fantasy_pts_df.is_forward)
             & (~fantasy_pts_df.nba_player_id.isin(draftable_players))
         ]
-        .sort_values(by="proj_fantasy_pts_fs", ascending=False)
+        .sort_values(by="roto_val", ascending=False)
         .nba_player_id.head(24)
         .tolist()
     )
@@ -508,7 +512,7 @@ def main():
             (fantasy_pts_df.is_guard)
             & (~fantasy_pts_df.nba_player_id.isin(draftable_players))
         ]
-        .sort_values(by="proj_fantasy_pts_fs", ascending=False)
+        .sort_values(by="roto_val", ascending=False)
         .nba_player_id.head(36)
         .tolist()
     )
@@ -517,7 +521,7 @@ def main():
             ((fantasy_pts_df.is_forward) | (fantasy_pts_df.is_center))
             & (~fantasy_pts_df.nba_player_id.isin(draftable_players))
         ]
-        .sort_values(by="proj_fantasy_pts_fs", ascending=False)
+        .sort_values(by="roto_val", ascending=False)
         .nba_player_id.head(12)
         .tolist()
     )
@@ -526,52 +530,53 @@ def main():
             ((fantasy_pts_df.is_forward) | (fantasy_pts_df.is_guard))
             & (~fantasy_pts_df.nba_player_id.isin(draftable_players))
         ]
-        .sort_values(by="proj_fantasy_pts_fs", ascending=False)
+        .sort_values(by="roto_val", ascending=False)
         .nba_player_id.head(12)
         .tolist()
     )
     draftable_players.extend(
         fantasy_pts_df.loc[~fantasy_pts_df.nba_player_id.isin(draftable_players)]
-        .sort_values(by="proj_fantasy_pts_fs", ascending=False)
-        .nba_player_id.head(24)
+        .sort_values(by="roto_val", ascending=False)
+        .nba_player_id.head(12)
         .tolist()
     )
     replacement_values = (
         fantasy_pts_df.loc[~fantasy_pts_df.nba_player_id.isin(draftable_players)]
         .groupby("surplus_position")
-        .proj_fantasy_pts_fs.max()
+        .roto_val.max()
         .to_dict()
     )
     print(replacement_values)
     total_league_value = fantasy_pts_df.loc[
         fantasy_pts_df.nba_player_id.isin(draftable_players)
-    ].proj_fantasy_pts_fs.sum()
+    ].roto_val.sum()
     surplus_factor = (4800 - len(draftable_players)) / total_league_value
     print(f"Total league value: {total_league_value}")
     print(f"Surplus factor: {surplus_factor}")
 
-    fantasy_pts_df["surplus_value"] = (
-        fantasy_pts_df.proj_fantasy_pts_fs * surplus_factor + 1
-    )
+    # correct calculation is lower
+    # fantasy_pts_df["surplus_value"] = (
+    #     fantasy_pts_df.roto_val * surplus_factor + 1
+    # )
 
     #     fantasy_pts_df.apply(
-    #     lambda row: row.proj_fantasy_pts_fs * center_surplus_factor
+    #     lambda row: row.roto_val * center_surplus_factor
     #     if row.surplus_position == "C"
     #     else (
-    #         row.proj_fantasy_pts_fs * forward_surplus_factor
+    #         row.roto_val * forward_surplus_factor
     #         if row.surplus_position == "F"
-    #         else row.proj_fantasy_pts_fs * guard_surplus_factor
+    #         else row.roto_val * guard_surplus_factor
     #     ),
     #     axis="columns",
     # )
 
     fantasy_pts_df["points_above_repl"] = fantasy_pts_df.apply(
-        lambda row: row.proj_fantasy_pts_fs - replacement_values["C"]
+        lambda row: row.roto_val - replacement_values["C"]
         if row.surplus_position == "C"
         else (
-            row.proj_fantasy_pts_fs - replacement_values["F"]
+            row.roto_val - replacement_values["F"]
             if row.surplus_position == "F"
-            else row.proj_fantasy_pts_fs - replacement_values["G"]
+            else row.roto_val - replacement_values["G"]
         ),
         axis="columns",
     )
@@ -587,9 +592,7 @@ def main():
         fantasy_pts_df.points_above_repl * surplus_factor + 1
     )
 
-    calc_roto_value(fantasy_pts_df)
-
-    fantasy_pts_df.to_csv("./data/ottoneu_fantasy_pts.csv", index=False)
+    fantasy_pts_df.to_csv("./data/ottoneu_fantasy_pts_roto.csv", index=False)
 
 
 if __name__ == "__main__":
