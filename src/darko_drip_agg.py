@@ -311,7 +311,7 @@ def calc_roto_value(df, is_full_strength=True):
     value_df["total_value"] = value_df.drop(
         ["player", "nba_player_id", "surplus_position", "aFGM", "aFG3M"], axis=1
     ).sum(axis=1)
-    print(value_df.head())
+
     position_mins = value_df.groupby("surplus_position").total_value.min().to_dict()
     value_df[
         "total_value_posn_adj"
