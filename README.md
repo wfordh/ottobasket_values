@@ -14,3 +14,4 @@
   - lineup optimizer
   - matchup analysis
 - add validation to make sure DRIP / DARKO dfs have not changed structure
+- write script for all of the ID mappings?
