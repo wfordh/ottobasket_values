@@ -190,7 +190,7 @@ def calc_player_values(fantasy_df, scoring_type, draftable_players):
         4800 - len(fantasy_df.loc[fantasy_df.points_above_repl > 0])
     ) / total_league_value
     return fantasy_df.apply(
-        lambda row: row.points_above_repl * surplus_factor + 1
+        lambda row: round(row.points_above_repl * surplus_factor + 1, 1)
         if row.points_above_repl > 0
         else 0,
         axis=1,
