@@ -133,6 +133,8 @@ def ottobasket_values_pipeline(save_df=False):
 
     if save_df:
         all_values_df.to_csv("./data/all_values_df.csv", index=False)
+    else:
+        return all_values_df
 
 
 def main():
