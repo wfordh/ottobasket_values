@@ -3,12 +3,14 @@ import pandas as pd
 
 # want to combine these into one
 def get_name_map():
-	return pd.read_csv("./data/drip_nba_id_mapping.csv")
+    return pd.read_csv("./data/drip_nba_id_mapping.csv")
+
 
 def get_otto_map():
-	otto_nba = pd.read_csv("./data/otto_nba_id_merge.csv")
-	otto_nba.rename(columns={"ID": "otto_id"}, inplace=True)
-	return otto_nba
+    otto_nba = pd.read_csv("./data/otto_nba_id_merge.csv")
+    otto_nba.rename(columns={"ID": "otto_id"}, inplace=True)
+    return otto_nba
+
 
 def combine_darko_drip_df(darko_df, drip_df, name_mapping):
     # everything is per 100 to start, so keep it there and translate to per game later
@@ -65,9 +67,9 @@ def combine_darko_drip_df(darko_df, drip_df, name_mapping):
     return combined_df[keep_cols]
 
 
-def find_surplus_positions(fantasy_df):
-	# Need to figure out the full strength thing here - 1/11/21
-	fantasy_df["is_center"] = fantasy_df.Position.str.contains("C").map(
+def find_surplus_positions(fantasy_df, scoring_type):
+    # Need to figure out the full strength thing here - 1/11/21
+    fantasy_df["is_center"] = fantasy_df.Position.str.contains("C").map(
         {False: None, True: True}
     )
     fantasy_df["is_forward"] = fantasy_df.Position.str.contains("F").map(
@@ -76,15 +78,15 @@ def find_surplus_positions(fantasy_df):
     fantasy_df["is_guard"] = fantasy_df.Position.str.contains("G").map(
         {False: None, True: True}
     )
-    fantasy_df["center_rk"] = fantasy_df.groupby(
-        "is_center"
-    ).proj_fantasy_pts_fs.rank(ascending=False, na_option="bottom")
-    fantasy_df["forward_rk"] = fantasy_df.groupby(
-        "is_forward"
-    ).proj_fantasy_pts_fs.rank(ascending=False, na_option="bottom")
-    fantasy_df["guard_rk"] = fantasy_df.groupby(
-        "is_guard"
-    ).proj_fantasy_pts_fs.rank(ascending=False, na_option="bottom")
+    fantasy_df["center_rk"] = fantasy_df.groupby("is_center")[scoring_type].rank(
+        ascending=False, na_option="bottom"
+    )
+    fantasy_df["forward_rk"] = fantasy_df.groupby("is_forward")[scoring_type].rank(
+        ascending=False, na_option="bottom"
+    )
+    fantasy_df["guard_rk"] = fantasy_df.groupby("is_guard")[scoring_type].rank(
+        ascending=False, na_option="bottom"
+    )
     fantasy_df["center_rk"] = fantasy_df.apply(
         lambda row: row.center_rk if row.is_center else None, axis="columns"
     )
@@ -95,19 +97,28 @@ def find_surplus_positions(fantasy_df):
         lambda row: row.guard_rk if row.is_guard else None, axis="columns"
     )
     # should I worry about ties? 1/11/21
-	return (
+    return (
         fantasy_df[["center_rk", "forward_rk", "guard_rk"]]
         .idxmin(axis="columns")
         .map({"center_rk": "C", "forward_rk": "F", "guard_rk": "G"})
     )
 
-def get_draftable_players(fantasy_df, scoring_type, num_centers = 12, num_forwards = 24, num_guards = 36, num_f_c = 12, num_g_f = 12, num_util = 24):
-	# Need to figure out the full strength thing here - 1/11/21
-	draftable_players = list()
-	draftable_players.extend(
+
+def get_draftable_players(
+    fantasy_df,
+    scoring_type,
+    num_centers=12,
+    num_forwards=24,
+    num_guards=36,
+    num_f_c=12,
+    num_g_f=12,
+    num_util=24,
+):
+    # Need to figure out the full strength thing here - 1/11/21
+    draftable_players = list()
+    draftable_players.extend(
         fantasy_df.loc[
-            (fantasy_df.is_center)
-            & (~fantasy_df.nba_player_id.isin(draftable_players))
+            (fantasy_df.is_center) & (~fantasy_df.nba_player_id.isin(draftable_players))
         ]
         .sort_values(by=scoring_type, ascending=False)
         .nba_player_id.head(num_centers)
@@ -124,8 +135,7 @@ def get_draftable_players(fantasy_df, scoring_type, num_centers = 12, num_forwar
     )
     draftable_players.extend(
         fantasy_df.loc[
-            (fantasy_df.is_guard)
-            & (~fantasy_df.nba_player_id.isin(draftable_players))
+            (fantasy_df.is_guard) & (~fantasy_df.nba_player_id.isin(draftable_players))
         ]
         .sort_values(by=scoring_type, ascending=False)
         .nba_player_id.head(num_guards)
@@ -157,6 +167,3 @@ def get_draftable_players(fantasy_df, scoring_type, num_centers = 12, num_forwar
     )
 
     return draftable_players
-
-
-

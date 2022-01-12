@@ -422,7 +422,7 @@ def main():
     per_game_df = calc_per_game_projections(stats_df)
 
     fantasy_pts_df = calc_fantasy_pts(per_game_df, is_simple_scoring=True)
-    fantasy_pts_df['roto_val'] = calc_roto_value(fantasy_pts_df)
+    fantasy_pts_df["roto_val"] = calc_roto_value(fantasy_pts_df)
 
     # going with full strength projections so players who are out are included
     fantasy_pts_df["is_center"] = fantasy_pts_df.Position.str.contains("C").map(
@@ -434,15 +434,15 @@ def main():
     fantasy_pts_df["is_guard"] = fantasy_pts_df.Position.str.contains("G").map(
         {False: None, True: True}
     )
-    fantasy_pts_df["center_rk"] = fantasy_pts_df.groupby(
-        "is_center"
-    ).roto_val.rank(ascending=False, na_option="bottom")
-    fantasy_pts_df["forward_rk"] = fantasy_pts_df.groupby(
-        "is_forward"
-    ).roto_val.rank(ascending=False, na_option="bottom")
-    fantasy_pts_df["guard_rk"] = fantasy_pts_df.groupby(
-        "is_guard"
-    ).roto_val.rank(ascending=False, na_option="bottom")
+    fantasy_pts_df["center_rk"] = fantasy_pts_df.groupby("is_center").roto_val.rank(
+        ascending=False, na_option="bottom"
+    )
+    fantasy_pts_df["forward_rk"] = fantasy_pts_df.groupby("is_forward").roto_val.rank(
+        ascending=False, na_option="bottom"
+    )
+    fantasy_pts_df["guard_rk"] = fantasy_pts_df.groupby("is_guard").roto_val.rank(
+        ascending=False, na_option="bottom"
+    )
     fantasy_pts_df["center_rk"] = fantasy_pts_df.apply(
         lambda row: row.center_rk if row.is_center else None, axis="columns"
     )
