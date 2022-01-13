@@ -12,6 +12,5 @@ format_cols = {
     if col not in ["player", "ottoneu_position"]
 }
 st.dataframe(values_df.style.format(format_cols))
-now = datetime.datetime.today()
-now = now.replace(tzinfo=ZoneInfo("America/Los_Angeles"))
+now = datetime.datetime.now(tz = ZoneInfo("US/Pacific"))
 st.text(f"Last updated: {now.strftime('%Y-%m-%d %I:%M %p (Pacific)')}")
