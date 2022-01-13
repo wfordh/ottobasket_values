@@ -5,8 +5,18 @@ import drip
 import darko
 
 ## not ideal, but will figure it out later
-from transform import *
-from calc_stats import *
+from transform import (
+    get_name_map,
+    combine_darko_drip_df,
+    find_surplus_positions,
+    get_draftable_players,
+)
+from calc_stats import (
+    calc_per_game_projections,
+    calc_fantasy_pts,
+    calc_categories_value,
+    calc_player_values,
+)
 
 # code for the pipeline here
 def ottobasket_values_pipeline(save_df=False):
@@ -17,17 +27,8 @@ def ottobasket_values_pipeline(save_df=False):
     darko_df = darko.transform_darko(darko_df)
 
     name_map = get_name_map()
-    otto_nba = get_otto_map()
 
     stats_df = combine_darko_drip_df(darko_df, drip_df, name_map)
-    stats_df = stats_df.merge(
-        otto_nba.loc[
-            otto_nba.otto_id.notna(),
-            ["nba_player_id", "sr_player_id", "srus_player_id", "otto_id", "Position"],
-        ],
-        how="inner",
-        on="nba_player_id",
-    )
     stats_df = stats_df.loc[stats_df.nba_player_id.notna()].copy()
 
     # full strength
@@ -120,11 +121,25 @@ def ottobasket_values_pipeline(save_df=False):
         draftable_players=cats_fs_draftable,
     )
 
-    join_cols = ["player", "nba_player_id", "tm_id", "Position", "minutes", "fs_min"]
+    join_cols = [
+        "player",
+        "nba_player_id",
+        "tm_id",
+        "ottoneu_position",
+        "minutes",
+        "fs_min",
+    ]
     all_values_df = current_minutes_df.merge(
         full_strength_df,
         how="inner",
-        on=["player", "nba_player_id", "tm_id", "Position", "minutes", "fs_min"],
+        on=[
+            "player",
+            "nba_player_id",
+            "tm_id",
+            "ottoneu_position",
+            "minutes",
+            "fs_min",
+        ],
         suffixes=["_current", "_fs"],
     )
     all_values_df = all_values_df[
@@ -134,7 +149,7 @@ def ottobasket_values_pipeline(save_df=False):
     if save_df:
         all_values_df.to_csv("./data/all_values_df.csv", index=False)
     else:
-        return all_values_df
+        return all_values_df.drop(['nba_player_id', 'tm_id'], axis=1)
 
 
 def main():

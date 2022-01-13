@@ -1,15 +1,9 @@
 # split transform into files for merging and calculating stats?
 import pandas as pd
 
-# want to combine these into one
+
 def get_name_map():
-    return pd.read_csv("./data/drip_nba_id_mapping.csv")
-
-
-def get_otto_map():
-    otto_nba = pd.read_csv("./data/otto_nba_id_merge.csv")
-    otto_nba.rename(columns={"ID": "otto_id"}, inplace=True)
-    return otto_nba
+    return pd.read_csv("./data/mappings.csv")
 
 
 def combine_darko_drip_df(darko_df, drip_df, name_mapping):
@@ -44,6 +38,7 @@ def combine_darko_drip_df(darko_df, drip_df, name_mapping):
         "player",
         "nba_player_id",
         "tm_id",
+        "ottoneu_position",
         "current_min",
         "fs_min",
         "minutes",
@@ -69,13 +64,13 @@ def combine_darko_drip_df(darko_df, drip_df, name_mapping):
 
 def find_surplus_positions(fantasy_df, scoring_type):
     # Need to figure out the full strength thing here - 1/11/21
-    fantasy_df["is_center"] = fantasy_df.Position.str.contains("C").map(
+    fantasy_df["is_center"] = fantasy_df.ottoneu_position.str.contains("C").map(
         {False: None, True: True}
     )
-    fantasy_df["is_forward"] = fantasy_df.Position.str.contains("F").map(
+    fantasy_df["is_forward"] = fantasy_df.ottoneu_position.str.contains("F").map(
         {False: None, True: True}
     )
-    fantasy_df["is_guard"] = fantasy_df.Position.str.contains("G").map(
+    fantasy_df["is_guard"] = fantasy_df.ottoneu_position.str.contains("G").map(
         {False: None, True: True}
     )
     fantasy_df["center_rk"] = fantasy_df.groupby("is_center")[scoring_type].rank(

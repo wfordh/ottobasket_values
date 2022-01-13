@@ -52,7 +52,7 @@ def calc_per_game_projections(df, is_full_strength=True):
         "player",
         "nba_player_id",
         "tm_id",
-        "Position",
+        "ottoneu_position",
         "minutes",
         "fs_min",
         "pts_game",
