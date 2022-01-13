@@ -4,6 +4,10 @@ import datetime
 from zoneinfo import ZoneInfo
 from pipeline import ottobasket_values_pipeline
 
+@st.cache
+def convert_df(df):
+   return df.to_csv().encode('utf-8')
+
 st.title("Ottobasket Player Values")
 values_df = ottobasket_values_pipeline(False)
 format_cols = {
@@ -14,4 +18,5 @@ format_cols = {
 st.dataframe(values_df.style.format(format_cols))
 now = datetime.datetime.now(tz = ZoneInfo("US/Pacific"))
 st.text(f"Last updated: {now.strftime('%Y-%m-%d %I:%M %p (Pacific)')}")
-st.download_button("Press to download", values_df, "ottobasket_values.csv", "text/csv", key="download-csv")
+values_csv = convert_df(values_df)
+st.download_button("Press to download", values_csv, "ottobasket_values.csv", "text/csv", key="download-csv")
