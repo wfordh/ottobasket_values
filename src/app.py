@@ -6,7 +6,7 @@ from pipeline import ottobasket_values_pipeline
 
 @st.cache
 def convert_df(df):
-   return df.to_csv().encode('utf-8')
+   return df.to_csv(index=False).encode('utf-8')
 
 st.title("Ottobasket Player Values")
 values_df = ottobasket_values_pipeline(False)
