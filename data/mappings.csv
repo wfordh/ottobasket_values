@@ -1,656 +1,656 @@
-name,nba_player_id,ottoneu_player_id,stats_player_id,ottoneu_position,bref_id,espn_id
-Giannis Antetokounmpo,203507,232,739957,F,antetgi01,3032977
-Joel Embiid,203954,414,794508,C/F,embiijo01,3059318
-Kawhi Leonard,202695,416,512591,F,leonaka01,6450
-LeBron James,2544,18,214152,F,jamesle01,1966
-Nikola Jokic,203999,521,830650,C,jokicni01,3112335
-Paul George,202331,483,469218,F,georgpa01,4251
-Kevin Durant,201142,178,329525,F,duranke01,3202
-James Harden,201935,367,395388,G,hardeja01,3992
-Damian Lillard,203081,176,463121,G,lillada01,6606
-Stephen Curry,201939,312,338365,G,curryst01,3975
-Rudy Gobert,203497,118,739960,C,goberru01,3032976
-Jimmy Butler,202710,26,458730,F,butleji01,6430
-Kyrie Irving,202681,488,551768,G,irvinky01,6442
-Mike Conley,201144,147,329468,G,conlemi01,3195
-Jrue Holiday,201950,214,457576,G,holidjr01,3995
-Chris Paul,101108,325,229598,G,paulch01,2779
-Donovan Mitchell,1628378,396,879707,G,mitchdo01,3908809
-Karl-Anthony Towns,1626157,377,837030,C,townska01,3136195
-Luka Doncic,1629029,465,1121277,F/G,doncilu01,3945274
-Trae Young,1629027,451,1060978,G,youngtr01,4277905
-Anthony Davis,203076,510,603096,F/C,davisan02,6583
-Devin Booker,1626164,98,845564,G,bookede01,3136193
-Jusuf Nurkic,203994,375,830642,C,nurkiju01,3102530
-Bradley Beal,203078,539,606912,G,bealbr01,6580
-Draymond Green,203110,202,468895,F,greendr01,6589
-Jayson Tatum,1628369,335,937647,F,tatumja01,4065648
-CJ McCollum,203468,408,522878,G,mccolcj01,2490149
-Ben Simmons,1627732,96,886391,G/F,simmobe01,3907387
-Danny Green,201980,150,295922,G,greenda02,3988
-Myles Turner,1626167,100,843762,C/F,turnemy01,3133628
-Jamal Murray,1627750,223,891352,G,murraja01,3936299
-Jakob Poeltl,1627751,493,844478,C,poeltja01,3134908
-Robert Williams III,1629057,422,954390,C,williro04,4066211
-Clint Capela,203991,427,830647,C,capelca01,3102529
-Deandre Ayton,1629028,273,1061507,C,aytonde01,4278129
-Jaylen Brown,1627759,541,883436,F,brownja02,3917376
-Robert Covington,203496,132,525052,F,covinro01,2490620
-Brook Lopez,201572,419,330047,C,lopezbr01,3448
-Zach LaVine,203897,485,743777,G/F,lavinza01,3064440
-Pascal Siakam,1627783,129,853408,F,siakapa01,3149673
-Fred VanVleet,1627832,146,707832,G,vanvlfr01,2991230
-Kyle Lowry,200768,304,266394,G,lowryky01,3012
-Michael Porter Jr.,1629008,123,1061724,F,portemi01,4278104
-Bam Adebayo,1628389,34,957486,C/F,adebaba01,4066261
-Marcus Smart,203935,387,697132,G,smartma01,2990992
-Dwight Powell,203939,364,552309,F/C,poweldw01,2531367
-Nicolas Batum,201587,373,456451,G/F,batumni01,3416
-Kristaps Porzingis,204001,126,877869,F/C,porzikr01,3102531
-John Collins,1628381,76,880468,F/C,collijo01,3908845
-Zion Williamson,1629627,199,1132025,F,willizi01,4395628
-Khris Middleton,203114,161,512053,F,middlkh01,6609
-Richaun Holmes,1626158,508,695069,F,holmeri01,2993370
-Jarred Vanderbilt,1629020,20,1067852,F,vandeja01,4278077
-Jonathan Isaac,1628371,259,,F,isaacjo01,4065654
-Mikal Bridges,1628969,288,846400,F,bridgmi01,3147657
-Will Barton,203115,292,551760,G,bartowi01,6579
-Tobias Harris,202699,287,552523,F,harrito02,6440
-Otto Porter Jr.,203490,263,609256,F,porteot01,2594922
-OG Anunoby,1628384,326,900535,F,anunoog01,3934719
-Jalen Brunson,1628973,306,887914,G,brunsja01,3934672
-Ricky Rubio,201937,359,503689,G,rubiori01,4011
-Montrezl Harrell,1626149,294,698651,F/C,harremo01,2991055
-Larry Nance Jr.,1626204,381,603640,F/C,nancela02,2580365
-Kelly Olynyk,203482,310,514882,F/C,olynyke01,2489663
-Isaiah Hartenstein,1628392,17730,1057004,C/F,harteis01,4222252
-Derrick White,1628401,341,796009,G,whitede01,3078576
-Joe Ingles,204060,195,553306,F,inglejo01,2968436
-Dejounte Murray,1627749,277,884168,G,murrade01,3907497
-Willie Cauley-Stein,1626161,17960,699950,C,caulewi01,2991282
-Steven Adams,203500,356,679478,C,adamsst01,2991235
-Kemba Walker,202689,360,462980,G,walkeke02,6479
-Jonas Valanciunas,202685,437,599780,C,valanjo01,6477
-LaMelo Ball,1630163,412,1257420,G,ballla01,4432816
-Ivica Zubac,1627826,84,920093,C,zubaciv01,4017837
-De'Anthony Melton,1629001,194,946801,G,meltode01,4066436
-Christian Wood,1626174,334,750924,F,woodch01,3058254
-Alec Burks,202692,249,512995,G,burksal01,6429
-Mitchell Robinson,1629011,333,1076265,C/F,robinmi01,4351852
-Jae Crowder,203109,486,552381,F,crowdja01,6581
-Brandon Clarke,1629634,439,892914,F/G,clarkbr01,3906665
-Aaron Gordon,203932,59,748788,F,gordoaa01,3064290
-Enes Kanter,202683,204,553574,C,kanteen01,6447
-Brandon Ingram,1627742,282,887665,F,ingrabr01,3913176
-Duncan Robinson,1629130,44,854591,F,robindu01,3157465
-Shai Gilgeous-Alexander,1628983,481,1067856,G,gilgesh01,4278073
-Kevon Looney,1626172,17698,846499,F,looneke01,3155535
-Bogdan Bogdanovic,203992,391,830648,G,bogdabo01,3037789
-Derrick Rose,201565,154,399612,G,rosede01,3456
-Domantas Sabonis,1627734,60,850111,F/C,sabondo01,3155942
-Thomas Bryant,1628418,4,896601,C/F,bryanth01,3934723
-Lonzo Ball,1628366,29,946714,G,balllo01,4066421
-Serge Ibaka,201586,17728,456450,F,ibakase01,3439
-Chris Boucher,1628449,519,901190,F/C,bouchch01,3948153
-Dewayne Dedmon,203473,401,606642,C,dedmode01,2580913
-Dorian Finney-Smith,1627827,139,606701,F,finnedo01,2578185
-Malcolm Brogdon,1627763,528,601146,G,brogdma01,2566769
-Patrick Beverley,201976,317,332691,G,beverpa01,3964
-Miles Bridges,1628970,388,957479,F,bridgmi02,4066383
-Buddy Hield,1627741,264,697086,G,hieldbu01,2990984
-Kyle Anderson,203937,86,697720,F/G,anderky01,2993874
-Norman Powell,1626181,495,609861,G,powelno01,2595516
-Reggie Jackson,202704,271,462444,G,jacksre01,6443
-T.J. Warren,203933,88,660085,F,warretj01,2982334
-Daniel Gafford,1629655,172,1061647,F/C,gaffoda01,4278049
-Davis Bertans,202722,420,599814,F,bertada01,6426
-David Nwaba,1628021,537,787141,G/F,nwabada01,3062744
-Immanuel Quickley,1630193,443,1134175,G,quickim01,4395724
-Nikola Vucevic,202696,247,457598,C,vucevni01,6478
-Alex Caruso,1627936,299,697644,G,carusal01,2991350
-Spencer Dinwiddie,203915,290,602411,G,dinwisp01,2580782
-Paul Millsap,200794,17682,237675,F,millspa01,3015
-Josh Okogie,1629006,46,941460,G,okogijo01,4065663
-Cameron Payne,1626166,534,792338,G,payneca01,3064230
-De'Aaron Fox,1628368,452,957489,G,foxde01,4066259
-Harrison Barnes,203084,448,552336,F,barneha02,6578
-Seth Curry,203552,8,463135,G,curryse01,2326307
-Thaddeus Young,201152,97,329683,F,youngth01,3244
-Jarrett Allen,1628386,363,956574,C,allenja01,4066328
-Donte DiVincenzo,1628978,344,887915,G,divindo01,3934673
-Gordon Hayward,202330,354,477667,F,haywago01,4249
-Grayson Allen,1628960,540,842296,G,allengr01,3135045
-Nerlens Noel,203457,58,699947,C/F,noelne01,2991280
-Derrick Jones Jr.,1627884,17680,892925,F,jonesde02,3936099
-Jaren Jackson Jr.,1628991,131,1078662,F/C,jacksja02,4277961
-DeMar DeRozan,201942,203,457594,G/F,derozde01,3978
-Anthony Edwards,1630162,454,1175367,G,edwaran01,4594268
-Joe Harris,203925,257,549969,G/F,harrijo01,2528794
-Gary Payton II,1627780,327,846407,G,paytoga02,3134903
-Cody Zeller,203469,494,602028,F/C,zelleco01,2579258
-Nicolas Claxton,1629651,75,1061682,F/C,claxtni01,4278067
-Nemanja Bjelica,202357,371,550431,F,bjeline01,4269
-Julius Randle,203944,68,786412,F/C,randlju01,3064514
-Klay Thompson,202691,163,457611,G,thompkl01,6475
-Dario Saric,203967,12,830641,F/C,saricda01,3032978
-Frank Ntilikina,1628373,122,1056995,G,ntilila01,4230547
-Kentavious Caldwell-Pope,203484,449,602730,G,caldwke01,2581018
-Boban Marjanovic,1626246,67,553331,C,marjabo01,4376
-Royce O'Neale,1626220,101,604479,F,onealro01,2583632
-Mike Muscala,203488,272,520388,F/C,muscami01,2490089
-Cameron Johnson,1629661,94,843005,F,johnsca02,3138196
-Jeremy Lamb,203087,308,552980,G/F,lambje01,6603
-Bojan Bogdanovic,202711,281,599812,F,bogdabo02,3593
-Jordan Clarkson,203903,7,551975,G,clarkjo01,2528426
-Andre Drummond,203083,143,614746,C,drumman01,6585
-Michael Carter-Williams,203487,57,609790,G,cartemi01,2596108
-Dillon Brooks,1628415,245,854601,G/F,brookdi01,3155526
-Furkan Korkmaz,1627788,500,920092,G/F,korkmfu01,3929325
-Bobby Portis,1626171,225,750703,F,portibo01,3064482
-Khem Birch,203920,37,601518,C,birchkh01,2578240
-John Wall,202322,221,509456,G,walljo01,4237
-Blake Griffin,201933,43,399725,F,griffbl01,3989
-T.J. McConnell,204456,496,551787,G,mccontj01,2530530
-Skylar Mays,1630219,322,948123,G,mayssk01,4066269
-John Konchar,1629723,315,852907,G,konchjo01,3134932
-Damion Lee,1627814,24,609081,G,leeda03,2595209
-Caris LeVert,1627747,426,698991,G,leverca01,2991043
-Maxi Kleber,1628467,134,1072048,F,klebima01,2960236
-Justin Holiday,203200,11,395365,F/G,holidju01,2284101
-Russell Westbrook,201566,253,329830,G,westbru01,3468
-Jabari Parker,203953,501,756880,F,parkeja01,3056600
-Mason Plumlee,203486,328,510790,C,plumlma01,2488653
-Andrew Wiggins,203952,260,794503,F,wiggian01,3059319
-Jae'Sean Tate,1630256,49,844040,F,tateja01,3136777
-Dean Wade,1629731,407,880677,F,wadede01,3912848
-Bol Bol,1629626,211,1134730,C/F,bolbo01,4397102
-Tim Hardaway Jr.,203501,111,551771,G/F,hardati02,2528210
-P.J. Washington,1629023,236,1067857,F,washipj01,4278078
-Derrick Favors,202324,380,502808,F,favorde01,4257
-Willy Hernangomez,1626195,201,840567,C,hernawi01,2999409
-Moe Harkless,203090,490,609843,F,harklma01,6591
-Ja Morant,1629630,337,1065906,G,moranja01,4279888
-Max Strus,1629622,527,936502,G/F,strusma01,4065778
-Devin Vassell,1630170,536,1132051,G,vassede01,4395630
-Alex Len,203458,93,616982,C,lenal01,2596107
-Tyrese Haliburton,1630169,70,1132825,G,halibty01,4396993
-Dylan Windler,1629685,295,895530,G/F,windldy01,3906786
-Goga Bitadze,1629048,23,1172132,C/F,bitadgo01,4348700
-Troy Brown Jr.,1628972,174,1082704,F,browntr01,4278508
-Louis King,1629663,120,1134732,F,kinglo02,4397103
-Bruce Brown,1628971,18901,941834,G,brownbr01,4065670
-Saben Lee,1630240,78,1067689,G,leesa01,4278124
-Evan Fournier,203095,397,659767,G/F,fournev01,6588
-Matisse Thybulle,1629680,301,884169,G/F,thybuma01,3907498
-Onyeka Okongwu,1630168,243,1185367,F/C,okongon01,4431680
-Moses Brown,1629650,108,1134769,C,brownmo01,4397126
-Isaac Bonga,1629067,17729,1121333,G,bongais01,4348697
-Cole Anthony,1630175,395,1185943,G,anthoco01,4432809
-Talen Horton-Tucker,1629659,389,1132824,G,hortota01,4396991
-Monte Morris,1628420,157,741011,G,morrimo01,3059310
-Georges Niang,1627777,531,679381,F,niangge01,2990969
-Devonte' Graham,1628984,207,843228,G,grahade01,3133601
-Scottie Barnes,1630567,40,1251666,F,barnesc01,4433134
-Tacko Fall,1629605,65,879498,C,fallta01,3904625
-Gorgui Dieng,203476,17699,553158,C,dienggo01,2534781
-Xavier Tillman,1630214,533,1078665,F,tillmxa01,4277964
-Kevin Huerter,1628989,291,944785,G/F,huertke01,4066372
-Nickeil Alexander-Walker,1629638,472,1067668,G,alexani01,4278039
-Kendrick Nunn,1629134,476,741931,G,nunnke01,3056247
-Wendell Carter Jr.,1628976,250,1060912,C/F,cartewe01,4277847
-Terance Mann,1629611,370,879504,G/F,mannte01,3907823
-Patty Mills,201988,347,411562,G,millspa02,4004
-Brodric Thomas,1630271,216,1152470,G,thomabr01,4407254
-Pat Connaughton,1626192,77,601514,G,connapa01,2578239
-Facundo Campazzo,1630267,179,661004,G,campafa01,2968334
-D'Angelo Russell,1626156,487,844038,G,russeda01,3136776
-Victor Oladipo,203506,385,553166,G,oladivi01,2527963
-Javonte Green,1629750,69,624174,G,greenja02,2596112
-Terry Rozier,1626179,461,786293,G,roziete01,3074752
-Kelan Martin,1629103,515,843805,F,martike03,3133596
-Danilo Gallinari,201568,151,456448,F,gallida01,3428
-Bones Hyland,1630538,270,1178199,G,hylanbo01,4592492
-Paul Reed,1630194,436,1076238,F,reedpa01,4278562
-Zach Collins,1628380,394,,F/C,colliza01,4066650
-Cody Martin,1628998,240,842971,F,martico01,3138161
-Mo Bamba,1628964,369,1071928,C,bambamo01,4277919
-Alperen Sengun,1630578,153,1323508,C,sengual01,4871144
-Kevin Love,201567,278,395374,F,loveke01,3449
-Jordan Poole,1629673,89,1067671,G,poolejo01,4277956
-Josh Hart,1628404,478,741892,G,hartjo01,3062679
-RJ Barrett,1629628,140,1132031,F/G,barrerj01,4395625
-Drew Eubanks,1629234,30,883573,F/C,eubandr01,3914285
-Evan Mobley,1630596,477,1231862,F/C,mobleev01,4432158
-Darius Garland,1629636,399,1134262,G,garlada01,4396907
-Dennis Schroder,203471,357,739958,G,schrode01,3032979
-Taj Gibson,201959,343,330057,F,gibsota01,3986
-Raul Neto,203526,311,739966,G,netora01,2968361
-Cam Reddish,1629629,313,1132027,F/G,reddica01,4395627
-Grant Williams,1629684,189,949273,F,willigr01,4066218
-Delon Wright,1626153,55,744102,G,wrighde01,3064447
-Damian Jones,1627745,144,745922,C,jonesda03,3064559
-LaMarcus Aldridge,200746,17676,266554,F,aldrila01,2983
-Robin Lopez,201577,499,330050,C,lopezro01,3447
-Marcus Morris Sr.,202694,162,469089,F,morrima03,6462
-Obi Toppin,1630167,512,1076274,F,toppiob01,4278355
-Desmond Bane,1630217,158,944263,G,banede01,4066320
-Kenyon Martin Jr.,1630231,155,1257431,F,martike04,4431828
-Jevon Carter,1628975,265,843794,G,carteje01,3133635
-George Hill,201588,239,277552,G,hillge01,3438
-Davion Mitchell,1630558,119,1061659,G,mitchda01,4278053
-Tyler Herro,1629639,302,1134176,G,herroty01,4395725
-Trey Burke,203504,184,605708,G,burketr01,2579260
-Zeke Nnaji,1630192,193,1193676,F/C,nnajize01,4431690
-Daniel Theis,1628464,492,1066725,F/C,theisda01,2451037
-Jake Layman,1627774,446,698664,F,laymaja01,2982268
-Hassan Whiteside,202355,124,513234,C,whiteha01,4262
-Trevor Ariza,2772,324,229738,F,arizatr01,2426
-Frank Kaminsky,1626163,440,606731,F/C,kaminfr01,2579294
-Al Horford,201143,450,280587,C,horfoal01,3213
-Caleb Martin,1628997,17748,842969,F,martica02,3138160
-Tyrese Maxey,1630178,255,1186160,G,maxeyty01,4431678
-Eric Bledsoe,202339,305,509449,G,bledser01,4238
-Cory Joseph,202709,186,552805,G,josepco01,6446
-Yuta Watanabe,1629139,434,846639,G/F,watanyu01,3133838
-Lauri Markkanen,1628374,17662,949131,F,markkla01,4066336
-Gabriel Deck,1630466,361,923135,F,deckga01,3929321
-Usman Garuba,1630586,145,1318915,F,garubus01,4871143
-Jalen McDaniels,1629667,85,953063,F,mcdanja01,4066731
-Juan Toscano-Anderson,1629308,459,601511,F,toscaju01,4401416
-Rudy Gay,200752,266,266358,F,gayru01,3005
-KZ Okpala,1629644,261,1061544,F/G,okpalkz01,4278521
-Chris Chiozza,1629185,17789,845512,G,chiozch01,3137795
-Thanasis Antetokounmpo,203648,212,803207,F,antetth01,3102533
-Moritz Wagner,1629021,520,882387,F/C,wagnemo01,3150844
-Svi Mykhailiuk,1629004,17732,843265,G/F,mykhasv01,3133602
-Reggie Bullock,203493,141,552335,G/F,bullore01,2528779
-Naz Reid,1629675,286,1137200,C,reidna01,4396971
-Wayne Ellington,201961,152,329670,G,ellinwa01,3981
-Gary Trent Jr.,1629018,209,1060908,G/F,trentga02,4277843
-Malik Monk,1628370,99,957492,G,monkma01,4066262
-Aaron Holiday,1628988,296,884087,G,holidaa01,3922230
-Devon Dotson,1629653,345,1132829,G,dotsode01,4397016
-Malik Beasley,1627736,467,879503,G,beaslma01,3907822
-Tony Bradley,1628396,208,950065,C,bradlto01,4065673
-Landry Shamet,1629013,149,893100,G,shamela01,3914044
-Nassir Little,1629642,254,1138391,F/G,littlna01,4395652
-De'Andre Hunter,1629631,366,942857,F/G,huntede01,4065732
-Tyler Cook,1629076,17673,944728,F,cookty01,4066367
-Garrison Mathews,1629726,18476,888431,G,mathega01,3913180
-JaMychal Green,203210,79,460833,F/C,greenja01,2327577
-Tyus Jones,1626145,444,842297,G,jonesty01,3135046
-Tomas Satoransky,203107,353,659772,G,satorto01,6621
-Vlatko Cancar,1628427,329,1057007,F,cancavl01,4230557
-Chuma Okeke,1629643,523,1061658,F,okekech01,4278052
-Josh Green,1630182,409,1193670,G,greenjo02,4432811
-Malachi Flynn,1630201,63,946878,G,flynnma01,4066668
-P.J. Tucker,200782,482,229602,F,tuckepj01,3033
-Miye Oni,1629671,517,953941,G,onimi01,4066851
-Andre Iguodala,2738,349,173004,G/F,iguodan01,2386
-Alize Johnson,1628993,66,953283,F,johnsal02,4067045
-Saddiq Bey,1630180,473,1138653,G/F,beysa01,4397136
-Mychal Mulder,1628539,505,891351,G,muldemy01,3936298
-Oshae Brissett,1629052,112,1076192,F/G,brissos01,4278031
-DeAndre' Bembry,1627761,484,795428,F,bembrde01,3062667
-Jordan McLaughlin,1629162,411,844465,G,mclaujo01,3134916
-Jaxson Hayes,1629637,188,1140887,C,hayesja02,4397077
-Chris Duarte,1630537,35,1194085,F,duartch01,4592402
-Anfernee Simons,1629014,210,1121307,G,simonan01,4351851
-Ben McLemore,203463,17991,604898,G,mclembe01,2578213
-PJ Dozier,1628408,514,886448,G/F,doziepj01,3923250
-Kenrich Williams,1629026,323,843742,G/F,willike04,3133626
-Luguentz Dort,1629652,135,1134693,G,dortlu01,4397020
-Kelly Oubre Jr.,1626162,279,843271,F/G,oubreke01,3133603
-Josh Jackson,1628367,9,944164,F,jacksjo02,4066297
-Torrey Craig,1628470,417,561589,F,craigto01,2528693
-Luka Samanic,1629677,244,1172133,F,,
-Doug McDermott,203926,217,554804,F,mcderdo01,2528588
-Corey Kispert,1630557,104,1077554,F,kispeco01,4280151
-JaVale McGee,201580,107,333212,C/F,mcgeeja01,3452
-Tristan Thompson,202684,103,552806,F,thomptr01,6474
-Sterling Brown,1628425,81,740339,G/F,brownst02,3057187
-Terence Davis,1629056,167,886404,G,daviste02,3919454
-Luke Kennard,1628379,368,887661,G,kennalu01,3913174
-Kyle Kuzma,1628398,166,844476,F,kuzmaky01,3134907
-Robert Woodard II,1630218,92,1134190,F,woodaro01,4396961
-Collin Sexton,1629012,283,1061642,G,sextoco01,4277811
-Sam Merrill,1630241,230,953106,G,merrisa01,4066757
-Jerami Grant,203924,196,699826,F,grantje01,2991070
-Elfrid Payton,203901,206,608661,G,paytoel01,2583639
-Rodney McGruder,203585,406,506103,G,mcgruro01,2488826
-Cade Cunningham,1630595,187,1232182,G/F,cunnica01,4432166
-Franz Wagner,1630532,168,1178131,F,wagnefr01,4566434
-Tre Mann,1630544,197,1175356,G,manntr01,4432819
-Dwight Howard,2730,384,253975,C/F,howardw01,2384
-Kent Bazemore,203145,82,410764,G/F,bazemke01,6637
-Paul Watson,1628778,17767,750825,F,watsopa01,3058030
-Timothe Luwawu-Cabarrot,1627789,17668,920091,G/F,luwawti01,3893019
-Eric Gordon,201569,530,401085,G,gordoer01,3431
-Keldon Johnson,1629640,45,1134174,G/F,johnske04,4395723
-Eugene Omoruyi,1630647,274,945123,F,omorueu01,4066410
-Keita Bates-Diop,1628966,386,844045,F,bateske01,3136779
-Markelle Fultz,1628365,138,946824,G,fultzma01,4066636
-Shake Milton,1629003,185,879492,G/F,miltosh01,3915195
-Eric Paschall,1629672,267,846627,F,pascher01,3133817
-Kevin Pangos,1630698,17681,606932,G,pangoke01,2583962
-Armoni Brooks,1629717,504,922387,G,brookar01,4066450
-Cedi Osman,1626224,479,842611,F,osmande01,3893016
-Quentin Grimes,1629656,506,1132827,G,grimequ01,4397014
-Deni Avdija,1630166,95,1257422,F,avdijde01,4683021
-Jock Landale,1629111,3,850308,C,landajo01,3146557
-Greg Brown III,1630535,5,1243740,F,browngr01,4432161
-Isaiah Stewart,1630191,346,1177050,C,stewais01,4432810
-Kevin Knox II,1628995,64,1067854,F,knoxke01,4278075
-Santi Aldama,1630583,74,1177024,F/C,aldamsa01,4593125
-Romeo Langford,1629641,453,1138654,G,langfro01,4397008
-Jaylen Nowell,1629669,238,1089562,G,nowelja01,4278541
-Juancho Hernangomez,1627823,421,920082,F,hernaju01,4017839
-Trey Lyles,1626168,180,845596,F,lylestr01,3136196
-Sam Hauser,1630573,526,,F,hausesa01,4065804
-Dalano Banton,1630625,226,1138668,F,bantoda01,4397885
-Bryn Forbes,1627854,442,699093,G,forbebr01,2994526
-Chimezie Metu,1629002,246,884121,C,metuch01,3914283
-Rodney Hood,203918,469,603106,G/F,hoodro01,2581177
-Naji Marshall,1630230,351,1060704,F,marshna01,4278594
-Ty Jerome,1629660,6,942866,G,jeromty01,4065733
-DeAndre Jordan,201599,1,398142,C,jordade01,3442
-Herbert Jones,1630529,219,1061638,F,joneshe01,4277813
-James Johnson,201949,56,398037,F,johnsja01,3999
-Jarrett Culver,1629633,156,1078671,G/F,culveja01,4277928
-Coby White,1629632,355,1138387,G,whiteco01,4395651
-Patrick Williams,1630172,222,1174904,F,willipa01,4431687
-Bruno Fernandes,1628981,91,1076674,C,fernabr01,4277952
-Scottie Lewis,1630575,251,1175355,G,lewissc01,4432812
-Josh Richardson,1626196,518,604288,G,richajo01,2581190
-Goran Dragic,201609,538,456456,G,dragigo01,3423
-Ed Davis,202334,18495,462458,F/C,davised01,4259
-DeJon Jarreau,1630610,90,950903,G,jarrede01,4066796
-Justise Winslow,1626159,28,842298,F/G,winslju01,3135047
-Denzel Valentine,1627756,17664,712595,G,valende01,2999549
-Keon Johnson,1630553,164,1231792,G,johnske07,4432192
-Dennis Smith Jr.,1628372,303,942015,G,smithde03,4065697
-Frank Jackson,1628402,298,937667,G,jacksfr01,4065651
-Ish Smith,202397,10,329873,G,smithis01,4305
-Jeff Green,201145,403,266367,F,greenje02,3209
-Georgios Kalaitzakis,1630686,258,1323544,F,kalaige01,4683022
-Trent Forrest,1630235,458,941267,G,forretr01,4065656
-Isaiah Livers,1630587,433,1067672,F,liveris01,4277957
-Brandon Boston Jr.,1630527,133,1245906,G,bostobr01,4432162
-Solomon Hill,203524,502,509169,F,hillso01,2488958
-Trendon Watford,1630570,348,,F,watfotr01,4431675
-Tony Snell,203503,73,550991,G,snellto01,2528353
-Payton Pritchard,1630202,14,945610,G,pritcpa01,4066354
-Jahmi'us Ramsey,1630186,480,1182151,G,ramseja01,4431688
-Austin Rivers,203085,106,601139,G,riverau01,6617
-Devontae Cacok,1629719,423,899762,F,cacokde01,3946974
-Jason Preston,1630554,415,1137126,G,,
-Joe Wieskamp,1630580,462,1141061,G/F,wieskjo01,4397033
-Daishen Nix,1630227,17689,,G,nixda01,4432176
-Killian Hayes,1630165,413,1257421,G,hayeski01,4683024
-Aaron Henry,1630565,19,1133812,F,henryaa01,4397209
-Daulton Hommes,1629756,191,,F,,
-JaQuori McLaughlin,1630605,17762,945673,G,mclauja01,4066496
-Grant Riller,1630203,497,895835,G,,
-Ish Wainwright,1630688,280,,F,wainris01,3059307
-Duane Washington Jr.,1630613,16,1133864,G,washidu02,4397235
-Kessler Edwards,1630556,425,1135006,F,edwarke02,4397693
-Jared Butler,1630215,25,1134886,G,butleja02,4395695
-Jordan Nwora,1629670,435,1076189,F,nworajo01,4277883
-Nick Richards,1630208,331,1067853,C,richani01,4278076
-Isaiah Joe,1630198,115,1134010,G,joeis01,4395702
-Omer Yurtseven,1630209,233,942129,C,yurtsom01,3074213
-Justin Champagnie,1630551,234,1175260,G/F,champju01,4432907
-Lamar Stevens,1630205,17,950179,F,stevela01,4066405
-Taurean Prince,1627752,165,696209,F,princta02,2990962
-Marvin Bagley III,1628963,507,1076209,F,baglema01,4277848
-Udoka Azubuike,1628962,190,944169,C,azubuud01,4066299
-Amir Coffey Jr.,1629599,405,944822,G/F,coffeam01,4066387
-Yves Pons,1630582,148,,F,ponsyv01,4278116
-Ignas Brazdeikis,1629649,22,1133802,F,brazdig01,4397205
-Jay Scrubb,1630206,2,1257432,G,scrubja01,4683023
-Keljin Blevins,1629833,532,851186,G,blevike01,3152335
-Trey Murphy III,1630530,169,1134570,F,murphtr02,4397688
-Leandro Bolmaro,1630195,19854,1257425,G,bolmale01,4683025
-Luka Garza,1630568,309,1061057,C,garzalu01,4277951
-Joshua Primo,1630563,404,1231214,G,primojo01,4702176
-Jaden McDaniels,1630183,376,1177013,F,mcdanja02,4431671
-Isaiah Todd,1630225,470,1271713,F,toddis01,4715198
-James Bouknight,1630547,215,1182632,G,bouknja01,4431712
-Abdel Nader,1627846,463,610597,F,naderab01,2595435
-RJ Nembhard,1630612,17671,1060982,G,nembhrj01,4277916
-Hamidou Diallo,1628977,137,970444,G/F,diallha01,4080610
-Justin Robinson,1629620,17758,893009,G,robinju01,3945566
-Markieff Morris,202693,71,469085,F,morrima02,6461
-Jaden Springer,1630531,350,1231665,G,sprinja01,4432164
-Anthony Gill,1630264,269,604290,F,gillan01,2581184
-Ayo Dosunmu,1630245,529,1133782,G,dosunay01,4397002
-Vernon Carey Jr.,1630176,130,1174858,C,careyve01,4431669
-Jose Alvarado,1630631,307,1060919,G,alvarjo01,4277869
-E'Twaun Moore,202734,17784,398424,G,mooreet01,6460
-David Johnson,1630525,418,1180115,G,johnsda08,4592204
-Cassius Winston,1630216,503,957478,G,winstca01,4066382
-Jonathan Kuminga,1630228,390,1271708,F,kuminjo01,4433247
-Gabe Vincent,1629216,53,851253,G,vincega01,3137259
-Joel Ayayi,1630555,175,1077553,G,ayayijo01,4280150
-Terrence Ross,203082,400,550049,G/F,rosste01,6619
-Carmelo Anthony,2546,102,172890,F,anthoca01,1975
-Rui Hachimura,1629060,198,955893,F,hachiru01,4066648
-Elijah Hughes,1630190,15,950031,G,hugheel01,4066446
-David Duke Jr.,1630561,17675,1134645,G,dukeda01,4397107
-Vit Krejci,1630249,17766,1257428,G,krejcvi01,4578893
-Killian Tillie,1629681,38,955890,F/C,tilliki02,4066651
-Sharife Cooper,1630536,177,1251661,G,coopesh01,4432173
-Danuel House Jr.,1627863,39,692110,F/G,houseda01,2991155
-Kevin Porter Jr.,1629645,441,1135158,G/F,porteke02,4397140
-Lonnie Walker IV,1629022,474,1060928,G,walkelo01,4277890
-Semi Ojeleye,1628400,509,792415,F,ojelese01,3056602
-Brad Wanamaker,202954,125,402376,G,wanambr01,6507
-Jay Huff,1630643,52,942843,C,huffja01,4065731
-Austin Reaves,1630559,428,953291,G,reaveau01,4066457
-Miles McBride,1630540,109,1175084,G,mcbrimi01,4431823
-McKinley Wright,1630593,142,1061526,G,wrighmc01,4278507
-Marcus Garrett,1630585,17751,1060962,G,garrema01,4277892
-Jalen Johnson,1630552,464,1230356,F,johnsja05,4701230
-CJ Elleby,1629604,535,1135177,F/G,ellebcj01,4397166
-Kai Jones,1630539,32,1186771,C/F,joneska01,4431699
-Isaac Okoro,1630171,457,1193432,G/F,okorois01,4432822
-Josh Giddey,1630581,220,1323503,G,giddejo01,4871145
-Didi Louzada,1629712,262,1172136,G,louzama01,4423885
-Lou Williams,101150,72,292401,G,willilo02,2799
-Aaron Nesmith,1630174,316,1134264,F,nesmiaa01,4396909
-Garrett Temple,202066,516,263903,G/F,templga01,4023
-Charles Bassey,1629646,511,1138669,C/F,bassech01,4397886
-Jeremiah Robinson-Earl,1630526,242,1176176,F,robinje02,4432813
-Jamorko Pickett,1630691,17683,1076297,F,pickeja01,4278566
-Matt Thomas,1629744,17670,741012,G,thomama02,3059311
-Jalen Smith,1630188,224,1133792,F/C,smithja04,4397189
-JT Thor,1630550,213,1251663,F,thorjt01,4702233
-Nathan Knight,1630233,192,953887,F,knighna01,4067325
-Chris Smith,1630607,241,,F,,
-Neemias Queta,1629674,276,1142902,C,quetane01,4397424
-Sandro Mamukelashvili,1630572,438,1060351,F/C,mamuksa01,4278580
-Malik Fitts,1630238,18536,922397,F,fittsma01,4066467
-Aaron Wiggins,1630598,471,1133788,G,wiggiaa01,4397183
-Jalen Suggs,1630591,237,1241585,G,suggsja01,4432165
-Tre Jones,1630200,83,1132030,G,jonestr01,4395626
-Chandler Hutchison,1628990,200,846866,F/G,hutchch01,3149010
-Isaiah Roby,1629676,410,944969,F,robyis01,4066392
-Marko Simonovic,1630250,379,,C,simonma01,4683622
-R.J. Hampton,1630181,113,1257426,G,hamptrj01,4590530
-Markus Howard,1630210,289,922379,G,howarma02,4065805
-Moses Moody,1630541,358,1231366,G,moodymo01,4432171
-Jeff Dowtin,1630288,17779,953377,G,dowtije01,4066786
-Cameron Thomas,1630560,430,1232020,G,thomaca02,4432174
-Isaiah Jackson,1630543,13,1245934,F,jacksis01,4432170
-Rajon Rondo,200765,332,262882,G,rondora01,3026
-Ziaire Williams,1630533,51,1231313,F,willizi02,4433137
-Jalen Green,1630224,339,1271706,G,greenja05,4437244
-DJ Augustin,201571,352,329524,G,augusdj01,3415
-Gary Harris,203914,229,712593,G,harriga01,2999547
-Kira Lewis Jr.,1630184,235,1134005,G,lewiski01,4395698
-Avery Bradley,202340,18592,513607,G,bradlav01,4240
-Arnoldas Kulboka,1629083,330,,F,kulboar01,4230551
-Day'Ron Sharpe,1630549,50,1243725,C,sharpda01,4432194
-Precious Achiuwa,1630173,128,1175124,F,achiupr01,4431679
-Wayne Selden,1627782,18614,794506,G,seldewa01,4895499
-Petr Cornelie,1627822,19857,920099,F,cornepe01,3899009
-Darius Bazley,1629647,218,1172134,F,bazleda01,4423545
-Jericho Sims,1630579,181,1071933,C,simsje01,4277922
-James Wiseman,1630164,171,1175120,C,wisemja01,4432808
-Josh Christopher,1630528,284,1231305,G,chrisjo01,4432168
-Aleksej Pokusevski,1630197,36,1257423,F,pokusal01,4683018
-Theo Maledon,1630177,300,1257427,G,maledth01,4683027
-Udonis Haslem,2617,513,226806,F,hasleud01,2184
-Chet Holmgren,,21027,,F,,
-Paolo Banchero,,21408,,F,,
-Jaden Hardy,,21508,,G,,
-Scoot Henderson,,21507,,G,,
-Jalen Duren,,20219,,C,,
-Emoni Bates,,20354,,F,,
-Milos Jovic,,12693,,G,,
-Jabari Smith,,20032,,F,,
-Trevor Keels,,20478,,G,,
-Caleb Houstan,,21270,,G/F,,
-Patrick Baldwin Jr.,,21167,,G,,
-AJ Griffin,,21158,,F,,
-Daimion Collins,,21286,,F,,
-Max Abmas,,4287,,G,,
-Tyty Washington Jr.,,20654,,G,,
-Peyton Watson,,20859,,G,,
-Jaden Ivey,,11761,,G,,
-Jaime Jaquez Jr.,,3487,,G/F,,
-Hunter Sallis,,20252,,G,,
-Ochai Agbaji,,6949,,G,,
-Bennedict Mathurin,,7654,,G/F,,
-LiAngelo Ball,,18344,,G,,
-Brandon Huntley-Hatfield,,20044,,F,,
-Max Christie,,20167,,G,,
-Walker Kessler,,5526,,F/C,,
-Drew Timme,,5508,,F,,
-Johnny Juzang,,8214,,G,,
-Kofi Cockburn,,13387,,C,,
-Andre Jackson,,9255,,G,,
-Michael Foster Jr.,,21503,,F,,
-MarJon Beauchamp,,19863,,F,,
-Oscar Tshiebwe,,7000,,F,,
-Caleb Love,,13840,,G,,
-Taevion Kinsey,,4698,,G,,
-Mark Williams,,10990,,C,,
-Keegan Murray,,11275,,F,,
-Kennedy Chandler,,20884,,G,,
-JD Davison,,21220,,G,,
-Matthew Cleveland,,21272,,G,,
-Trayce Jackson-Davis,,11580,,F,,
-Ian Martinez,,3516,,G,,
-Buddy Boeheim,,2322,,G,,
-Jabari Walker,,2731,,F,,
-Hunter Dickinson,,2764,,C,,
-Andrew Jones,,3484,,G,,
-Rokas Jokubaitis,,114,,G,,
-DeMarcus Cousins,202326,18700,509450,C,couside01,4258
-Anzejs Pasecniks,1628394,18564,,C/F,,
-Elijah Bryant,1629091,382,,G,,
-Sam Dekker,1626155,256,,F,dekkesa01,2991184
-Sekou Doumbouya,1629635,228,1172131,F,doumbse01,4423314
-,,,,,murkead01,4067603
-,,,,,schofad01,3918423
-,,,,,caverah01,3948144
-,,,,,fordal03,4066414
-,,,,,mckinal01,2530923
-,,,,,lamban01,4066790
-,,,,,johnsbj01,3059280
-,,,,,biyombi01,6427
-,,,,,goodwbr01,3057198
-,,,,,knighbr03,6448
-,,,,,willibr03,4397040
-,,,,,keybr01,4066240
-,,,,,milescj01,2778
-,,,,,mcgrica01,4066315
-,,,,,oliveca01,3928275
-,,,,,jonesca03,4067735
-,,,,,stanlca01,4431686
-,,,,,barbeca01,3059266
-,,,,,brownch02,4066508
-,,,,,brownch05,4278045
-,,,,,diallch01,3919335
-,,,,,silvach01,3923253
-,,,,,swordcr01,2991312
-,,,,,wilsodj01,3136491
-,,,,,jeffrda01,3913220
-,,,,,mathida01,3136991
-,,,,,dotsoda01,2991149
-,,,,,oturuda01,4397215
-,,,,,collida01,3973
-,,,,,reedda01,3059262
-,,,,,sirvyde01,4423883
-,,,,,waltode01,3056273
-,,,,,terryem01,4355392
-,,,,,mudiaem01,3892818
-,,,,,gillefr01,4277886
-,,,,,clarkga01,3132042
-,,,,,kingge03,3064320
-Greg Monroe,202328,18318,467468,,monrogr01,4260
-,,,,,graveha01,4066221
-,,,,,highsha01,4291678
-,,,,,thomais02,6472
-,,,,,echenja01,4396682
-,,,,,ennisja01,2579321
-,,,,,harpeja01,4066248
-,,,,,cumbeja01,4066486
-,,,,,delauja01,4065650
-,,,,,smartja01,4396972
-,,,,,hoardja01,4395688
-,,,,,morrija01,3952343
-,,,,,paigeja01,3133637
-,,,,,jonesje01,4067469
-,,,,,johnsjo02,1007
-,,,,,teskejo01,4066378
-,,,,,belljo01,3064427
-,,,,,goodwjo01,4278402
-,,,,,schakjo01,4895528
-,,,,,anderju01,2982340
-,,,,,jacksju01,3138156
-,,,,,morgaju01,3934721
-,,,,,sykeske01,2596247
-,,,,,guyky01,4065730
-,,,,,stephla01,4244
-,,,,,gallola01,2530572
-,,,,,kornelu01,3064560
-,,,,,walkemj01,4277854
-,,,,,mccluma01,4397071
-,,,,,hillma01,3056245
-,,,,,newmama01,3907359
-,,,,,chrisma01,3907487
-,,,,,jonesma05,4395704
-,,,,,moonema01,3149036
-,,,,,pottemi01,4066399
-,,,,,wrighmo01,4277871
-,,,,,powelmy01,4065816
-,,,,,hintona01,4396629
-,,,,,stausni01,2991042
-,,,,,pelleno01,2608892
-,,,,,sarrol01,4278046
-,,,,,basspa01,3062842
-,,,,,weathqu01,3907358
-,,,,,tuckera01,3908819
-,,,,,perryre01,4396959
-,,,,,edwarro01,3914639
-,,,,,hopsosc01,2328418
-,,,,,buchash01,4279887
-,,,,,harrish01,2991274
-,,,,,johnsst04,3134881
-,,,,,taylote01,4279815
-,,,,,pinsoth01,3138154
-,,,,,fraziti01,2488945
-,,,,,palmetr01,3151568
-,,,,,watertr01,4278080
-,,,,,queentr01,4409222
-,,,,,scotttr01,4711005
-,,,,,hallty01,3934695
-,,,,,johnsty01,2530276
-,,,,,terryty01,4431747
-,,,,,gabriwe01,4066264
-,,,,,iwundwe01,3074797
-,,,,,matthwe02,4032
-,,,,,moonxa01,3914075
-,,,,,sneedxa01,4066303
+name,nba_player_id,ottoneu_player_id,stats_player_id,bref_id,espn_id,ottoneu_position
+Giannis Antetokounmpo,203507,232,739957,antetgi01,3032977,F
+Joel Embiid,203954,414,794508,embiijo01,3059318,C/F
+Kawhi Leonard,202695,416,512591,leonaka01,6450,F
+LeBron James,2544,18,214152,jamesle01,1966,F
+Nikola Jokic,203999,521,830650,jokicni01,3112335,C
+Paul George,202331,483,469218,georgpa01,4251,F
+Kevin Durant,201142,178,329525,duranke01,3202,F
+James Harden,201935,367,395388,hardeja01,3992,G
+Damian Lillard,203081,176,463121,lillada01,6606,G
+Stephen Curry,201939,312,338365,curryst01,3975,G
+Rudy Gobert,203497,118,739960,goberru01,3032976,C
+Jimmy Butler,202710,26,458730,butleji01,6430,F
+Kyrie Irving,202681,488,551768,irvinky01,6442,G
+Mike Conley,201144,147,329468,conlemi01,3195,G
+Jrue Holiday,201950,214,457576,holidjr01,3995,G
+Chris Paul,101108,325,229598,paulch01,2779,G
+Donovan Mitchell,1628378,396,879707,mitchdo01,3908809,G
+Karl-Anthony Towns,1626157,377,837030,townska01,3136195,C
+Luka Doncic,1629029,465,1121277,doncilu01,3945274,F/G
+Trae Young,1629027,451,1060978,youngtr01,4277905,G
+Anthony Davis,203076,510,603096,davisan02,6583,F/C
+Devin Booker,1626164,98,845564,bookede01,3136193,G
+Jusuf Nurkic,203994,375,830642,nurkiju01,3102530,C
+Bradley Beal,203078,539,606912,bealbr01,6580,G
+Draymond Green,203110,202,468895,greendr01,6589,F
+Jayson Tatum,1628369,335,937647,tatumja01,4065648,F
+CJ McCollum,203468,408,522878,mccolcj01,2490149,G
+Ben Simmons,1627732,96,886391,simmobe01,3907387,G/F
+Danny Green,201980,150,295922,greenda02,3988,G
+Myles Turner,1626167,100,843762,turnemy01,3133628,C/F
+Jamal Murray,1627750,223,891352,murraja01,3936299,G
+Jakob Poeltl,1627751,493,844478,poeltja01,3134908,C
+Robert Williams III,1629057,422,954390,williro04,4066211,C
+Clint Capela,203991,427,830647,capelca01,3102529,C
+Deandre Ayton,1629028,273,1061507,aytonde01,4278129,C
+Jaylen Brown,1627759,541,883436,brownja02,3917376,F
+Robert Covington,203496,132,525052,covinro01,2490620,F
+Brook Lopez,201572,419,330047,lopezbr01,3448,C
+Zach LaVine,203897,485,743777,lavinza01,3064440,G/F
+Pascal Siakam,1627783,129,853408,siakapa01,3149673,F
+Fred VanVleet,1627832,146,707832,vanvlfr01,2991230,G
+Kyle Lowry,200768,304,266394,lowryky01,3012,G
+Michael Porter Jr.,1629008,123,1061724,portemi01,4278104,F
+Bam Adebayo,1628389,34,957486,adebaba01,4066261,C/F
+Marcus Smart,203935,387,697132,smartma01,2990992,G
+Dwight Powell,203939,364,552309,poweldw01,2531367,F/C
+Nicolas Batum,201587,373,456451,batumni01,3416,G/F
+Kristaps Porzingis,204001,126,877869,porzikr01,3102531,F/C
+John Collins,1628381,76,880468,collijo01,3908845,F/C
+Zion Williamson,1629627,199,1132025,willizi01,4395628,F
+Khris Middleton,203114,161,512053,middlkh01,6609,F
+Richaun Holmes,1626158,508,695069,holmeri01,2993370,F
+Jarred Vanderbilt,1629020,20,1067852,vandeja01,4278077,F
+Jonathan Isaac,1628371,259,,isaacjo01,4065654,F
+Mikal Bridges,1628969,288,846400,bridgmi01,3147657,F
+Will Barton,203115,292,551760,bartowi01,6579,G
+Tobias Harris,202699,287,552523,harrito02,6440,F
+Otto Porter Jr.,203490,263,609256,porteot01,2594922,F
+OG Anunoby,1628384,326,900535,anunoog01,3934719,F
+Jalen Brunson,1628973,306,887914,brunsja01,3934672,G
+Ricky Rubio,201937,359,503689,rubiori01,4011,G
+Montrezl Harrell,1626149,294,698651,harremo01,2991055,F/C
+Larry Nance Jr.,1626204,381,603640,nancela02,2580365,F/C
+Kelly Olynyk,203482,310,514882,olynyke01,2489663,F/C
+Isaiah Hartenstein,1628392,17730,1057004,harteis01,4222252,C/F
+Derrick White,1628401,341,796009,whitede01,3078576,G
+Joe Ingles,204060,195,553306,inglejo01,2968436,F
+Dejounte Murray,1627749,277,884168,murrade01,3907497,G
+Willie Cauley-Stein,1626161,17960,699950,caulewi01,2991282,C
+Steven Adams,203500,356,679478,adamsst01,2991235,C
+Kemba Walker,202689,360,462980,walkeke02,6479,G
+Jonas Valanciunas,202685,437,599780,valanjo01,6477,C
+LaMelo Ball,1630163,412,1257420,ballla01,4432816,G
+Ivica Zubac,1627826,84,920093,zubaciv01,4017837,C
+De'Anthony Melton,1629001,194,946801,meltode01,4066436,G
+Christian Wood,1626174,334,750924,woodch01,3058254,F
+Alec Burks,202692,249,512995,burksal01,6429,G
+Mitchell Robinson,1629011,333,1076265,robinmi01,4351852,C/F
+Jae Crowder,203109,486,552381,crowdja01,6581,F
+Brandon Clarke,1629634,439,892914,clarkbr01,3906665,F/G
+Aaron Gordon,203932,59,748788,gordoaa01,3064290,F
+Enes Kanter,202683,204,553574,kanteen01,6447,C
+Brandon Ingram,1627742,282,887665,ingrabr01,3913176,F
+Duncan Robinson,1629130,44,854591,robindu01,3157465,F
+Shai Gilgeous-Alexander,1628983,481,1067856,gilgesh01,4278073,G
+Kevon Looney,1626172,17698,846499,looneke01,3155535,F
+Bogdan Bogdanovic,203992,391,830648,bogdabo01,3037789,G
+Derrick Rose,201565,154,399612,rosede01,3456,G
+Domantas Sabonis,1627734,60,850111,sabondo01,3155942,F/C
+Thomas Bryant,1628418,4,896601,bryanth01,3934723,C/F
+Lonzo Ball,1628366,29,946714,balllo01,4066421,G
+Serge Ibaka,201586,17728,456450,ibakase01,3439,F
+Chris Boucher,1628449,519,901190,bouchch01,3948153,F/C
+Dewayne Dedmon,203473,401,606642,dedmode01,2580913,C
+Dorian Finney-Smith,1627827,139,606701,finnedo01,2578185,F
+Malcolm Brogdon,1627763,528,601146,brogdma01,2566769,G
+Patrick Beverley,201976,317,332691,beverpa01,3964,G
+Miles Bridges,1628970,388,957479,bridgmi02,4066383,F
+Buddy Hield,1627741,264,697086,hieldbu01,2990984,G
+Kyle Anderson,203937,86,697720,anderky01,2993874,F/G
+Norman Powell,1626181,495,609861,powelno01,2595516,G
+Reggie Jackson,202704,271,462444,jacksre01,6443,G
+T.J. Warren,203933,88,660085,warretj01,2982334,F
+Daniel Gafford,1629655,172,1061647,gaffoda01,4278049,F/C
+Davis Bertans,202722,420,599814,bertada01,6426,F
+David Nwaba,1628021,537,787141,nwabada01,3062744,G/F
+Immanuel Quickley,1630193,443,1134175,quickim01,4395724,G
+Nikola Vucevic,202696,247,457598,vucevni01,6478,C
+Alex Caruso,1627936,299,697644,carusal01,2991350,G
+Spencer Dinwiddie,203915,290,602411,dinwisp01,2580782,G
+Paul Millsap,200794,17682,237675,millspa01,3015,F
+Josh Okogie,1629006,46,941460,okogijo01,4065663,G
+Cameron Payne,1626166,534,792338,payneca01,3064230,G
+De'Aaron Fox,1628368,452,957489,foxde01,4066259,G
+Harrison Barnes,203084,448,552336,barneha02,6578,F
+Seth Curry,203552,8,463135,curryse01,2326307,G
+Thaddeus Young,201152,97,329683,youngth01,3244,F
+Jarrett Allen,1628386,363,956574,allenja01,4066328,C
+Donte DiVincenzo,1628978,344,887915,divindo01,3934673,G
+Gordon Hayward,202330,354,477667,haywago01,4249,F
+Grayson Allen,1628960,540,842296,allengr01,3135045,G
+Nerlens Noel,203457,58,699947,noelne01,2991280,C/F
+Derrick Jones Jr.,1627884,17680,892925,jonesde02,3936099,F
+Jaren Jackson Jr.,1628991,131,1078662,jacksja02,4277961,F/C
+DeMar DeRozan,201942,203,457594,derozde01,3978,G/F
+Anthony Edwards,1630162,454,1175367,edwaran01,4594268,G
+Joe Harris,203925,257,549969,harrijo01,2528794,G/F
+Gary Payton II,1627780,327,846407,paytoga02,3134903,G
+Cody Zeller,203469,494,602028,zelleco01,2579258,F/C
+Nicolas Claxton,1629651,75,1061682,claxtni01,4278067,F/C
+Nemanja Bjelica,202357,371,550431,bjeline01,4269,F
+Julius Randle,203944,68,786412,randlju01,3064514,F/C
+Klay Thompson,202691,163,457611,thompkl01,6475,G
+Dario Saric,203967,12,830641,saricda01,3032978,F/C
+Frank Ntilikina,1628373,122,1056995,ntilila01,4230547,G
+Kentavious Caldwell-Pope,203484,449,602730,caldwke01,2581018,G
+Boban Marjanovic,1626246,67,553331,marjabo01,4376,C
+Royce O'Neale,1626220,101,604479,onealro01,2583632,F
+Mike Muscala,203488,272,520388,muscami01,2490089,F/C
+Cameron Johnson,1629661,94,843005,johnsca02,3138196,F
+Jeremy Lamb,203087,308,552980,lambje01,6603,G/F
+Bojan Bogdanovic,202711,281,599812,bogdabo02,3593,F
+Jordan Clarkson,203903,7,551975,clarkjo01,2528426,G
+Andre Drummond,203083,143,614746,drumman01,6585,C
+Michael Carter-Williams,203487,57,609790,cartemi01,2596108,G
+Dillon Brooks,1628415,245,854601,brookdi01,3155526,G/F
+Furkan Korkmaz,1627788,500,920092,korkmfu01,3929325,G/F
+Bobby Portis,1626171,225,750703,portibo01,3064482,F
+Khem Birch,203920,37,601518,birchkh01,2578240,C
+John Wall,202322,221,509456,walljo01,4237,G
+Blake Griffin,201933,43,399725,griffbl01,3989,F
+T.J. McConnell,204456,496,551787,mccontj01,2530530,G
+Skylar Mays,1630219,322,948123,mayssk01,4066269,G
+John Konchar,1629723,315,852907,konchjo01,3134932,G
+Damion Lee,1627814,24,609081,leeda03,2595209,G
+Caris LeVert,1627747,426,698991,leverca01,2991043,G
+Maxi Kleber,1628467,134,1072048,klebima01,2960236,F
+Justin Holiday,203200,11,395365,holidju01,2284101,F/G
+Russell Westbrook,201566,253,329830,westbru01,3468,G
+Jabari Parker,203953,501,756880,parkeja01,3056600,F
+Mason Plumlee,203486,328,510790,plumlma01,2488653,C
+Andrew Wiggins,203952,260,794503,wiggian01,3059319,F
+Jae'Sean Tate,1630256,49,844040,tateja01,3136777,F
+Dean Wade,1629731,407,880677,wadede01,3912848,F
+Bol Bol,1629626,211,1134730,bolbo01,4397102,C/F
+Tim Hardaway Jr.,203501,111,551771,hardati02,2528210,G/F
+P.J. Washington,1629023,236,1067857,washipj01,4278078,F
+Derrick Favors,202324,380,502808,favorde01,4257,F
+Willy Hernangomez,1626195,201,840567,hernawi01,2999409,C
+Moe Harkless,203090,490,609843,harklma01,6591,F
+Ja Morant,1629630,337,1065906,moranja01,4279888,G
+Max Strus,1629622,527,936502,strusma01,4065778,G/F
+Devin Vassell,1630170,536,1132051,vassede01,4395630,G
+Alex Len,203458,93,616982,lenal01,2596107,C
+Tyrese Haliburton,1630169,70,1132825,halibty01,4396993,G
+Dylan Windler,1629685,295,895530,windldy01,3906786,G/F
+Goga Bitadze,1629048,23,1172132,bitadgo01,4348700,C/F
+Troy Brown Jr.,1628972,174,1082704,browntr01,4278508,F
+Louis King,1629663,120,1134732,kinglo02,4397103,F
+Bruce Brown,1628971,18901,941834,brownbr01,4065670,G
+Saben Lee,1630240,78,1067689,leesa01,4278124,G
+Evan Fournier,203095,397,659767,fournev01,6588,G/F
+Matisse Thybulle,1629680,301,884169,thybuma01,3907498,G/F
+Onyeka Okongwu,1630168,243,1185367,okongon01,4431680,F/C
+Moses Brown,1629650,108,1134769,brownmo01,4397126,C
+Isaac Bonga,1629067,17729,1121333,bongais01,4348697,G
+Cole Anthony,1630175,395,1185943,anthoco01,4432809,G
+Talen Horton-Tucker,1629659,389,1132824,hortota01,4396991,G
+Monte Morris,1628420,157,741011,morrimo01,3059310,G
+Georges Niang,1627777,531,679381,niangge01,2990969,F
+Devonte' Graham,1628984,207,843228,grahade01,3133601,G
+Scottie Barnes,1630567,40,1251666,barnesc01,4433134,F
+Tacko Fall,1629605,65,879498,fallta01,3904625,C
+Gorgui Dieng,203476,17699,553158,dienggo01,2534781,C
+Xavier Tillman,1630214,533,1078665,tillmxa01,4277964,F
+Kevin Huerter,1628989,291,944785,huertke01,4066372,G/F
+Nickeil Alexander-Walker,1629638,472,1067668,alexani01,4278039,G
+Kendrick Nunn,1629134,476,741931,nunnke01,3056247,G
+Wendell Carter Jr.,1628976,250,1060912,cartewe01,4277847,C/F
+Terance Mann,1629611,370,879504,mannte01,3907823,G/F
+Patty Mills,201988,347,411562,millspa02,4004,G
+Brodric Thomas,1630271,216,1152470,thomabr01,4407254,G
+Pat Connaughton,1626192,77,601514,connapa01,2578239,G
+Facundo Campazzo,1630267,179,661004,campafa01,2968334,G
+D'Angelo Russell,1626156,487,844038,russeda01,3136776,G
+Victor Oladipo,203506,385,553166,oladivi01,2527963,G
+Javonte Green,1629750,69,624174,greenja02,2596112,G
+Terry Rozier,1626179,461,786293,roziete01,3074752,G
+Kelan Martin,1629103,515,843805,martike03,3133596,F
+Danilo Gallinari,201568,151,456448,gallida01,3428,F
+Bones Hyland,1630538,270,1178199,hylanbo01,4592492,G
+Paul Reed,1630194,436,1076238,reedpa01,4278562,F
+Zach Collins,1628380,394,,colliza01,4066650,F/C
+Cody Martin,1628998,240,842971,martico01,3138161,F
+Mo Bamba,1628964,369,1071928,bambamo01,4277919,C
+Alperen Sengun,1630578,153,1323508,sengual01,4871144,C
+Kevin Love,201567,278,395374,loveke01,3449,F
+Jordan Poole,1629673,89,1067671,poolejo01,4277956,G
+Josh Hart,1628404,478,741892,hartjo01,3062679,G
+RJ Barrett,1629628,140,1132031,barrerj01,4395625,F/G
+Drew Eubanks,1629234,30,883573,eubandr01,3914285,F/C
+Evan Mobley,1630596,477,1231862,mobleev01,4432158,F/C
+Darius Garland,1629636,399,1134262,garlada01,4396907,G
+Dennis Schroder,203471,357,739958,schrode01,3032979,G
+Taj Gibson,201959,343,330057,gibsota01,3986,F
+Raul Neto,203526,311,739966,netora01,2968361,G
+Cam Reddish,1629629,313,1132027,reddica01,4395627,F/G
+Grant Williams,1629684,189,949273,willigr01,4066218,F
+Delon Wright,1626153,55,744102,wrighde01,3064447,G
+Damian Jones,1627745,144,745922,jonesda03,3064559,C
+LaMarcus Aldridge,200746,17676,266554,aldrila01,2983,F
+Robin Lopez,201577,499,330050,lopezro01,3447,C
+Marcus Morris Sr.,202694,162,469089,morrima03,6462,F
+Obi Toppin,1630167,512,1076274,toppiob01,4278355,F
+Desmond Bane,1630217,158,944263,banede01,4066320,G
+Kenyon Martin Jr.,1630231,155,1257431,martike04,4431828,F
+Jevon Carter,1628975,265,843794,carteje01,3133635,G
+George Hill,201588,239,277552,hillge01,3438,G
+Davion Mitchell,1630558,119,1061659,mitchda01,4278053,G
+Tyler Herro,1629639,302,1134176,herroty01,4395725,G
+Trey Burke,203504,184,605708,burketr01,2579260,G
+Zeke Nnaji,1630192,193,1193676,nnajize01,4431690,F/C
+Daniel Theis,1628464,492,1066725,theisda01,2451037,F/C
+Jake Layman,1627774,446,698664,laymaja01,2982268,F
+Hassan Whiteside,202355,124,513234,whiteha01,4262,C
+Trevor Ariza,2772,324,229738,arizatr01,2426,F
+Frank Kaminsky,1626163,440,606731,kaminfr01,2579294,F/C
+Al Horford,201143,450,280587,horfoal01,3213,C
+Caleb Martin,1628997,17748,842969,martica02,3138160,F
+Tyrese Maxey,1630178,255,1186160,maxeyty01,4431678,G
+Eric Bledsoe,202339,305,509449,bledser01,4238,G
+Cory Joseph,202709,186,552805,josepco01,6446,G
+Yuta Watanabe,1629139,434,846639,watanyu01,3133838,G/F
+Lauri Markkanen,1628374,17662,949131,markkla01,4066336,F
+Gabriel Deck,1630466,361,923135,deckga01,3929321,F
+Usman Garuba,1630586,145,1318915,garubus01,4871143,F
+Jalen McDaniels,1629667,85,953063,mcdanja01,4066731,F
+Juan Toscano-Anderson,1629308,459,601511,toscaju01,4401416,F
+Rudy Gay,200752,266,266358,gayru01,3005,F
+KZ Okpala,1629644,261,1061544,okpalkz01,4278521,F/G
+Chris Chiozza,1629185,17789,845512,chiozch01,3137795,G
+Thanasis Antetokounmpo,203648,212,803207,antetth01,3102533,F
+Moritz Wagner,1629021,520,882387,wagnemo01,3150844,F/C
+Svi Mykhailiuk,1629004,17732,843265,mykhasv01,3133602,G/F
+Reggie Bullock,203493,141,552335,bullore01,2528779,G/F
+Naz Reid,1629675,286,1137200,reidna01,4396971,C
+Wayne Ellington,201961,152,329670,ellinwa01,3981,G
+Gary Trent Jr.,1629018,209,1060908,trentga02,4277843,G/F
+Malik Monk,1628370,99,957492,monkma01,4066262,G
+Aaron Holiday,1628988,296,884087,holidaa01,3922230,G
+Devon Dotson,1629653,345,1132829,dotsode01,4397016,G
+Malik Beasley,1627736,467,879503,beaslma01,3907822,G
+Tony Bradley,1628396,208,950065,bradlto01,4065673,C
+Landry Shamet,1629013,149,893100,shamela01,3914044,G
+Nassir Little,1629642,254,1138391,littlna01,4395652,F/G
+De'Andre Hunter,1629631,366,942857,huntede01,4065732,F/G
+Tyler Cook,1629076,17673,944728,cookty01,4066367,F
+Garrison Mathews,1629726,18476,888431,mathega01,3913180,G
+JaMychal Green,203210,79,460833,greenja01,2327577,F/C
+Tyus Jones,1626145,444,842297,jonesty01,3135046,G
+Tomas Satoransky,203107,353,659772,satorto01,6621,G
+Vlatko Cancar,1628427,329,1057007,cancavl01,4230557,F
+Chuma Okeke,1629643,523,1061658,okekech01,4278052,F
+Josh Green,1630182,409,1193670,greenjo02,4432811,G
+Malachi Flynn,1630201,63,946878,flynnma01,4066668,G
+P.J. Tucker,200782,482,229602,tuckepj01,3033,F
+Miye Oni,1629671,517,953941,onimi01,4066851,G
+Andre Iguodala,2738,349,173004,iguodan01,2386,G/F
+Alize Johnson,1628993,66,953283,johnsal02,4067045,F
+Saddiq Bey,1630180,473,1138653,beysa01,4397136,G/F
+Mychal Mulder,1628539,505,891351,muldemy01,3936298,G
+Oshae Brissett,1629052,112,1076192,brissos01,4278031,F/G
+DeAndre' Bembry,1627761,484,795428,bembrde01,3062667,F
+Jordan McLaughlin,1629162,411,844465,mclaujo01,3134916,G
+Jaxson Hayes,1629637,188,1140887,hayesja02,4397077,C
+Chris Duarte,1630537,35,1194085,duartch01,4592402,F
+Anfernee Simons,1629014,210,1121307,simonan01,4351851,G
+Ben McLemore,203463,17991,604898,mclembe01,2578213,G
+PJ Dozier,1628408,514,886448,doziepj01,3923250,G/F
+Kenrich Williams,1629026,323,843742,willike04,3133626,G/F
+Luguentz Dort,1629652,135,1134693,dortlu01,4397020,G
+Kelly Oubre Jr.,1626162,279,843271,oubreke01,3133603,F/G
+Josh Jackson,1628367,9,944164,jacksjo02,4066297,F
+Torrey Craig,1628470,417,561589,craigto01,2528693,F
+Luka Samanic,1629677,244,1172133,,,F
+Doug McDermott,203926,217,554804,mcderdo01,2528588,F
+Corey Kispert,1630557,104,1077554,kispeco01,4280151,F
+JaVale McGee,201580,107,333212,mcgeeja01,3452,C/F
+Tristan Thompson,202684,103,552806,thomptr01,6474,F
+Sterling Brown,1628425,81,740339,brownst02,3057187,G/F
+Terence Davis,1629056,167,886404,daviste02,3919454,G
+Luke Kennard,1628379,368,887661,kennalu01,3913174,G
+Kyle Kuzma,1628398,166,844476,kuzmaky01,3134907,F
+Robert Woodard II,1630218,92,1134190,woodaro01,4396961,F
+Collin Sexton,1629012,283,1061642,sextoco01,4277811,G
+Sam Merrill,1630241,230,953106,merrisa01,4066757,G
+Jerami Grant,203924,196,699826,grantje01,2991070,F
+Elfrid Payton,203901,206,608661,paytoel01,2583639,G
+Rodney McGruder,203585,406,506103,mcgruro01,2488826,G
+Cade Cunningham,1630595,187,1232182,cunnica01,4432166,G/F
+Franz Wagner,1630532,168,1178131,wagnefr01,4566434,F
+Tre Mann,1630544,197,1175356,manntr01,4432819,G
+Dwight Howard,2730,384,253975,howardw01,2384,C/F
+Kent Bazemore,203145,82,410764,bazemke01,6637,G/F
+Paul Watson,1628778,17767,750825,watsopa01,3058030,F
+Timothe Luwawu-Cabarrot,1627789,17668,920091,luwawti01,3893019,G/F
+Eric Gordon,201569,530,401085,gordoer01,3431,G
+Keldon Johnson,1629640,45,1134174,johnske04,4395723,G/F
+Eugene Omoruyi,1630647,274,945123,omorueu01,4066410,F
+Keita Bates-Diop,1628966,386,844045,bateske01,3136779,F
+Markelle Fultz,1628365,138,946824,fultzma01,4066636,G
+Shake Milton,1629003,185,879492,miltosh01,3915195,G/F
+Eric Paschall,1629672,267,846627,pascher01,3133817,F
+Kevin Pangos,1630698,17681,606932,pangoke01,2583962,G
+Armoni Brooks,1629717,504,922387,brookar01,4066450,G
+Cedi Osman,1626224,479,842611,osmande01,3893016,F
+Quentin Grimes,1629656,506,1132827,grimequ01,4397014,G
+Deni Avdija,1630166,95,1257422,avdijde01,4683021,F
+Jock Landale,1629111,3,850308,landajo01,3146557,C
+Greg Brown III,1630535,5,1243740,browngr01,4432161,F
+Isaiah Stewart,1630191,346,1177050,stewais01,4432810,C
+Kevin Knox II,1628995,64,1067854,knoxke01,4278075,F
+Santi Aldama,1630583,74,1177024,aldamsa01,4593125,F/C
+Romeo Langford,1629641,453,1138654,langfro01,4397008,G
+Jaylen Nowell,1629669,238,1089562,nowelja01,4278541,G
+Juancho Hernangomez,1627823,421,920082,hernaju01,4017839,F
+Trey Lyles,1626168,180,845596,lylestr01,3136196,F
+Sam Hauser,1630573,526,,hausesa01,4065804,F
+Dalano Banton,1630625,226,1138668,bantoda01,4397885,F
+Bryn Forbes,1627854,442,699093,forbebr01,2994526,G
+Chimezie Metu,1629002,246,884121,metuch01,3914283,C
+Rodney Hood,203918,469,603106,hoodro01,2581177,G/F
+Naji Marshall,1630230,351,1060704,marshna01,4278594,F
+Ty Jerome,1629660,6,942866,jeromty01,4065733,G
+DeAndre Jordan,201599,1,398142,jordade01,3442,C
+Herbert Jones,1630529,219,1061638,joneshe01,4277813,F
+James Johnson,201949,56,398037,johnsja01,3999,F
+Jarrett Culver,1629633,156,1078671,culveja01,4277928,G/F
+Coby White,1629632,355,1138387,whiteco01,4395651,G
+Patrick Williams,1630172,222,1174904,willipa01,4431687,F
+Bruno Fernandes,1628981,91,1076674,fernabr01,4277952,C
+Scottie Lewis,1630575,251,1175355,lewissc01,4432812,G
+Josh Richardson,1626196,518,604288,richajo01,2581190,G
+Goran Dragic,201609,538,456456,dragigo01,3423,G
+Ed Davis,202334,18495,462458,davised01,4259,F/C
+DeJon Jarreau,1630610,90,950903,jarrede01,4066796,G
+Justise Winslow,1626159,28,842298,winslju01,3135047,F/G
+Denzel Valentine,1627756,17664,712595,valende01,2999549,G
+Keon Johnson,1630553,164,1231792,johnske07,4432192,G
+Dennis Smith Jr.,1628372,303,942015,smithde03,4065697,G
+Frank Jackson,1628402,298,937667,jacksfr01,4065651,G
+Ish Smith,202397,10,329873,smithis01,4305,G
+Jeff Green,201145,403,266367,greenje02,3209,F
+Georgios Kalaitzakis,1630686,258,1323544,kalaige01,4683022,F
+Trent Forrest,1630235,458,941267,forretr01,4065656,G
+Isaiah Livers,1630587,433,1067672,liveris01,4277957,F
+Brandon Boston Jr.,1630527,133,1245906,bostobr01,4432162,G
+Solomon Hill,203524,502,509169,hillso01,2488958,F
+Trendon Watford,1630570,348,,watfotr01,4431675,F
+Tony Snell,203503,73,550991,snellto01,2528353,G
+Payton Pritchard,1630202,14,945610,pritcpa01,4066354,G
+Jahmi'us Ramsey,1630186,480,1182151,ramseja01,4431688,G
+Austin Rivers,203085,106,601139,riverau01,6617,G
+Devontae Cacok,1629719,423,899762,cacokde01,3946974,F
+Jason Preston,1630554,415,1137126,,,G
+Joe Wieskamp,1630580,462,1141061,wieskjo01,4397033,G/F
+Daishen Nix,1630227,17689,,nixda01,4432176,G
+Killian Hayes,1630165,413,1257421,hayeski01,4683024,G
+Aaron Henry,1630565,19,1133812,henryaa01,4397209,F
+Daulton Hommes,1629756,191,,,,F
+JaQuori McLaughlin,1630605,17762,945673,mclauja01,4066496,G
+Grant Riller,1630203,497,895835,,,G
+Ish Wainwright,1630688,280,,wainris01,3059307,F
+Duane Washington Jr.,1630613,16,1133864,washidu02,4397235,G
+Kessler Edwards,1630556,425,1135006,edwarke02,4397693,F
+Jared Butler,1630215,25,1134886,butleja02,4395695,G
+Jordan Nwora,1629670,435,1076189,nworajo01,4277883,F
+Nick Richards,1630208,331,1067853,richani01,4278076,C
+Isaiah Joe,1630198,115,1134010,joeis01,4395702,G
+Omer Yurtseven,1630209,233,942129,yurtsom01,3074213,C
+Justin Champagnie,1630551,234,1175260,champju01,4432907,G/F
+Lamar Stevens,1630205,17,950179,stevela01,4066405,F
+Taurean Prince,1627752,165,696209,princta02,2990962,F
+Marvin Bagley III,1628963,507,1076209,baglema01,4277848,F
+Udoka Azubuike,1628962,190,944169,azubuud01,4066299,C
+Amir Coffey Jr.,1629599,405,944822,coffeam01,4066387,G/F
+Yves Pons,1630582,148,,ponsyv01,4278116,F
+Ignas Brazdeikis,1629649,22,1133802,brazdig01,4397205,F
+Jay Scrubb,1630206,2,1257432,scrubja01,4683023,G
+Keljin Blevins,1629833,532,851186,blevike01,3152335,G
+Trey Murphy III,1630530,169,1134570,murphtr02,4397688,F
+Leandro Bolmaro,1630195,19854,1257425,bolmale01,4683025,G
+Luka Garza,1630568,309,1061057,garzalu01,4277951,C
+Joshua Primo,1630563,404,1231214,primojo01,4702176,G
+Jaden McDaniels,1630183,376,1177013,mcdanja02,4431671,F
+Isaiah Todd,1630225,470,1271713,toddis01,4715198,F
+James Bouknight,1630547,215,1182632,bouknja01,4431712,G
+Abdel Nader,1627846,463,610597,naderab01,2595435,F
+RJ Nembhard,1630612,17671,1060982,nembhrj01,4277916,G
+Hamidou Diallo,1628977,137,970444,diallha01,4080610,G/F
+Justin Robinson,1629620,17758,893009,robinju01,3945566,G
+Markieff Morris,202693,71,469085,morrima02,6461,F
+Jaden Springer,1630531,350,1231665,sprinja01,4432164,G
+Anthony Gill,1630264,269,604290,gillan01,2581184,F
+Ayo Dosunmu,1630245,529,1133782,dosunay01,4397002,G
+Vernon Carey Jr.,1630176,130,1174858,careyve01,4431669,C
+Jose Alvarado,1630631,307,1060919,alvarjo01,4277869,G
+E'Twaun Moore,202734,17784,398424,mooreet01,6460,G
+David Johnson,1630525,418,1180115,johnsda08,4592204,G
+Cassius Winston,1630216,503,957478,winstca01,4066382,G
+Jonathan Kuminga,1630228,390,1271708,kuminjo01,4433247,F
+Gabe Vincent,1629216,53,851253,vincega01,3137259,G
+Joel Ayayi,1630555,175,1077553,ayayijo01,4280150,G
+Terrence Ross,203082,400,550049,rosste01,6619,G/F
+Carmelo Anthony,2546,102,172890,anthoca01,1975,F
+Rui Hachimura,1629060,198,955893,hachiru01,4066648,F
+Elijah Hughes,1630190,15,950031,hugheel01,4066446,G
+David Duke Jr.,1630561,17675,1134645,dukeda01,4397107,G
+Vit Krejci,1630249,17766,1257428,krejcvi01,4578893,G
+Killian Tillie,1629681,38,955890,tilliki02,4066651,F/C
+Sharife Cooper,1630536,177,1251661,coopesh01,4432173,G
+Danuel House Jr.,1627863,39,692110,houseda01,2991155,F/G
+Kevin Porter Jr.,1629645,441,1135158,porteke02,4397140,G/F
+Lonnie Walker IV,1629022,474,1060928,walkelo01,4277890,G
+Semi Ojeleye,1628400,509,792415,ojelese01,3056602,F
+Brad Wanamaker,202954,125,402376,wanambr01,6507,G
+Jay Huff,1630643,52,942843,huffja01,4065731,C
+Austin Reaves,1630559,428,953291,reaveau01,4066457,G
+Miles McBride,1630540,109,1175084,mcbrimi01,4431823,G
+McKinley Wright,1630593,142,1061526,wrighmc01,4278507,G
+Marcus Garrett,1630585,17751,1060962,garrema01,4277892,G
+Jalen Johnson,1630552,464,1230356,johnsja05,4701230,F
+CJ Elleby,1629604,535,1135177,ellebcj01,4397166,F/G
+Kai Jones,1630539,32,1186771,joneska01,4431699,C/F
+Isaac Okoro,1630171,457,1193432,okorois01,4432822,G/F
+Josh Giddey,1630581,220,1323503,giddejo01,4871145,G
+Didi Louzada,1629712,262,1172136,louzama01,4423885,G
+Lou Williams,101150,72,292401,willilo02,2799,G
+Aaron Nesmith,1630174,316,1134264,nesmiaa01,4396909,F
+Garrett Temple,202066,516,263903,templga01,4023,G/F
+Charles Bassey,1629646,511,1138669,bassech01,4397886,C/F
+Jeremiah Robinson-Earl,1630526,242,1176176,robinje02,4432813,F
+Jamorko Pickett,1630691,17683,1076297,pickeja01,4278566,F
+Matt Thomas,1629744,17670,741012,thomama02,3059311,G
+Jalen Smith,1630188,224,1133792,smithja04,4397189,F/C
+JT Thor,1630550,213,1251663,thorjt01,4702233,F
+Nathan Knight,1630233,192,953887,knighna01,4067325,F
+Chris Smith,1630607,241,,,,F
+Neemias Queta,1629674,276,1142902,quetane01,4397424,C
+Sandro Mamukelashvili,1630572,438,1060351,mamuksa01,4278580,F/C
+Malik Fitts,1630238,18536,922397,fittsma01,4066467,F
+Aaron Wiggins,1630598,471,1133788,wiggiaa01,4397183,G
+Jalen Suggs,1630591,237,1241585,suggsja01,4432165,G
+Tre Jones,1630200,83,1132030,jonestr01,4395626,G
+Chandler Hutchison,1628990,200,846866,hutchch01,3149010,F/G
+Isaiah Roby,1629676,410,944969,robyis01,4066392,F
+Marko Simonovic,1630250,379,,simonma01,4683622,C
+R.J. Hampton,1630181,113,1257426,hamptrj01,4590530,G
+Markus Howard,1630210,289,922379,howarma02,4065805,G
+Moses Moody,1630541,358,1231366,moodymo01,4432171,G
+Jeff Dowtin,1630288,17779,953377,dowtije01,4066786,G
+Cameron Thomas,1630560,430,1232020,thomaca02,4432174,G
+Isaiah Jackson,1630543,13,1245934,jacksis01,4432170,F
+Rajon Rondo,200765,332,262882,rondora01,3026,G
+Ziaire Williams,1630533,51,1231313,willizi02,4433137,F
+Jalen Green,1630224,339,1271706,greenja05,4437244,G
+DJ Augustin,201571,352,329524,augusdj01,3415,G
+Gary Harris,203914,229,712593,harriga01,2999547,G
+Kira Lewis Jr.,1630184,235,1134005,lewiski01,4395698,G
+Avery Bradley,202340,18592,513607,bradlav01,4240,G
+Arnoldas Kulboka,1629083,330,,kulboar01,4230551,F
+Day'Ron Sharpe,1630549,50,1243725,sharpda01,4432194,C
+Precious Achiuwa,1630173,128,1175124,achiupr01,4431679,F
+Wayne Selden,1627782,18614,794506,seldewa01,4895499,G
+Petr Cornelie,1627822,19857,920099,cornepe01,3899009,F
+Darius Bazley,1629647,218,1172134,bazleda01,4423545,F
+Jericho Sims,1630579,181,1071933,simsje01,4277922,C
+James Wiseman,1630164,171,1175120,wisemja01,4432808,C
+Josh Christopher,1630528,284,1231305,chrisjo01,4432168,G
+Aleksej Pokusevski,1630197,36,1257423,pokusal01,4683018,F
+Theo Maledon,1630177,300,1257427,maledth01,4683027,G
+Udonis Haslem,2617,513,226806,hasleud01,2184,F
+Chet Holmgren,,21027,,,,F
+Paolo Banchero,,21408,,,,F
+Jaden Hardy,,21508,,,,G
+Scoot Henderson,,21507,,,,G
+Jalen Duren,,20219,,,,C
+Emoni Bates,,20354,,,,F
+Milos Jovic,,12693,,,,G
+Jabari Smith,,20032,,,,F
+Trevor Keels,,20478,,,,G
+Caleb Houstan,,21270,,,,G/F
+Patrick Baldwin Jr.,,21167,,,,G
+AJ Griffin,,21158,,,,F
+Daimion Collins,,21286,,,,F
+Max Abmas,,4287,,,,G
+Tyty Washington Jr.,,20654,,,,G
+Peyton Watson,,20859,,,,G
+Jaden Ivey,,11761,,,,G
+Jaime Jaquez Jr.,,3487,,,,G/F
+Hunter Sallis,,20252,,,,G
+Ochai Agbaji,,6949,,,,G
+Bennedict Mathurin,,7654,,,,G/F
+LiAngelo Ball,,18344,,,,G
+Brandon Huntley-Hatfield,,20044,,,,F
+Max Christie,,20167,,,,G
+Walker Kessler,,5526,,,,F/C
+Drew Timme,,5508,,,,F
+Johnny Juzang,,8214,,,,G
+Kofi Cockburn,,13387,,,,C
+Andre Jackson,,9255,,,,G
+Michael Foster Jr.,,21503,,,,F
+MarJon Beauchamp,,19863,,,,F
+Oscar Tshiebwe,,7000,,,,F
+Caleb Love,,13840,,,,G
+Taevion Kinsey,,4698,,,,G
+Mark Williams,,10990,,,,C
+Keegan Murray,,11275,,,,F
+Kennedy Chandler,,20884,,,,G
+JD Davison,,21220,,,,G
+Matthew Cleveland,,21272,,,,G
+Trayce Jackson-Davis,,11580,,,,F
+Ian Martinez,,3516,,,,G
+Buddy Boeheim,,2322,,,,G
+Jabari Walker,,2731,,,,F
+Hunter Dickinson,,2764,,,,C
+Andrew Jones,,3484,,,,G
+Rokas Jokubaitis,,114,,,,G
+DeMarcus Cousins,202326,18700,509450,couside01,4258,C
+Anzejs Pasecniks,1628394,18564,,,,C/F
+Elijah Bryant,1629091,382,,,,G
+Sam Dekker,1626155,256,,dekkesa01,2991184,F
+Sekou Doumbouya,1629635,228,1172131,doumbse01,4423314,F
+,,,,murkead01,4067603,
+,,,,schofad01,3918423,
+,,,,caverah01,3948144,
+,,,,fordal03,4066414,
+,,,,mckinal01,2530923,
+,,,,lamban01,4066790,
+,,,,johnsbj01,3059280,
+,,,,biyombi01,6427,
+,,,,goodwbr01,3057198,
+,,,,knighbr03,6448,
+,,,,willibr03,4397040,
+,,,,keybr01,4066240,
+,,,,milescj01,2778,
+,,,,mcgrica01,4066315,
+,,,,oliveca01,3928275,
+,,,,jonesca03,4067735,
+,,,,stanlca01,4431686,
+,,,,barbeca01,3059266,
+,,,,brownch02,4066508,
+,,,,brownch05,4278045,
+,,,,diallch01,3919335,
+,,,,silvach01,3923253,
+,,,,swordcr01,2991312,
+,,,,wilsodj01,3136491,
+,,,,jeffrda01,3913220,
+,,,,mathida01,3136991,
+,,,,dotsoda01,2991149,
+,,,,oturuda01,4397215,
+,,,,collida01,3973,
+,,,,reedda01,3059262,
+,,,,sirvyde01,4423883,
+,,,,waltode01,3056273,
+,,,,terryem01,4355392,
+,,,,mudiaem01,3892818,
+,,,,gillefr01,4277886,
+,,,,clarkga01,3132042,
+,,,,kingge03,3064320,
+Greg Monroe,202328,18318,467468,monrogr01,4260,
+,,,,graveha01,4066221,
+,,,,highsha01,4291678,
+,,,,thomais02,6472,
+,,,,echenja01,4396682,
+,,,,ennisja01,2579321,
+,,,,harpeja01,4066248,
+,,,,cumbeja01,4066486,
+,,,,delauja01,4065650,
+,,,,smartja01,4396972,
+,,,,hoardja01,4395688,
+,,,,morrija01,3952343,
+,,,,paigeja01,3133637,
+,,,,jonesje01,4067469,
+,,,,johnsjo02,1007,
+,,,,teskejo01,4066378,
+,,,,belljo01,3064427,
+,,,,goodwjo01,4278402,
+,,,,schakjo01,4895528,
+,,,,anderju01,2982340,
+,,,,jacksju01,3138156,
+,,,,morgaju01,3934721,
+,,,,sykeske01,2596247,
+,,,,guyky01,4065730,
+,,,,stephla01,4244,
+,,,,gallola01,2530572,
+,,,,kornelu01,3064560,
+,,,,walkemj01,4277854,
+,,,,mccluma01,4397071,
+,,,,hillma01,3056245,
+,,,,newmama01,3907359,
+,,,,chrisma01,3907487,
+,,,,jonesma05,4395704,
+,,,,moonema01,3149036,
+,,,,pottemi01,4066399,
+,,,,wrighmo01,4277871,
+,,,,powelmy01,4065816,
+,,,,hintona01,4396629,
+,,,,stausni01,2991042,
+,,,,pelleno01,2608892,
+,,,,sarrol01,4278046,
+,,,,basspa01,3062842,
+,,,,weathqu01,3907358,
+,,,,tuckera01,3908819,
+,,,,perryre01,4396959,
+,,,,edwarro01,3914639,
+,,,,hopsosc01,2328418,
+,,,,buchash01,4279887,
+,,,,harrish01,2991274,
+,,,,johnsst04,3134881,
+,,,,taylote01,4279815,
+,,,,pinsoth01,3138154,
+,,,,fraziti01,2488945,
+,,,,palmetr01,3151568,
+,,,,watertr01,4278080,
+,,,,queentr01,4409222,
+,,,,scotttr01,4711005,
+,,,,hallty01,3934695,
+,,,,johnsty01,2530276,
+,,,,terryty01,4431747,
+,,,,gabriwe01,4066264,
+,,,,iwundwe01,3074797,
+,,,,matthwe02,4032,
+,,,,moonxa01,3914075,
+,,,,sneedxa01,4066303,
