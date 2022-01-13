@@ -20,7 +20,7 @@ from calc_stats import (
 )
 
 # code for the pipeline here
-@st.cache()
+@st.cache
 def ottobasket_values_pipeline(save_df=False):
     drip_df = drip.get_current_drip()
     drip_df = drip.transform_drip(drip_df)

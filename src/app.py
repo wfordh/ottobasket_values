@@ -14,3 +14,4 @@ format_cols = {
 st.dataframe(values_df.style.format(format_cols))
 now = datetime.datetime.now(tz = ZoneInfo("US/Pacific"))
 st.text(f"Last updated: {now.strftime('%Y-%m-%d %I:%M %p (Pacific)')}")
+st.download_button("Press to download", values_df, "ottobasket_values.csv", "text/csv", key="download-csv")

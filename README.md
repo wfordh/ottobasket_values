@@ -15,3 +15,5 @@
   - matchup analysis
 - add validation to make sure DRIP / DARKO dfs have not changed structure
 - write script for all of the ID mappings?
+- return more columns from pipeline and then select only a few for presentation so the others are present in the download
+- github actions to run it at 7 am, 11 am, 3 pm PST?
