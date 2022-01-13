@@ -13,5 +13,5 @@ format_cols = {
 }
 st.dataframe(values_df.style.format(format_cols))
 now = datetime.datetime.today()
-now = now.replace(tzinfo=ZoneInfo("America/Los_Angeles")
+now = now.replace(tzinfo=ZoneInfo("America/Los_Angeles"))
 st.text(f"Last updated: {now.strftime('%Y-%m-%d %I:%M %p (Pacific)')}")
