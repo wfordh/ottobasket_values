@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import datetime
+from zoneinfo import ZoneInfo
 from pipeline import ottobasket_values_pipeline
 
 st.title("Ottobasket Player Values")
@@ -12,4 +13,5 @@ format_cols = {
 }
 st.dataframe(values_df.style.format(format_cols))
 now = datetime.datetime.today()
-st.text(f"Last updated: {now.strftime('%Y-%m-%d %I:%M %p')}")
+now = now.replace(tzinfo=ZoneInfo("America/Los_Angeles")
+st.text(f"Last updated: {now.strftime('%Y-%m-%d %I:%M %p (Pacific)')}")
