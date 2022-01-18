@@ -127,7 +127,7 @@ def ottobasket_values_pipeline(save_df=False):
     join_cols = [
         "player",
         "nba_player_id",
-        "ottoneu_player_id"
+        "ottoneu_player_id",
         "tm_id",
         "ottoneu_position",
         "minutes",
