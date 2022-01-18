@@ -51,6 +51,7 @@ def calc_per_game_projections(df, is_full_strength=True):
     keep_cols = [
         "player",
         "nba_player_id",
+        "ottoneu_player_id",
         "tm_id",
         "ottoneu_position",
         "minutes",
