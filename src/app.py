@@ -18,7 +18,7 @@ format_cols = {
 # player_input = st.sidebar.selectbox("Player name", sorted(values_df.player.unique()))
 # st.write(player_input)
 # values_df = values_df.loc[values_df.player == player_input]
-display_df = values_df.drop(['nba_player_id', 'ottoneu_id', 'tm_id'], axis=1).copy()
+display_df = values_df.drop(['nba_player_id', 'ottoneu_player_id', 'tm_id'], axis=1).copy()
 st.dataframe(display_df.style.format(format_cols))
 now = datetime.datetime.now(tz = ZoneInfo("US/Pacific"))
 st.text(f"Last updated: {now.strftime('%Y-%m-%d %I:%M %p (Pacific)')}")
