@@ -15,8 +15,10 @@ format_cols = {
     for col in values_df.columns
     if col not in ["player", "ottoneu_position"]
 }
-player_input = st.sidebar.text_input("Player name")
-st.dataframe(values_df.loc[values_df.player.str.contains(player_input)].style.format(format_cols))
+player_input = st.sidebar.selectbox("Player name", sorted(values_df.player.unique()))
+st.write(player_input)
+values_df = values_df.loc[values_df.player == player_input]
+st.dataframe(values_df.style.format(format_cols))
 now = datetime.datetime.now(tz = ZoneInfo("US/Pacific"))
 st.text(f"Last updated: {now.strftime('%Y-%m-%d %I:%M %p (Pacific)')}")
 values_csv = convert_df(values_df)
