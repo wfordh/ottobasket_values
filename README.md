@@ -29,3 +29,4 @@ The values are a good signpost to see how your team stacks up based on how much 
 - github actions to run it at 7 am, 11 am, 3 pm PST?
 - fix `nan` names and Enes Kanter / Freedom duplicates
 - add wampum.codes file?
+- traded players showing up 4x, presumably an issue with a join. Looks like can just drop duplicates

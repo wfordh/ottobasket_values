@@ -123,6 +123,7 @@ def ottobasket_values_pipeline(save_df=False):
         draftable_players=cats_fs_draftable,
     )
 
+    print(current_minutes_df.columns.tolist())
     join_cols = [
         "player",
         "nba_player_id",
@@ -151,7 +152,7 @@ def ottobasket_values_pipeline(save_df=False):
     if save_df:
         all_values_df.to_csv("./data/all_values_df.csv", index=False)
     else:
-        return all_values_df.drop(['nba_player_id', 'tm_id'], axis=1)
+        return all_values_df
 
 
 def main():

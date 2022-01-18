@@ -35,8 +35,9 @@ def combine_darko_drip_df(darko_df, drip_df, name_mapping):
     combined_df["tov_100"] = combined_df[["tov_100_darko", "TOV_drip"]].mean(axis=1)
 
     keep_cols = [
-        "player",
+        "name",
         "nba_player_id",
+        "ottoneu_player_id",
         "tm_id",
         "ottoneu_position",
         "current_min",
@@ -59,7 +60,9 @@ def combine_darko_drip_df(darko_df, drip_df, name_mapping):
         "ftm_100",
         "ft_pct",
     ]
-    return combined_df[keep_cols]
+
+    # temporary fix - should update at some point
+    return combined_df[keep_cols].rename(columns={"name": "player"})
 
 
 def find_surplus_positions(fantasy_df, scoring_type):
