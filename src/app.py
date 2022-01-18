@@ -17,9 +17,10 @@ format_cols = {
     for col in values_df.columns
     if col not in ["player", "ottoneu_position"]
 }
-# player_input = st.sidebar.selectbox("Player name", sorted(values_df.player.unique()))
-# st.write(player_input)
-# values_df = values_df.loc[values_df.player == player_input]
+player_input = st.sidebar.text_input("Player name", placeholder="Stephen Curry").lower()
+if player_input:
+    st.write("Dataframe has been filtered!")
+    values_df = values_df.loc[values_df.player.str.lower().str.contains(player_input)]
 display_df = (
     values_df.drop(["nba_player_id", "ottoneu_player_id", "tm_id"], axis=1)
     .drop_duplicates()
