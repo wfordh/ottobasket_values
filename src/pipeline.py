@@ -127,6 +127,7 @@ def ottobasket_values_pipeline(save_df=False):
     join_cols = [
         "player",
         "nba_player_id",
+        "ottoneu_player_id"
         "tm_id",
         "ottoneu_position",
         "minutes",
@@ -135,14 +136,7 @@ def ottobasket_values_pipeline(save_df=False):
     all_values_df = current_minutes_df.merge(
         full_strength_df,
         how="inner",
-        on=[
-            "player",
-            "nba_player_id",
-            "tm_id",
-            "ottoneu_position",
-            "minutes",
-            "fs_min",
-        ],
+        on=join_cols,
         suffixes=["_current", "_fs"],
     )
     all_values_df = all_values_df[
