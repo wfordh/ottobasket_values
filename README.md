@@ -27,6 +27,6 @@ The values are a good signpost to see how your team stacks up based on how much 
 - write script for all of the ID mappings?
 - return more columns from pipeline and then select only a few for presentation so the others are present in the download
 - github actions to run it at 7 am, 11 am, 3 pm PST?
-- fix `nan` names and Enes Kanter / Freedom duplicates
+- fix duplicates - Kanter / Freedom and traded players (eg Bol Bol, Kevin Knox). Probably just drop `tm_id` from all calculations as `player_id` is more important and doesn't change
 - add wampum.codes file?
 - traded players showing up 4x, presumably an issue with a join. Looks like can just drop duplicates
