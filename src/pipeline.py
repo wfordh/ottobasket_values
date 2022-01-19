@@ -140,7 +140,7 @@ def ottobasket_values_pipeline(save_df=False):
     )
     all_values_df = all_values_df[
         join_cols + [col for col in all_values_df.columns if "value" in col]
-    ]
+    ].drop_duplicates()
 
     if save_df:
         all_values_df.to_csv("./data/all_values_df.csv", index=False)
