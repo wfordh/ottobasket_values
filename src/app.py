@@ -3,7 +3,7 @@ import pandas as pd
 import datetime
 from zoneinfo import ZoneInfo
 from pipeline import ottobasket_values_pipeline
-from leagues import get_league_teams
+from leagues import get_league_salary_data
 
 
 @st.cache
@@ -28,8 +28,8 @@ if position_input:
     values_df = values_df.loc[values_df.ottoneu_position.isin(position_input)]
 league_input = st.sidebar.text_input("League ID", placeholder="1")
 if league_input:
-    league_teams = get_league_teams(league_input)
-    st.write(league_teams)
+    league_salaries = get_league_salary_data(league_input)
+    st.dataframe(league_salaries)
 display_df = (
     values_df.drop(["nba_player_id", "ottoneu_player_id", "tm_id"], axis=1)
     .drop_duplicates()
