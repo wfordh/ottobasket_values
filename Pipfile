@@ -9,6 +9,8 @@ black = "*"
 streamlit = "*"
 numpy = "1.21.5"
 ipython = "7.31.0"
+requests = "*"
+bs4 = "*"
 
 [dev-packages]
 

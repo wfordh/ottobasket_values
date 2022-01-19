@@ -11,12 +11,9 @@ The values are built off of the [DARKO](https://apanalytics.shinyapps.io/DARKO/)
 The values are a good signpost to see how your team stacks up based on how much you are spending on players versus the amount of value they are generating. If you have positive surplus, then you can 
 
 ## TO DO:
-- rewrite and modularize the scripts
 - incorporate games played and projected games played into calculations
+  - basketballmonster?
 - write the README
-- do the calculations for roto leagues
-- make a streamlit app
-  - allow users to input minutes projections for individual players?
 - have full strength and current values to help price players who are injured or just back
   - current minutes: save last 10 days and get min / max / avg from that to contextualize
 - use SGP instead of z-scores for roto dollar values
@@ -25,8 +22,6 @@ The values are a good signpost to see how your team stacks up based on how much 
   - matchup analysis
 - add validation to make sure DRIP / DARKO dfs have not changed structure
 - write script for all of the ID mappings?
-- return more columns from pipeline and then select only a few for presentation so the others are present in the download
 - github actions to run it at 7 am, 11 am, 3 pm PST?
 - fix duplicates - Kanter / Freedom and traded players (eg Bol Bol, Kevin Knox). Probably just drop `tm_id` from all calculations as `player_id` is more important and doesn't change
 - add wampum.codes file?
-- traded players showing up 4x, presumably an issue with a join. Looks like can just drop duplicates
