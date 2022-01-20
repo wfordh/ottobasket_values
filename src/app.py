@@ -85,7 +85,6 @@ if league_input:
                 "fs_surplus",
             ]
         ]
-        print(display_df.head())
         st.dataframe(display_df)
 else:
     display_df = values_df.drop(
