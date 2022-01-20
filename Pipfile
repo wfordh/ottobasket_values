@@ -10,7 +10,7 @@ streamlit = "*"
 numpy = "1.21.5"
 ipython = "7.31.0"
 requests = "*"
-beautifulsoup4 = "*"
+bs4 = "*"
 isort = "*"
 
 [dev-packages]
