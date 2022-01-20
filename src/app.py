@@ -4,8 +4,7 @@ from zoneinfo import ZoneInfo
 import pandas as pd
 import streamlit as st
 
-from leagues import (get_league_rosters, get_league_salary_data,
-                     get_league_scoring)
+from leagues import get_league_rosters, get_league_scoring
 from pipeline import ottobasket_values_pipeline
 
 
@@ -29,7 +28,9 @@ position_input = st.sidebar.multiselect(
 )
 if position_input:
     values_df = values_df.loc[values_df.ottoneu_position.isin(position_input)]
-st.sidebar.write("IN DEVELOPMENT! Right now you can only use the filters above this or below, not both")
+st.sidebar.write(
+    "IN DEVELOPMENT! Right now you can only use the filters above this or below, not both"
+)
 league_input = st.sidebar.text_input("League ID", placeholder="1")
 if league_input:
     league_salaries = get_league_rosters(league_input)
