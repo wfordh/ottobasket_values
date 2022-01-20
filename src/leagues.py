@@ -26,7 +26,7 @@ def get_league_rosters(league_id):
     league_salaries.columns = [
         col.lower().replace(" ", "_") for col in league_salaries.columns
     ]
-    league_salaries["salary"] = league_salaries.salary.str.replace("$", "").astype(int)
+    league_salaries["salary"] = league_salaries.salary.str.replace("$", "", regex=False).astype(int)
     league_salaries.rename(
         columns={"player_id": "ottoneu_player_id", "position(s)": "position"},
         inplace=True,

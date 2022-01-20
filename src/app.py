@@ -33,7 +33,11 @@ st.sidebar.write(
 )
 league_input = st.sidebar.text_input("League ID", placeholder="1")
 if league_input:
-    league_salaries = get_league_rosters(league_input)
+    try:
+        league_salaries = get_league_rosters(league_input)
+    except pd.errors.ParserError:
+        st.write("Invalid league ID. Try again!")
+        # need to figure out a way to exit the if statement
     league_values_df = league_salaries.merge(
         values_df, on="ottoneu_player_id", how="left"
     )
@@ -84,12 +88,12 @@ if league_input:
                 "current_surplus",
                 "fs_surplus",
             ]
-        ]
+        ].set_index("player")
         st.dataframe(display_df)
 else:
     display_df = values_df.drop(
         ["nba_player_id", "ottoneu_player_id", "tm_id"], axis=1
-    ).copy()
+    ).copy().set_index("player")
     st.dataframe(display_df)  # .style.format(format_cols))
 now = datetime.datetime.now(tz=ZoneInfo("US/Pacific"))
 st.text(f"Last updated: {now.strftime('%Y-%m-%d %I:%M %p (Pacific)')}")
