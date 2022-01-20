@@ -1,8 +1,10 @@
 import time
-import requests
+
 import pandas as pd
+import requests
 import streamlit as st
 from bs4 import BeautifulSoup
+
 
 # not sure I need st.cache on all of them...
 @st.cache

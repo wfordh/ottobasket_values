@@ -1,9 +1,12 @@
-import streamlit as st
-import pandas as pd
 import datetime
 from zoneinfo import ZoneInfo
+
+import pandas as pd
+import streamlit as st
+
+from leagues import (get_league_rosters, get_league_salary_data,
+                     get_league_scoring)
 from pipeline import ottobasket_values_pipeline
-from leagues import get_league_salary_data, get_league_scoring, get_league_rosters
 
 
 @st.cache
