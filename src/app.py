@@ -36,7 +36,7 @@ if league_input:
     try:
         league_salaries = get_league_rosters(league_input)
     except pd.errors.ParserError:
-        st.write("Invalid league ID. Try again!")
+        st.error("Invalid league ID. Try again!")
         # need to figure out a way to exit the if statement
     league_values_df = league_salaries.merge(
         values_df, on="ottoneu_player_id", how="left"
