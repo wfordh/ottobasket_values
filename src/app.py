@@ -96,6 +96,7 @@ else:
     ).copy().set_index("player")
     st.dataframe(display_df)  # .style.format(format_cols))
 now = datetime.datetime.now(tz=ZoneInfo("US/Pacific"))
+st.markdown("About page / README can be found [here](https://github.com/wfordh/ottobasket_values/blob/main/README.md)")
 st.text(f"Last updated: {now.strftime('%Y-%m-%d %I:%M %p (Pacific)')}")
 values_csv = convert_df(values_df)
 st.download_button(
