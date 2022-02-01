@@ -42,6 +42,8 @@ I want to investigate if any of my baked in assumptions need adjusting, such as 
 ### Polish App
 The app is currently functional but could use some smoothing out in some areas, both in what's visible to the users and under the hood. The best example right now is that the user cannot filter for a certain player if league data has been brought in.
 
+## Thank Yous
+Many, many thanks to Kostya Medvedovsky for creating DARKO, Nathan Walker and his team at STATS for DRIP, Krishna Narsu for a whole bunch of player IDs, Justin Vibber for help understanding how to calculate the values, and Niv Shah for creating Ottoneu and helping me efficiently pull data from the website.
 
 ## TO DO:
 <details>
