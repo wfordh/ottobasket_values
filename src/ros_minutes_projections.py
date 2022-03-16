@@ -22,6 +22,7 @@ content = driver.page_source
 # https://discuss.streamlit.io/t/issue-with-selenium-on-a-streamlit-app/11563/26
 
 soup = BeautifulSoup(content, 'html.parser')
+driver.close()
 
 rows = soup.find_all("table", {"class":"table table-bordered"})[-1].find_all('tr')
 all_players = list()
@@ -39,6 +40,6 @@ for row in rows:
 	except:
 		pass # I think?
 	all_players.append(player_data)
-	
+
 
 
