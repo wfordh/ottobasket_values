@@ -64,4 +64,5 @@ Many, many thanks to [Kostya Medvedovsky](https://twitter.com/kmedved/) for crea
     - user input?
     - running each player with minutes at 36? Removing the minutes delta from players who share the position with them?
   - add [wampum.codes](https://foundation.mozilla.org/en/blog/indigenous-wisdom-model-software-design-and-development/) file?
+  - use datasette as a backend to display the data?
 </details>
