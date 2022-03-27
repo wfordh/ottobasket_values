@@ -12,6 +12,8 @@ requests = "2.27.0"
 beautifulsoup4 = "4.10.0"
 isort = "*"
 selenium = "*"
+gspread = "*"
+webdriver-manager = "*"
 
 [dev-packages]
 
