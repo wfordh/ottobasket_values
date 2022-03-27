@@ -68,6 +68,7 @@ def _extract_projections(content):
 
 
 def _setup_gdrive(client_key_string, is_local=False):
+	print(type(client_key_string))
     credentials = json.loads(client_key_string)
     if type(credentials) == dict:
         print(credentials.keys())
@@ -78,10 +79,6 @@ def _upload_data(gc, data):
     sheet_key = "1RiXnGk2OFnGRmW9QNQ_1CFde0xfSZpyC9Cn3OLLojsY"
     sheet = gc.open_by_key(sheet_key)
     worksheet = sheet.get_worksheet(0)
-    # more robust?
-    # worksheet.update("A1:D1", list(data[0].keys()))
-    # worksheet.update(f"A2:D{len(data)}", [str(val) for val in data.values()])
-    # data.to_csv("minutes_data.csv", index=False)
     worksheet.update([data.columns.values.tolist()] + data.values.tolist())
 
 
@@ -91,7 +88,7 @@ def _upload_data(gc, data):
 def main():
     args = parser.parse_args()
     command_args = dict(vars(args))
-    client_key_string = str(command_args.pop("connection_string", None))
+    client_key_string = command_args.pop("connection_string", None)
     driver = _setup_chrome_scraper()
     content = _get_projections_page(driver)
     data = _extract_projections(content)
