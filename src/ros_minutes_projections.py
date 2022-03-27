@@ -91,7 +91,7 @@ def _upload_data(gc, data):
 def main():
     args = parser.parse_args()
     command_args = dict(vars(args))
-    client_key_string = command_args.pop("connection_string", None)
+    client_key_string = str(command_args.pop("connection_string", None))
     driver = _setup_chrome_scraper()
     content = _get_projections_page(driver)
     data = _extract_projections(content)
