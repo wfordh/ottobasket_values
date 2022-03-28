@@ -69,8 +69,7 @@ def _extract_projections(content):
 
 def _setup_gdrive(client_key_string, is_local=False):
     print(type(client_key_string))
-    print(client_key_string[:6])
-    credentials = json.loads(client_key_string)
+    credentials = json.loads(client_key_string.replace("'", '"'))
     if type(credentials) == dict:
         print(credentials.keys())
     return gspread.service_account_from_dict(credentials)
