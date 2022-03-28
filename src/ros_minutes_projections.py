@@ -82,8 +82,6 @@ def _upload_data(gc, data):
     worksheet.update([data.columns.values.tolist()] + data.values.tolist())
 
 
-# put it all together
-# other functions private
 # factory pattern?
 def main():
     args = parser.parse_args()
