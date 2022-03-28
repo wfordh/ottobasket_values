@@ -1,5 +1,6 @@
 import argparse
 import json
+import os
 
 import gspread
 import pandas as pd
@@ -11,10 +12,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
 from webdriver_manager.chrome import ChromeDriverManager
 
-parser = argparse.ArgumentParser()
-parser.add_argument(
-    "-c", "--connection_string", required=True, help="Google client key as a string"
-)
+# parser = argparse.ArgumentParser()
+# parser.add_argument(
+#     "-c", "--connection_string", required=True, help="Google client key as a string"
+# )
 
 
 def _setup_chrome_scraper():
@@ -69,7 +70,7 @@ def _extract_projections(content):
 
 def _setup_gdrive(client_key_string, is_local=False):
     print(type(client_key_string))
-    credentials = json.load(client_key_string)
+    credentials = json.dumps(client_key_string)
     if type(credentials) == dict:
         print(credentials.keys())
     return gspread.service_account_from_dict(credentials)
@@ -84,9 +85,9 @@ def _upload_data(gc, data):
 
 # factory pattern?
 def main():
-    args = parser.parse_args()
-    command_args = dict(vars(args))
-    client_key_string = command_args.pop("connection_string", None)
+    # args = parser.parse_args()
+    # command_args = dict(vars(args))
+    client_key_string = os.environ.get("SERVICE_BLOB", None) # command_args.pop("connection_string", None)
     driver = _setup_chrome_scraper()
     content = _get_projections_page(driver)
     data = _extract_projections(content)

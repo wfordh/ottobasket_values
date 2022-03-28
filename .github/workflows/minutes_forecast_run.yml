@@ -13,4 +13,7 @@ jobs:
       with:
         python-version: 3.9.1
     - run: pip install -r requirements.txt
-    - run: python3 src/ros_minutes_projections.py -c ${{ secrets.SERVICE_BLOB }}
+    - name: script run
+      env: 
+          SERVICE_BLOB: ${{ secrets.SERVICE_BLOB }}
+      run: python3 src/ros_minutes_projections.py 
