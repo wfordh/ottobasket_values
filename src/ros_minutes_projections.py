@@ -1,4 +1,3 @@
-
 import json
 import os
 
@@ -13,7 +12,6 @@ from selenium.webdriver.support.select import Select
 from webdriver_manager.chrome import ChromeDriverManager
 
 
-
 def _setup_chrome_scraper():
     chrome_options = Options()
     chrome_options.add_argument("--headless")
@@ -21,9 +19,11 @@ def _setup_chrome_scraper():
     driver = webdriver.Chrome(options=chrome_options, service=chrome_service)
     return driver
 
+
 def _shutdown_chrome_scraper(driver):
-	driver.close()
+    driver.close()
     driver.quit()
+
 
 def _get_projections_page(driver):
     url = "https://hashtagbasketball.com/fantasy-basketball-projections"
