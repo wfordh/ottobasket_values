@@ -1,5 +1,6 @@
 import json
 import os
+import time
 
 import gspread
 import pandas as pd
@@ -32,12 +33,9 @@ def _get_projections_page(driver):
     dropdown = Select(driver.find_element(By.ID, "ContentPlaceHolder1_DDSHOW"))
     # "All" is represented as 600 in the webpage
     dropdown.select_by_value("600")
-    driver.implicitly_wait(30)
+    time.sleep(3)
     content = driver.page_source
     return content
-
-
-# https://discuss.streamlit.io/t/issue-with-selenium-on-a-streamlit-app/11563/26
 
 
 def _extract_projections(content):
@@ -56,15 +54,14 @@ def _extract_projections(content):
             player_data["pid"] = row_data[1].a["href"].split("/")[1]
             player_data["games_forecast"] = str(row_data[4].text.strip())
             player_data["minutes_forecast"] = str(row_data[5].text.strip())
+            all_players.append(player_data)
         except:
             # specify error. do I want to do anything?
             pass  # I think?
-        all_players.append(player_data)
-    print(len(all_players))
     return pd.DataFrame(all_players).dropna(axis=0)
 
 
-def _setup_gdrive(client_key_string, is_local=False):
+def _setup_gdrive(client_key_string):
     credentials = json.loads(client_key_string)
     return gspread.service_account_from_dict(credentials)
 
@@ -82,7 +79,6 @@ def main():
     driver = _setup_chrome_scraper()
     content = _get_projections_page(driver)
     data = _extract_projections(content)
-    print(data.shape)
     print("got projections")
     gc = _setup_gdrive(client_key_string)
     _upload_data(gc, data)
