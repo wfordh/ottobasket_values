@@ -1,0 +1,19 @@
+name: Minutes Forecast Run
+
+on: 
+  schedule:
+    - cron: 0 8 * 1,2,3,4,10,11,12
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+      with:
+        python-version: 3.9.1
+    - run: pip install -r requirements.txt
+    - name: script run
+      env: 
+          SERVICE_BLOB: ${{ secrets.SERVICE_BLOB }}
+      run: python3 src/ros_minutes_projections.py 
