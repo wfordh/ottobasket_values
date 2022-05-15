@@ -3,7 +3,14 @@ import pandas as pd
 
 
 def get_name_map():
-    return pd.read_csv("./data/mappings.csv")
+    return pd.read_csv("./data/mappings_with_hashtag.csv")
+
+
+def get_hashtag_ros_projections():
+    sheet_id = "1RiXnGk2OFnGRmW9QNQ_1CFde0xfSZpyC9Cn3OLLojsY"
+    return pd.read_csv(
+        f"https://docs.google.com/spreadsheets/d/{sheet_id}/gviz/tq?tqx=out:csv&gid=284274620"
+    )
 
 
 def combine_darko_drip_df(darko_df, drip_df, name_mapping):
@@ -38,10 +45,13 @@ def combine_darko_drip_df(darko_df, drip_df, name_mapping):
         "name",
         "nba_player_id",
         "ottoneu_player_id",
+        "hashtag_id",
         "tm_id",
         "ottoneu_position",
         "current_min",
         "fs_min",
+        # "minutes_forecast",
+        # "games_forecast",
         "minutes",
         "pace",
         "points_100",

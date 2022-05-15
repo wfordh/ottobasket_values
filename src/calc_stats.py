@@ -28,12 +28,25 @@ trad_scoring_values = {
 }
 
 
-def calc_per_game_projections(df, is_full_strength=True):
+def calc_per_game_projections(df, projection_type="full_strength"):
     stats_df = df.copy()
-    if is_full_strength:
+    if projection_type not in (
+        "full_strength",
+        "current",
+        "rest_of_season",
+        "year_to_date",
+    ):
+        raise ValueError(f"{projection_type} is not a valid projection type!")
+    if projection_type == "full_strength":
         possessions = stats_df.pace * stats_df.fs_min / 48
-    else:
+    elif projection_type == "current":
+        # should this be re-labeled?
         possessions = stats_df.pace * stats_df.minutes / 48
+    elif projection_type == "rest_of_season":
+        possessions = stats_df.pace * stats_df.total_ros_minutes / 48
+    else:
+        # year to date
+        pass
     stats_df["possessions_played"] = stats_df.pace * stats_df.minutes / 48
     stats_df["pts_game"] = stats_df.points_100 * possessions / 100
     stats_df["reb_game"] = stats_df.rebounds_100 * possessions / 100
@@ -56,6 +69,7 @@ def calc_per_game_projections(df, is_full_strength=True):
         "ottoneu_position",
         "minutes",
         "fs_min",
+        "total_ros_minutes",
         "pts_game",
         "reb_game",
         "ast_game",

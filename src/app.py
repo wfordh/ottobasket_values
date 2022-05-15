@@ -60,6 +60,9 @@ if league_input:
     league_values_df["fs_surplus"] = (
         league_values_df[f"{scoring_col}_fs"] - league_values_df.salary
     )
+    league_values_df["ros_surplus"] = (
+        league_values_df[f"{scoring_col}_ros"] - league_values_df.salary
+    )
     team_or_league_input = st.sidebar.radio(
         "All league or group by team", ["League", "Teams"], 0
     )
@@ -69,8 +72,10 @@ if league_input:
                 "salary",
                 f"{scoring_col}_current",
                 f"{scoring_col}_fs",
+                f"{scoring_col}_ros",
                 "current_surplus",
                 "fs_surplus",
+                "ros_surplus"
             ]
         ].sum()
         st.dataframe(display_df)
@@ -83,20 +88,28 @@ if league_input:
                 "salary",
                 "minutes",
                 "fs_min",
+                "total_ros_minutes",
                 f"{scoring_col}_current",
                 f"{scoring_col}_fs",
+                f"{scoring_col}_ros",
                 "current_surplus",
                 "fs_surplus",
+                "ros_surplus"
             ]
         ].set_index("player")
         st.dataframe(display_df)
 else:
-    display_df = values_df.drop(
-        ["nba_player_id", "ottoneu_player_id", "tm_id"], axis=1
-    ).copy().set_index("player")
+    display_df = (
+        values_df.drop(["nba_player_id", "ottoneu_player_id", "tm_id"], axis=1)
+        .copy()
+        .set_index("player")
+    )
     st.dataframe(display_df)  # .style.format(format_cols))
 now = datetime.datetime.now(tz=ZoneInfo("US/Pacific"))
-st.markdown("About page / README can be found [here](https://github.com/wfordh/ottobasket_values/blob/main/README.md)")
+st.markdown(
+    "About page / README can be found [here](https://github.com/wfordh/ottobasket_values/blob/main/README.md)"
+)
+st.text("ros = rest of season. fs = full strength")
 st.text(f"Last updated: {now.strftime('%Y-%m-%d %I:%M %p (Pacific)')}")
 values_csv = convert_df(values_df)
 st.download_button(
