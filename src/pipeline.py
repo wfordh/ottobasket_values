@@ -19,6 +19,7 @@ from transform import (
     get_draftable_players,
     get_name_map,
     get_hashtag_ros_projections,
+    get_ottoneu_leaderboard,
 )
 
 
@@ -34,13 +35,14 @@ def ottobasket_values_pipeline(save_df=False):
     name_map = get_name_map()
 
     hashtag_minutes = get_hashtag_ros_projections()
+    leaderboards = get_ottoneu_leaderboard()
 
     stats_df = combine_darko_drip_df(darko_df, drip_df, name_map)
     stats_df = stats_df.loc[stats_df.nba_player_id.notna()].copy()
     # stick with inner join for now
     stats_df = stats_df.merge(
         hashtag_minutes, left_on="hashtag_id", right_on="pid", how="left"
-    )
+    ).merge(leaderboards, on="ottoneu_player_id", how="left", suffixes=["", "_ytd"])
     stats_df["total_ros_minutes"] = stats_df.minutes_forecast * stats_df.games_forecast
 
     # full strength
@@ -171,6 +173,42 @@ def ottobasket_values_pipeline(save_df=False):
         draftable_players=cats_ros_draftable,
     )
 
+    # year to date
+    ytd_df = calc_per_game_projections(stats_df, projection_type="year_to_date")
+    ## simple points
+    ytd_df["simple_points"] = calc_fantasy_pts(ytd_df, is_simple_scoring=True)
+    ytd_df["simple_points_position"] = find_surplus_positions(
+        ytd_df, scoring_type="simple_points"
+    )
+    simple_ytd_draftable = get_draftable_players(ytd_df, scoring_type="simple_points")
+    ytd_df["simple_points_value_ytd"] = calc_player_values(
+        ytd_df,
+        scoring_type="simple_points",
+        draftable_players=simple_ytd_draftable,
+    )
+    ## trad points
+    ytd_df["trad_points"] = calc_fantasy_pts(ytd_df, is_simple_scoring=False)
+    ytd_df["trad_points_position"] = find_surplus_positions(
+        ytd_df, scoring_type="trad_points"
+    )
+    trad_ytd_draftable = get_draftable_players(ytd_df, scoring_type="trad_points")
+    ytd_df["trad_points_value_ytd"] = calc_player_values(
+        ytd_df,
+        scoring_type="trad_points",
+        draftable_players=trad_ytd_draftable,
+    )
+    ## roto
+    ytd_df["categories"] = calc_categories_value(ytd_df)
+    ytd_df["categories_position"] = find_surplus_positions(
+        ytd_df, scoring_type="categories"
+    )
+    cats_ytd_draftable = get_draftable_players(ytd_df, scoring_type="categories")
+    ytd_df["categories_value_ytd"] = calc_player_values(
+        ytd_df,
+        scoring_type="categories",
+        draftable_players=cats_ytd_draftable,
+    )
+
     join_cols = [
         "player",
         "nba_player_id",
@@ -180,13 +218,18 @@ def ottobasket_values_pipeline(save_df=False):
         "minutes",
         "fs_min",
         "total_ros_minutes",
+        "minutes_ytd",
     ]
-    all_values_df = current_minutes_df.merge(
-        full_strength_df,
-        how="inner",
-        on=join_cols,
-        suffixes=["_current", "_fs"],
-    ).merge(ros_df, how="left", on=join_cols, suffixes=["", "_ros"])
+    all_values_df = (
+        current_minutes_df.merge(
+            full_strength_df,
+            how="inner",
+            on=join_cols,
+            suffixes=["_current", "_fs"],
+        )
+        .merge(ros_df, how="left", on=join_cols, suffixes=["", "_ros"])
+        .merge(ytd_df, how="left", on=join_cols, suffixes=["", "_ytd"])
+    )
     all_values_df = all_values_df[
         join_cols + [col for col in all_values_df.columns if "value" in col]
     ].drop_duplicates()

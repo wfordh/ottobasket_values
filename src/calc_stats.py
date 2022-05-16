@@ -46,7 +46,7 @@ def calc_per_game_projections(df, projection_type="full_strength"):
         possessions = stats_df.pace * stats_df.total_ros_minutes / 48
     else:
         # year to date
-        pass
+        possessions = stats_df.pace * stats_df.minutes_ytd / stats_df.games_played
     stats_df["possessions_played"] = stats_df.pace * stats_df.minutes / 48
     stats_df["pts_game"] = stats_df.points_100 * possessions / 100
     stats_df["reb_game"] = stats_df.rebounds_100 * possessions / 100
@@ -61,6 +61,21 @@ def calc_per_game_projections(df, projection_type="full_strength"):
     stats_df["fg3a_game"] = stats_df.fg3a_100 * possessions / 100
     stats_df["fg3m_game"] = stats_df.fg3m_100 * possessions / 100
 
+    if projection_type == "year_to_date":
+        # super hacky but w/e
+        stats_df["pts_game"] = stats_df.points_avg * possessions / 100
+        stats_df["reb_game"] = stats_df.rebounds_avg * possessions / 100
+        stats_df["ast_game"] = stats_df.assists_avg * possessions / 100
+        stats_df["stl_game"] = stats_df.steals_avg * possessions / 100
+        stats_df["blk_game"] = stats_df.blocks_avg * possessions / 100
+        stats_df["tov_game"] = stats_df.turnovers_avg * possessions / 100
+        stats_df["fga_game"] = stats_df.field_goal_attempts_avg * possessions / 100
+        stats_df["fgm_game"] = stats_df.field_goals_made_avg * possessions / 100
+        stats_df["fta_game"] = stats_df.free_throw_attempts_avg * possessions / 100
+        stats_df["ftm_game"] = stats_df.free_throws_made_avg * possessions / 100
+        stats_df["fg3a_game"] = stats_df.three_point_attempts_avg * possessions / 100
+        stats_df["fg3m_game"] = stats_df.three_points_made_avg * possessions / 100
+
     keep_cols = [
         "player",
         "nba_player_id",
@@ -70,6 +85,7 @@ def calc_per_game_projections(df, projection_type="full_strength"):
         "minutes",
         "fs_min",
         "total_ros_minutes",
+        "minutes_ytd",
         "pts_game",
         "reb_game",
         "ast_game",
