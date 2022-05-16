@@ -3,7 +3,7 @@ import pandas as pd
 
 
 def get_name_map():
-    return pd.read_csv("./data/mappings_with_hashtag.csv")
+    return pd.read_csv("./data/mappings.csv")
 
 
 def get_hashtag_ros_projections():
@@ -11,6 +11,12 @@ def get_hashtag_ros_projections():
     return pd.read_csv(
         f"https://docs.google.com/spreadsheets/d/{sheet_id}/gviz/tq?tqx=out:csv&gid=284274620"
     )
+
+
+def get_ottoneu_leaderboard():
+    return pd.read_csv(
+        "https://ottoneu.fangraphs.com/basketball/31/ajax/player_leaderboard?positions[]=G&positions[]=F&positions[]=C&minimum_minutes=0&sort_by=salary&sort_direction=DESC&free_agents_only=false&include_my_team=false&export=export"
+    ).rename(columns={"id": "ottoneu_player_id"})
 
 
 def combine_darko_drip_df(darko_df, drip_df, name_mapping):
@@ -53,6 +59,7 @@ def combine_darko_drip_df(darko_df, drip_df, name_mapping):
         # "minutes_forecast",
         # "games_forecast",
         "minutes",
+        # "minutes_ytd",
         "pace",
         "points_100",
         "rebounds_100",
