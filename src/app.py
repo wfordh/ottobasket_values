@@ -113,7 +113,7 @@ else:
         .copy()
         .set_index("player")
     )
-    st.dataframe(display_df.style.format(format_cols))  # .style.format(format_cols))
+    st.dataframe(display_df.style.format(format_cols))
 now = datetime.datetime.now(tz=ZoneInfo("US/Pacific"))
 st.markdown(
     "About page / README can be found [here](https://github.com/wfordh/ottobasket_values/blob/main/README.md)"
