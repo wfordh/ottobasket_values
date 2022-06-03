@@ -10,7 +10,8 @@ from pipeline import ottobasket_values_pipeline
 
 @st.cache
 def convert_df(df):
-    return df.to_csv(index=False).encode("utf-8")
+    # Index is set to either player or team at all times
+    return df.to_csv(index=True).encode("utf-8")
 
 
 st.title("Ottobasket Player Values")
@@ -83,7 +84,7 @@ if league_input:
                 "ytd_surplus",
             ]
         ].sum()
-        st.dataframe(display_df)
+        st.dataframe(display_df.style.format(format_cols))
     else:
         display_df = league_values_df[
             [
@@ -105,21 +106,21 @@ if league_input:
                 "ytd_surplus",
             ]
         ].set_index("player")
-        st.dataframe(display_df)
+        st.dataframe(display_df.style.format(format_cols))
 else:
     display_df = (
         values_df.drop(["nba_player_id", "ottoneu_player_id", "tm_id"], axis=1)
         .copy()
         .set_index("player")
     )
-    st.dataframe(display_df)  # .style.format(format_cols))
+    st.dataframe(display_df.style.format(format_cols))
 now = datetime.datetime.now(tz=ZoneInfo("US/Pacific"))
 st.markdown(
     "About page / README can be found [here](https://github.com/wfordh/ottobasket_values/blob/main/README.md)"
 )
 st.text("ros = rest of season. fs = full strength. ytd = year to date.")
 st.text(f"Last updated: {now.strftime('%Y-%m-%d %I:%M %p (Pacific)')}")
-values_csv = convert_df(values_df)
+values_csv = convert_df(display_df)
 st.download_button(
     "Press to download",
     values_csv,
