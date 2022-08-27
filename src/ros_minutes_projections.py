@@ -81,7 +81,6 @@ def main():
     driver = _setup_chrome_scraper()
     content = _get_projections_page(driver)
     data = _extract_projections(content)
-    data.to_csv("~/Downloads/hashtag.csv", index=False)
     print("got projections")
     gc = _setup_gdrive(client_key_string)
     _upload_data(gc, data)
