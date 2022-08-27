@@ -4,8 +4,6 @@ import streamlit as st
 import darko
 # all of the relative imports here
 import drip
-from calc_stats import (calc_categories_value, calc_fantasy_pts,
-                        calc_per_game_projections, calc_player_values)
 ## not ideal, but will figure it out later
 from transform import (combine_darko_drip_df, find_surplus_positions,
                        get_draftable_players, get_hashtag_ros_projections,
