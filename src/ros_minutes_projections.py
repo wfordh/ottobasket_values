@@ -52,7 +52,7 @@ def _extract_projections(content):
         row_data = row.find_all("td")
         player_data = dict()
         try:
-            player_data["name"] = row_data[1].span.text.strip()
+            player_data["name"] = row_data[1].a.text.strip()
             player_data["pid"] = row_data[1].a["href"].split("/")[1]
             player_data["games_forecast"] = str(row_data[4].text.strip())
             player_data["minutes_forecast"] = str(row_data[5].text.strip())
@@ -81,6 +81,7 @@ def main():
     driver = _setup_chrome_scraper()
     content = _get_projections_page(driver)
     data = _extract_projections(content)
+    data.to_csv("~/Downloads/hashtag.csv", index=False)
     print("got projections")
     gc = _setup_gdrive(client_key_string)
     _upload_data(gc, data)
