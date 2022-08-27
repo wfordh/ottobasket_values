@@ -31,8 +31,8 @@ def _get_projections_page(driver):
     driver.get(url)
 
     dropdown = Select(driver.find_element(By.ID, "ContentPlaceHolder1_DDSHOW"))
-    # "All" is represented as 600 in the webpage
-    dropdown.select_by_value("600")
+    # "All" is represented as 900 in the webpage
+    dropdown.select_by_value("900")
     time.sleep(3)
     content = driver.page_source
     return content
@@ -41,7 +41,9 @@ def _get_projections_page(driver):
 def _extract_projections(content):
     soup = BeautifulSoup(content, "html.parser")
 
-    rows = soup.find_all("table", {"class": "table table-bordered"})[-1].find_all("tr")
+    rows = soup.find_all("table", {"id": "ContentPlaceHolder1_GridView1"})[-1].find_all(
+        "tr"
+    )
     all_players = list()
 
     for row in rows:
