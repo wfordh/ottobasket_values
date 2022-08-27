@@ -1,8 +1,8 @@
 name: Minutes Forecast Run
 
-on: 
+on: #push
   schedule:
-    - cron: 0 8 * 1,2,3,4,10,11,12 *
+    - cron: 0 8 * 1,2,3,4,8,9,10,11,12 *
 
 jobs:
   build:
