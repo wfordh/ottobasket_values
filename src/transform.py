@@ -127,7 +127,7 @@ def get_draftable_players(
     num_guards=36,
     num_f_c=12,
     num_g_f=12,
-    num_util=24,
+    num_util=36,
 ):
     # Need to figure out the full strength thing here - 1/11/21
     draftable_players = list()
