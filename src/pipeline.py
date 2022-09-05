@@ -49,6 +49,14 @@ def ottobasket_values_pipeline(save_df=False):
         .merge(ros_df, how="left", on=join_cols, suffixes=["", "_ros"])
         .merge(ytd_df, how="left", on=join_cols, suffixes=["", "_ytd"])
     )
+    all_values_df.rename(
+        columns={
+            "simple_points_value": "simple_points_value_ros",
+            "categories_value": "categories_value_ros",
+            "trad_points_value": "trad_points_value_ros",
+        },
+        inplace=True,
+    )
     all_values_df = all_values_df[
         join_cols + [col for col in all_values_df.columns if "value" in col]
     ].drop_duplicates()
