@@ -1,25 +1,32 @@
 # split transform into files for merging and calculating stats?
 import pandas as pd
 
+import darko
+import drip
+from calc_stats import (calc_categories_value, calc_fantasy_pts,
+                        calc_per_game_projections, calc_player_values)
 
-def get_name_map():
+
+def get_name_map() -> pd.DataFrame:
     return pd.read_csv("./data/mappings.csv")
 
 
-def get_hashtag_ros_projections():
+def get_hashtag_ros_projections() -> pd.DataFrame:
     sheet_id = "1RiXnGk2OFnGRmW9QNQ_1CFde0xfSZpyC9Cn3OLLojsY"
     return pd.read_csv(
         f"https://docs.google.com/spreadsheets/d/{sheet_id}/gviz/tq?tqx=out:csv&gid=284274620"
     )
 
 
-def get_ottoneu_leaderboard():
+def get_ottoneu_leaderboard() -> pd.DataFrame:
     return pd.read_csv(
         "https://ottoneu.fangraphs.com/basketball/31/ajax/player_leaderboard?positions[]=G&positions[]=F&positions[]=C&minimum_minutes=0&sort_by=salary&sort_direction=DESC&free_agents_only=false&include_my_team=false&export=export"
     ).rename(columns={"id": "ottoneu_player_id"})
 
 
-def combine_darko_drip_df(darko_df, drip_df, name_mapping):
+def combine_darko_drip_df(
+    darko_df: pd.DataFrame, drip_df: pd.DataFrame, name_mapping
+) -> pd.DataFrame:
     # everything is per 100 to start, so keep it there and translate to per game later
     # this won't work because need to make sure they're in the right order
     combined_df = darko_df.merge(
@@ -82,7 +89,7 @@ def combine_darko_drip_df(darko_df, drip_df, name_mapping):
     return combined_df[keep_cols].rename(columns={"name": "player"})
 
 
-def find_surplus_positions(fantasy_df, scoring_type):
+def find_surplus_positions(fantasy_df: pd.DataFrame, scoring_type: str) -> pd.DataFrame:
     # Need to figure out the full strength thing here - 1/11/21
     fantasy_df["is_center"] = fantasy_df.ottoneu_position.str.contains("C").map(
         {False: None, True: True}
@@ -120,15 +127,15 @@ def find_surplus_positions(fantasy_df, scoring_type):
 
 
 def get_draftable_players(
-    fantasy_df,
-    scoring_type,
-    num_centers=12,
-    num_forwards=24,
-    num_guards=36,
-    num_f_c=12,
-    num_g_f=12,
-    num_util=36,
-):
+    fantasy_df: pd.DataFrame,
+    scoring_type: str,
+    num_centers: int = 12,
+    num_forwards: int = 24,
+    num_guards: int = 36,
+    num_f_c: int = 12,
+    num_g_f: int = 12,
+    num_util: int = 36,
+) -> pd.DataFrame:
     # Need to figure out the full strength thing here - 1/11/21
     draftable_players = list()
     draftable_players.extend(
@@ -182,3 +189,50 @@ def get_draftable_players(
     )
 
     return draftable_players
+
+
+def prep_stats_df() -> pd.DataFrame:
+    drip_df = drip.get_current_drip()
+    drip_df = drip.transform_drip(drip_df)
+
+    darko_df = darko.get_current_darko()
+    darko_df = darko.transform_darko(darko_df)
+
+    name_map = get_name_map()
+
+    hashtag_minutes = get_hashtag_ros_projections()
+    leaderboards = get_ottoneu_leaderboard()
+
+    stats_df = combine_darko_drip_df(darko_df, drip_df, name_map)
+    stats_df = stats_df.loc[stats_df.nba_player_id.notna()].copy()
+    # stick with inner join for now
+    stats_df = stats_df.merge(
+        hashtag_minutes, left_on="hashtag_id", right_on="pid", how="left"
+    ).merge(leaderboards, on="ottoneu_player_id", how="left", suffixes=["", "_ytd"])
+    stats_df["total_ros_minutes"] = stats_df.minutes_forecast * stats_df.games_forecast
+
+    return stats_df
+
+
+def get_scoring_minutes_combo(
+    projection_type: str, stats_df: pd.DataFrame
+) -> pd.DataFrame:
+    scoring_types = ["simple_points", "trad_points", "categories"]
+    df = calc_per_game_projections(stats_df, projection_type=projection_type)
+    for scoring_type in scoring_types:
+        if scoring_type == "categories":
+            df[f"{scoring_type}"] = calc_categories_value(df)
+        else:
+            simple_scoring = True if scoring_type == "simple_points" else False
+            df[f"{scoring_type}"] = calc_fantasy_pts(
+                df, is_simple_scoring=simple_scoring
+            )
+        df[f"{scoring_type}_position"] = find_surplus_positions(
+            df, scoring_type=scoring_type
+        )
+        draftable_players = get_draftable_players(df, scoring_type=scoring_type)
+        df[f"{scoring_type}_value"] = calc_player_values(
+            df, scoring_type=scoring_type, draftable_players=draftable_players
+        )
+
+    return df

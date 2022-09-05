@@ -122,7 +122,7 @@ def calc_fantasy_pts(stats_df, is_simple_scoring=True):
     )
 
 
-def calc_categories_value(df):
+def calc_categories_value(df: pd.DataFrame, is_rollup: bool = True):
     # ignoring rate stats for now...
     # ^ huh? 1/11/21
     roto_cols = [
@@ -166,9 +166,11 @@ def calc_categories_value(df):
         "stl_game"
     ]
     # swap order for TOV? or actually maybe not?
-    value_df["vTOV"] = (df["tov_game"] - league_averages["tov_game"]) / league_stdevs[
-        "tov_game"
-    ]
+    value_df["vTOV"] = (
+        -1.0
+        * (df["tov_game"] - league_averages["tov_game"])
+        / league_stdevs["tov_game"]
+    )
     value_df["vFTM"] = (df["ftm_game"] - league_averages["ftm_game"]) / league_stdevs[
         "ftm_game"
     ]
@@ -187,7 +189,7 @@ def calc_categories_value(df):
     # ignore saving for now - 1/11/21
     # value_df.to_csv("./data/roto_values_df.csv", index=False)
 
-    return value_df.total_value
+    return value_df.total_value if is_rollup else value_df
 
 
 def get_replacement_values(fantasy_df, scoring_type, draftable_players):
@@ -204,7 +206,7 @@ def calc_player_values(fantasy_df, scoring_type, draftable_players):
         fantasy_df, scoring_type, draftable_players
     )
 
-    fantasy_df["points_above_repl"] = fantasy_df.apply(
+    fantasy_df[f"points_above_repl"] = fantasy_df.apply(
         lambda row: row[scoring_type] - replacement_values["C"]
         if row[f"{scoring_type}_position"] == "C"
         else (
