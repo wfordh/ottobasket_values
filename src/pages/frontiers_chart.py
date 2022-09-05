@@ -37,7 +37,6 @@ stats_df.rename(
 stats_df["simple_points_per_100"] = calc_fantasy_pts(stats_df, is_simple_scoring=True)
 stats_df["trad_points_per_100"] = calc_fantasy_pts(stats_df, is_simple_scoring=False)
 stats_df["categories_per_100"] = calc_categories_value(stats_df)
-# print(stats_df.shape, ros_df.shape)
 stats_df_cols = [
     "player",
     "nba_player_id",
@@ -76,3 +75,23 @@ chart = (
     .interactive()
 )
 st.altair_chart(chart, use_container_width=True)
+
+st.text(
+    """
+	This chart plots the players' projected production scaled to per 100 possessions
+	against their rest of season minutes projections and is meant to show the "frontier"
+	dividing the replacement level from above replacement level players. It could be
+	useful to see who may become above replacement level with a minutes boost or who
+	could be steady, dependable depth.
+
+	You can zoom and pan on the chart, and if you hover over a point, then the player's
+	name will show up.
+	"""
+)
+
+now = datetime.datetime.now(tz=ZoneInfo("US/Pacific"))
+st.markdown(
+    "About page / README can be found [here](https://github.com/wfordh/ottobasket_values/blob/main/README.md)"
+)
+st.text("ros = rest of season. fs = full strength. ytd = year to date.")
+st.text(f"Last updated: {now.strftime('%Y-%m-%d %I:%M %p (Pacific)')}")
