@@ -129,7 +129,7 @@ def get_draftable_players(
     num_guards: int = 36,
     num_f_c: int = 12,
     num_g_f: int = 12,
-    num_util: int = 24,
+    num_util: int = 36,
 ) -> pd.DataFrame:
     # Need to figure out the full strength thing here - 1/11/21
     draftable_players = list()

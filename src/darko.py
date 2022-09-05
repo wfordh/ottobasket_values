@@ -1,3 +1,4 @@
+from typing import List
 import pandas as pd
 
 
@@ -7,22 +8,22 @@ def get_current_darko():
     )
 
 
-def get_darko_fgm(darko_df):
+def get_darko_fgm(darko_df: pd.DataFrame) -> pd.DataFrame:
     darko_df["fgm_100"] = darko_df.fg_pct * darko_df.fga_100
     return darko_df
 
 
-def get_darko_fg3m(darko_df):
+def get_darko_fg3m(darko_df: pd.DataFrame) -> pd.DataFrame:
     darko_df["fg3m_100"] = darko_df.fg3a_100 * darko_df.fg3_pct
     return darko_df
 
 
-def get_darko_ftm(darko_df):
+def get_darko_ftm(darko_df: pd.DataFrame) -> pd.DataFrame:
     darko_df["ftm_100"] = darko_df.fta_100 * darko_df.ft_pct
     return darko_df
 
 
-def rename_darko_cols(darko_columns):
+def rename_darko_cols(darko_columns: List) -> List:
     ignore_cols = [
         "nba_id",
         "available",
@@ -35,7 +36,7 @@ def rename_darko_cols(darko_columns):
     return [col + "_darko" if col not in ignore_cols else col for col in darko_columns]
 
 
-def transform_darko(darko_df):
+def transform_darko(darko_df: pd.DataFrame) -> pd.DataFrame:
     keep_cols = [
         "nba_id",
         "available",
