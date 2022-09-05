@@ -6,7 +6,8 @@ import streamlit as st
 
 from pipeline import ottobasket_values_pipeline
 
-st.markdown("# Ottobasket Values")
+st.set_page_config(page_title="Ottobasket Values")
+st.sidebar.markdown("Ottobasket Values")
 
 
 @st.cache
@@ -30,9 +31,7 @@ position_input = st.sidebar.multiselect(
 )
 if position_input:
     values_df = values_df.loc[values_df.ottoneu_position.isin(position_input)]
-# st.sidebar.write(
-#     "IN DEVELOPMENT! Right now you can only use the filters above this or below, not both"
-# )
+
 display_df = (
     values_df.drop(["nba_player_id", "ottoneu_player_id", "tm_id"], axis=1)
     .copy()
