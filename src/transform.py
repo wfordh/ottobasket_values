@@ -1,5 +1,5 @@
-# split transform into files for merging and calculating stats?
 import pandas as pd
+import streamlit as st
 
 import darko
 import drip
@@ -191,6 +191,7 @@ def get_draftable_players(
     return draftable_players
 
 
+@st.cache
 def prep_stats_df() -> pd.DataFrame:
     drip_df = drip.get_current_drip()
     drip_df = drip.transform_drip(drip_df)
@@ -214,6 +215,7 @@ def prep_stats_df() -> pd.DataFrame:
     return stats_df
 
 
+@st.cache
 def get_scoring_minutes_combo(
     projection_type: str, stats_df: pd.DataFrame
 ) -> pd.DataFrame:
