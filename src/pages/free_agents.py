@@ -15,7 +15,6 @@ def convert_df(df):
     return df.to_csv(index=True).encode("utf-8")
 
 
-# values_df = ottobasket_values_pipeline(False)
 stats_df = prep_stats_df()
 ros_df = get_scoring_minutes_combo("rest_of_season", stats_df)
 format_cols = {
@@ -32,9 +31,7 @@ if league_input:
 
     league_values_df = ros_df.merge(league_salaries, on="ottoneu_player_id", how="left")
     league_values_df = league_values_df.loc[league_values_df.salary.isna()].copy()
-    league_values_df.player.fillna(
-        league_values_df.player_name, inplace=True
-    )  # swap player_name for ottoneu_name??
+    league_values_df.player.fillna(league_values_df.player_name, inplace=True)
     league_values_df.ottoneu_position.fillna(league_values_df.position, inplace=True)
     # fill the rest of columns NA's with 0
     league_values_df.fillna(0, inplace=True)
