@@ -61,6 +61,9 @@ if league_input:
     format_cols.update({f"{league_scoring}_proj_production": "{:.2f}"})
 
     st.dataframe(display_df.style.format(format_cols))
+    st.text(
+        "The free agents are sorted by projected rest of season value and production."
+    )
 else:
     st.markdown("Please input a league ID!")
     display_df = pd.DataFrame()
