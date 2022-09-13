@@ -1,12 +1,33 @@
+# add this https://ottoneu.fangraphs.com/basketball/average_values
+
 import datetime
 from zoneinfo import ZoneInfo
 
 import pandas as pd
 import streamlit as st
 
-from leagues import get_league_rosters, get_league_scoring
+from leagues import get_average_values, get_league_rosters, get_league_scoring
 from pipeline import ottobasket_values_pipeline
 from transform import get_scoring_minutes_combo, prep_stats_df
+
+
+def ottoneu_streamlit_footer():
+    # get a CachedStFunctionWarning when using this in a utils.py file and
+    # with every page
+    now = datetime.datetime.now(tz=ZoneInfo("US/Pacific"))
+    st.markdown(
+        "About page / README can be found [here](https://github.com/wfordh/ottobasket_values/blob/main/README.md)"
+    )
+    st.text("ros = rest of season. fs = full strength. ytd = year to date.")
+    st.text(f"Last updated: {now.strftime('%Y-%m-%d %I:%M %p (Pacific)')}")
+    values_csv = convert_df(display_df)
+    st.download_button(
+        "Press to download",
+        values_csv,
+        "league_free_agents.csv",
+        "text/csv",
+        key="download-csv",
+    )
 
 
 @st.cache
@@ -42,7 +63,10 @@ if league_input:
         scoring_col = f"{league_scoring}_value"
     else:
         scoring_col = "trad_points_value"
-
+    average_values_df = get_average_values()
+    league_values_df = league_values_df.merge(
+        average_values_df, how="left", on=["ottoneu_player_id", "ottoneu_position"]
+    )
     display_df = league_values_df[
         [
             "player",
@@ -50,6 +74,8 @@ if league_input:
             "total_ros_minutes",
             f"{league_scoring}",
             f"{league_scoring}_value",
+            "ottoneu av",
+            "ottoneu roster%",
         ]
     ].rename(columns={f"{league_scoring}": f"{league_scoring}_proj_production"})
     display_df.sort_values(
@@ -67,17 +93,4 @@ else:
     display_df = pd.DataFrame()
 
 
-now = datetime.datetime.now(tz=ZoneInfo("US/Pacific"))
-st.markdown(
-    "About page / README can be found [here](https://github.com/wfordh/ottobasket_values/blob/main/README.md)"
-)
-st.text("ros = rest of season. fs = full strength. ytd = year to date.")
-st.text(f"Last updated: {now.strftime('%Y-%m-%d %I:%M %p (Pacific)')}")
-values_csv = convert_df(display_df)
-st.download_button(
-    "Press to download",
-    values_csv,
-    "league_free_agents.csv",
-    "text/csv",
-    key="download-csv",
-)
+ottoneu_streamlit_footer()
