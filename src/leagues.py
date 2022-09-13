@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup
 
 # not sure I need st.cache on all of them...
 @st.cache
-def get_league_scoring(league_id: int):
+def get_league_scoring(league_id: int) -> str:
     league_url = f"https://ottoneu.fangraphs.com/basketball/{league_id}/settings"
     resp = requests.get(league_url)
     soup = BeautifulSoup(resp.content, "html.parser")
