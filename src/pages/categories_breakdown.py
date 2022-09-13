@@ -76,4 +76,4 @@ else:
     st.markdown("Please input a league ID!")
     display_df = pd.DataFrame()
 
-ottoneu_streamlit_footer("categories_breakdown")
+ottoneu_streamlit_footer("categories_breakdown", display_df)

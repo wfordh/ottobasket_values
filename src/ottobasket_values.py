@@ -1,11 +1,19 @@
+import datetime
+from zoneinfo import ZoneInfo
+
 import pandas as pd
 import streamlit as st
 
 from pipeline import ottobasket_values_pipeline
-from utils import convert_df, ottoneu_streamlit_footer
 
 st.set_page_config(page_title="Ottobasket Values")
 st.sidebar.markdown("Ottobasket Values")
+
+
+@st.cache
+def convert_df(df):
+    # Index is set to either player or team at all times
+    return df.to_csv(index=True).encode("utf-8")
 
 
 st.title("Ottobasket Player Values")
@@ -30,4 +38,17 @@ display_df = (
     .set_index("player")
 )
 st.dataframe(display_df.style.format(format_cols))
-ottoneu_streamlit_footer("ottobasket_values")
+now = datetime.datetime.now(tz=ZoneInfo("US/Pacific"))
+st.markdown(
+    "About page / README can be found [here](https://github.com/wfordh/ottobasket_values/blob/main/README.md)"
+)
+st.text("ros = rest of season. fs = full strength. ytd = year to date.")
+st.text(f"Last updated: {now.strftime('%Y-%m-%d %I:%M %p (Pacific)')}")
+values_csv = convert_df(display_df)
+st.download_button(
+    "Press to download",
+    values_csv,
+    "ottobasket_values.csv",
+    "text/csv",
+    key="download-csv",
+)

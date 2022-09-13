@@ -191,7 +191,6 @@ def get_draftable_players(
     return draftable_players
 
 
-@st.cache
 def prep_stats_df() -> pd.DataFrame:
     drip_df = drip.get_current_drip()
     drip_df = drip.transform_drip(drip_df)
@@ -220,7 +219,9 @@ def get_scoring_minutes_combo(
     projection_type: str, stats_df: pd.DataFrame
 ) -> pd.DataFrame:
     scoring_types = ["simple_points", "trad_points", "categories"]
-    df = calc_per_game_projections(stats_df, projection_type=projection_type)
+    # added .copy() method to maybe help with the StCachedObjectMutation warning
+    # note: need to actually test that
+    df = calc_per_game_projections(stats_df.copy(), projection_type=projection_type)
     for scoring_type in scoring_types:
         if scoring_type == "categories":
             df[f"{scoring_type}"] = calc_categories_value(df)

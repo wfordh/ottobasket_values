@@ -1,3 +1,6 @@
+import datetime
+from zoneinfo import ZoneInfo
+
 import altair as alt
 import pandas as pd
 import streamlit as st
@@ -87,4 +90,9 @@ st.text(
 	"""
 )
 
-ottoneu_streamlit_footer("frontier_values")
+now = datetime.datetime.now(tz=ZoneInfo("US/Pacific"))
+st.markdown(
+    "About page / README can be found [here](https://github.com/wfordh/ottobasket_values/blob/main/README.md)"
+)
+st.text("ros = rest of season. fs = full strength. ytd = year to date.")
+st.text(f"Last updated: {now.strftime('%Y-%m-%d %I:%M %p (Pacific)')}")

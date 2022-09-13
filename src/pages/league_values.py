@@ -1,12 +1,20 @@
+import datetime
+from zoneinfo import ZoneInfo
+
 import pandas as pd
 import streamlit as st
 
 from leagues import get_league_rosters, get_league_scoring
 from pipeline import ottobasket_values_pipeline
-from utils import convert_df, ottoneu_streamlit_footer
 
 st.markdown("# League Values")
 st.sidebar.markdown("# League Values")
+
+
+@st.cache
+def convert_df(df):
+    # Index is set to either player or team at all times
+    return df.to_csv(index=True).encode("utf-8")
 
 
 values_df = ottobasket_values_pipeline(False)
@@ -95,4 +103,17 @@ else:
     st.markdown("Please input a league ID!")
     display_df = pd.DataFrame()
 
-ottoneu_streamlit_footer("league_values")
+now = datetime.datetime.now(tz=ZoneInfo("US/Pacific"))
+st.markdown(
+    "About page / README can be found [here](https://github.com/wfordh/ottobasket_values/blob/main/README.md)"
+)
+st.text("ros = rest of season. fs = full strength. ytd = year to date.")
+st.text(f"Last updated: {now.strftime('%Y-%m-%d %I:%M %p (Pacific)')}")
+values_csv = convert_df(display_df)
+st.download_button(
+    "Press to download",
+    values_csv,
+    "league_values.csv",
+    "text/csv",
+    key="download-csv",
+)
