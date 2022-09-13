@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup
 
 # not sure I need st.cache on all of them...
 @st.cache
-def get_league_scoring(league_id):
+def get_league_scoring(league_id: int):
     league_url = f"https://ottoneu.fangraphs.com/basketball/{league_id}/settings"
     resp = requests.get(league_url)
     soup = BeautifulSoup(resp.content, "html.parser")
@@ -18,7 +18,7 @@ def get_league_scoring(league_id):
 
 
 @st.cache
-def get_league_rosters(league_id):
+def get_league_rosters(league_id: int) -> pd.DataFrame:
     league_url = (
         f"https://ottoneu.fangraphs.com/basketball/{league_id}/csv/rosters?web=1"
     )
@@ -36,10 +36,23 @@ def get_league_rosters(league_id):
     return league_salaries
 
 
-def get_league_leaderboard(league_id, start_date, end_date, free_agents_only):
+def get_league_leaderboard(
+    league_id, start_date, end_date, free_agents_only
+) -> pd.DataFrame:
     # need both
     if start_date and end_date:
         pass
     base_url = f"https://ottoneu.fangraphs.com/basketball/26/ajax/player_leaderboard?positions[]=G&positions[]=F&positions[]=C&minimum_minutes=0&sort_by=salary&sort_direction=DESC&free_agents_only={free_agents_only}&include_my_team=false&export=export&game_range_start_date={start_date}&game_range_end_date={end_date}"
     df = pd.read_csv(base_url)
     return df
+
+
+def get_average_values() -> pd.DataFrame:
+    df = pd.read_csv("https://ottoneu.fangraphs.com/basketball/average_values?csv=1")
+    df.columns = [col.lower() for col in df.columns]
+    return df.rename(
+        columns={
+            "id": "ottoneu_player_id",
+            "position": "ottoneu_position",
+        }
+    )

@@ -1,12 +1,10 @@
-import datetime
-from zoneinfo import ZoneInfo
-
 import altair as alt
 import pandas as pd
 import streamlit as st
 
 from calc_stats import calc_categories_value, calc_fantasy_pts
 from transform import get_scoring_minutes_combo, prep_stats_df
+from utils import convert_df, ottoneu_streamlit_footer
 
 st.markdown("# Replacement Level Frontier")
 
@@ -89,9 +87,4 @@ st.text(
 	"""
 )
 
-now = datetime.datetime.now(tz=ZoneInfo("US/Pacific"))
-st.markdown(
-    "About page / README can be found [here](https://github.com/wfordh/ottobasket_values/blob/main/README.md)"
-)
-st.text("ros = rest of season. fs = full strength. ytd = year to date.")
-st.text(f"Last updated: {now.strftime('%Y-%m-%d %I:%M %p (Pacific)')}")
+ottoneu_streamlit_footer("frontier_values")
