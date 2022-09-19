@@ -1,3 +1,8 @@
+"""
+The pipeline for pulling the stats and deriving the values for each player, scoring
+type, and minutes type. It forms the basis for the homepage of the app.
+"""
+
 import pandas as pd
 import streamlit as st
 

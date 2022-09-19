@@ -8,17 +8,20 @@ from calc_stats import (calc_categories_value, calc_fantasy_pts,
 
 
 def get_name_map() -> pd.DataFrame:
+    """Gets the mapping for names and IDs."""
     return pd.read_csv("./data/mappings.csv")
 
 
 def get_hashtag_ros_projections() -> pd.DataFrame:
-    sheet_id = "1RiXnGk2OFnGRmW9QNQ_1CFde0xfSZpyC9Cn3OLLojsY"
+    """Gets the hashtagbasketball projections from the Google sheet."""
+    sheet_id = "1RiXnGk2OFnGRmW9QNQ_1CFde0xfSZpyC9Cn3OLLojsY"  # env variable?
     return pd.read_csv(
         f"https://docs.google.com/spreadsheets/d/{sheet_id}/gviz/tq?tqx=out:csv&gid=284274620"
     )
 
 
 def get_ottoneu_leaderboard() -> pd.DataFrame:
+    """Gets the results from the Ottoneu leaderboard for the current season."""
     return pd.read_csv(
         "https://ottoneu.fangraphs.com/basketball/31/ajax/player_leaderboard?positions[]=G&positions[]=F&positions[]=C&minimum_minutes=0&sort_by=salary&sort_direction=DESC&free_agents_only=false&include_my_team=false&export=export"
     ).rename(columns={"id": "ottoneu_player_id"})
@@ -27,6 +30,10 @@ def get_ottoneu_leaderboard() -> pd.DataFrame:
 def combine_darko_drip_df(
     darko_df: pd.DataFrame, drip_df: pd.DataFrame, name_mapping
 ) -> pd.DataFrame:
+    """
+    Merges the DARKO and DRIP dataframes into one and takes the mean of each
+    relevant statistic for each player. Returns the transformed dataframe.
+    """
     # everything is per 100 to start, so keep it there and translate to per game later
     # this won't work because need to make sure they're in the right order
     combined_df = darko_df.merge(
@@ -36,7 +43,7 @@ def combine_darko_drip_df(
     combined_df["reb_100_darko"] = combined_df.orb_100_darko + combined_df.drb_100_darko
     combined_df["reb_100_drip"] = (
         combined_df.ORB_drip + combined_df.DRB_drip
-    )  # do this earlier?
+    )  # should move these to the DARKO / DRIP files
     combined_df["rebounds_100"] = combined_df[["reb_100_darko", "reb_100_drip"]].mean(
         axis=1
     )
@@ -90,6 +97,10 @@ def combine_darko_drip_df(
 
 
 def find_surplus_positions(fantasy_df: pd.DataFrame, scoring_type: str) -> pd.DataFrame:
+    """
+    Assigns the position each player will be considered for the value calculations
+    according to where they are eligible and their ranked production.
+    """
     # Need to figure out the full strength thing here - 1/11/21
     fantasy_df["is_center"] = fantasy_df.ottoneu_position.str.contains("C").map(
         {False: None, True: True}
@@ -136,6 +147,12 @@ def get_draftable_players(
     num_g_f: int = 12,
     num_util: int = 36,
 ) -> pd.DataFrame:
+    """
+    Finds the draftable players for each position group, moving from centers down
+    the positional spectrum to guards and repeating for the combined positions.
+    Once a player is deemed 'draftable' at a position, then he is removed from
+    the pool for future positions.
+    """
     # Need to figure out the full strength thing here - 1/11/21
     draftable_players = list()
     draftable_players.extend(
@@ -192,6 +209,7 @@ def get_draftable_players(
 
 
 def prep_stats_df() -> pd.DataFrame:
+    """Prepares the statistics by pulling and merging all of the relevant data."""
     drip_df = drip.get_current_drip()
     drip_df = drip.transform_drip(drip_df)
 
@@ -218,6 +236,10 @@ def prep_stats_df() -> pd.DataFrame:
 def get_scoring_minutes_combo(
     projection_type: str, stats_df: pd.DataFrame
 ) -> pd.DataFrame:
+    """
+    Finds the per game projections and player values for each scoring type based
+    on the projection type, performing all of the intermediate steps.
+    """
     scoring_types = ["simple_points", "trad_points", "categories"]
     # added .copy() method to maybe help with the StCachedObjectMutation warning
     # note: need to actually test that
