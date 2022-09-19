@@ -1,3 +1,5 @@
+from typing import Dict, List, Union
+
 import pandas as pd
 
 # use enums here?
@@ -28,7 +30,14 @@ trad_scoring_values = {
 }
 
 
-def calc_per_game_projections(df, projection_type="full_strength"):
+def calc_per_game_projections(
+    df: pd.DataFrame, projection_type: str = "full_strength"
+) -> pd.DataFrame:
+    """
+    Translates the provided dataframe from a per 100 basis to per game basis,
+    calculating it using the relevant number of possessions for each projection
+    type.
+    """
     stats_df = df.copy()
     if projection_type not in (
         "full_strength",
@@ -104,7 +113,12 @@ def calc_per_game_projections(df, projection_type="full_strength"):
     return stats_df[keep_cols]
 
 
-def calc_fantasy_pts(stats_df, is_simple_scoring=True):
+def calc_fantasy_pts(
+    stats_df: pd.DataFrame, is_simple_scoring: bool = True
+) -> pd.DataFrame:
+    """
+    Calculates the fantasy points for per game statistics given the scoring type.
+    """
     scoring_dict = simple_scoring_values if is_simple_scoring else trad_scoring_values
 
     # fantasy_df = stats_df.copy()
@@ -122,9 +136,14 @@ def calc_fantasy_pts(stats_df, is_simple_scoring=True):
     )
 
 
-def calc_categories_value(df: pd.DataFrame, is_rollup: bool = True):
-    # ignoring rate stats for now...
-    # ^ huh? 1/11/21
+def calc_categories_value(
+    df: pd.DataFrame, is_rollup: bool = True
+) -> Union[pd.Series, pd.DataFrame]:
+    """
+    Calculates players' value in each category according the the normalization /
+    z-scores methodology. The values are then summed and either the sum or all
+    of the values may be returned, depending on the use case.
+    """
     roto_cols = [
         "pts_game",
         "reb_game",
@@ -179,20 +198,17 @@ def calc_categories_value(df: pd.DataFrame, is_rollup: bool = True):
     value_df["total_value"] = value_df.drop(
         ["player", "nba_player_id", "aFGM", "aFG3M"], axis=1
     ).sum(axis=1)
-    # ignore positional adjustments for now since need surplus position so need to calc
-    # later on than this
-    # position_mins = value_df.groupby("surplus_position").total_value.min().to_dict()
-    # value_df[
-    #     "total_value_posn_adj"
-    # ] = value_df.total_value + value_df.surplus_position.map(position_mins)
-
-    # ignore saving for now - 1/11/21
-    # value_df.to_csv("./data/roto_values_df.csv", index=False)
 
     return value_df.total_value if is_rollup else value_df
 
 
-def get_replacement_values(fantasy_df, scoring_type, draftable_players):
+def get_replacement_values(
+    fantasy_df: pd.DataFrame, scoring_type: str, draftable_players: List
+) -> Dict:
+    """
+    Gets the replacement level value by finding the maximum value for a player
+    outside of the 'draftable players' list.
+    """
     return (
         fantasy_df.loc[~fantasy_df.nba_player_id.isin(draftable_players)]
         .groupby(f"{scoring_type}_position")[scoring_type]
@@ -201,7 +217,16 @@ def get_replacement_values(fantasy_df, scoring_type, draftable_players):
     )
 
 
-def calc_player_values(fantasy_df, scoring_type, draftable_players):
+def calc_player_values(
+    fantasy_df: pd.DataFrame, scoring_type: str, draftable_players: List
+) -> pd.Series:
+    """
+    Calculates the player values by getting the replacement values, defining if
+    and how far a player is above them, and then converting those values to dollars
+    based on the surplus factor as derived from the league's total cap space and
+    remaining dollars after assigning $1 to each roster spot in the league.
+    """
+
     replacement_values = get_replacement_values(
         fantasy_df, scoring_type, draftable_players
     )
