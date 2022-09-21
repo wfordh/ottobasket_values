@@ -40,11 +40,7 @@ def combine_darko_drip_df(
         name_mapping, how="inner", left_on="nba_id", right_on="nba_player_id"
     ).merge(drip_df, how="outer", left_on="stats_player_id", right_on="player_id")
     combined_df["points_100"] = combined_df[["pts_100_darko", "PTS_drip"]].mean(axis=1)
-    combined_df["reb_100_darko"] = combined_df.orb_100_darko + combined_df.drb_100_darko
-    combined_df["reb_100_drip"] = (
-        combined_df.ORB_drip + combined_df.DRB_drip
-    )  # should move these to the DARKO / DRIP files
-    combined_df["rebounds_100"] = combined_df[["reb_100_darko", "reb_100_drip"]].mean(
+    combined_df["rebounds_100"] = combined_df[["reb_100_darko", "reb_drip"]].mean(
         axis=1
     )
     combined_df["assists_100"] = combined_df[["ast_100_darko", "AST_drip"]].mean(axis=1)

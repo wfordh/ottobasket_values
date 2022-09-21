@@ -33,6 +33,12 @@ def get_darko_ftm(darko_df: pd.DataFrame) -> pd.DataFrame:
     return darko_df
 
 
+def get_darko_reb(darko_df: pd.DataFrame) -> pd.DataFrame:
+    """Creates a total rebounds per 100 column."""
+    darko_df["reb_100"] = darko_df.orb_100 + darko_df.drb_100
+    return darko_df
+
+
 def rename_darko_cols(darko_columns: List) -> List:
     """
     Adds the '_darko' suffix to some columns to help differentiating between
@@ -79,7 +85,12 @@ def transform_darko(darko_df: pd.DataFrame) -> pd.DataFrame:
     ]
 
     darko_df = darko_df[keep_cols].copy()
-    darko_df = darko_df.pipe(get_darko_fgm).pipe(get_darko_fg3m).pipe(get_darko_ftm)
+    darko_df = (
+        darko_df.pipe(get_darko_fgm)
+        .pipe(get_darko_fg3m)
+        .pipe(get_darko_ftm)
+        .pipe(get_darko_reb)
+    )
     darko_df.columns = rename_darko_cols(darko_df.columns)
 
     return darko_df

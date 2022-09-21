@@ -64,6 +64,12 @@ def get_drip_ftm(drip_df: pd.DataFrame) -> pd.DataFrame:
     return drip_df
 
 
+def get_drip_reb(drip_df: pd.DataFrame) -> pd.DataFrame:
+    """Creates a total rebounds column."""
+    drip_df["reb"] = drip_df.ORB + drip_df.DRB
+    return drip_df
+
+
 def rename_drip_cols(drip_columns: List) -> List:
     """
     Adds the '_drip' suffix to some columns to help differentiating between
@@ -101,6 +107,7 @@ def transform_drip(drip_df: pd.DataFrame) -> pd.DataFrame:
         .pipe(get_drip_fgm)
         .pipe(get_drip_fta)
         .pipe(get_drip_ftm)
+        .pipe(get_drip_reb)
     )
     drip_df.columns = rename_drip_cols(drip_df.columns)
 
