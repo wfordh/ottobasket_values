@@ -9,6 +9,7 @@ from bs4 import BeautifulSoup
 # not sure I need st.cache on all of them...
 @st.cache
 def get_league_scoring(league_id: int) -> str:
+    """Scrapes the league's settings page. Returns the scoring type."""
     league_url = f"https://ottoneu.fangraphs.com/basketball/{league_id}/settings"
     resp = requests.get(league_url)
     soup = BeautifulSoup(resp.content, "html.parser")
@@ -19,6 +20,7 @@ def get_league_scoring(league_id: int) -> str:
 
 @st.cache
 def get_league_rosters(league_id: int) -> pd.DataFrame:
+    """Pulls the league's rosters and cleans them. Returns a dataframe."""
     league_url = (
         f"https://ottoneu.fangraphs.com/basketball/{league_id}/csv/rosters?web=1"
     )
@@ -48,6 +50,10 @@ def get_league_leaderboard(
 
 
 def get_average_values() -> pd.DataFrame:
+    """
+    Pulls the average values and roster percentages across all of Ottoneu basketball.
+    Returns a dataframe.
+    """
     df = pd.read_csv("https://ottoneu.fangraphs.com/basketball/average_values?csv=1")
     df.columns = [col.lower() for col in df.columns]
     return df.rename(

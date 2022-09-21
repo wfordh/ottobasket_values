@@ -1,3 +1,9 @@
+"""
+The pipeline for pulling the stats and deriving the values for each player, scoring
+type, and minutes type. It forms the basis for the homepage of the app.
+"""
+from typing import Union
+
 import pandas as pd
 import streamlit as st
 
@@ -13,7 +19,7 @@ from transform import (combine_darko_drip_df, find_surplus_positions,
 
 # code for the pipeline here
 @st.cache
-def ottobasket_values_pipeline(save_df=False):
+def ottobasket_values_pipeline(save_df: bool = False) -> Union[None, pd.DataFrame]:
     stats_df = prep_stats_df()
 
     # full strength
