@@ -66,6 +66,7 @@ def calc_per_game_projections(
 
     if projection_type == "year_to_date":
         # super hacky but w/e
+        # stats are already coming in as totals so don't need to do anything
         stats_df["pts_game"] = stats_df.points
         stats_df["reb_game"] = stats_df.rebounds
         stats_df["ast_game"] = stats_df.assists
