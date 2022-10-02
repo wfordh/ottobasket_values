@@ -37,6 +37,9 @@ def calc_per_game_projections(
     Translates the provided dataframe from a per 100 basis to per game basis,
     calculating it using the relevant number of possessions for each projection
     type.
+
+    Incorrectly titled for RoS and YTD stats since it's calculating the totals
+    for that time period and not just per game.
     """
     stats_df = df.copy()
     if projection_type not in (
@@ -52,38 +55,57 @@ def calc_per_game_projections(
         # should this be re-labeled?
         possessions = stats_df.pace * stats_df.minutes / 48
     elif projection_type == "rest_of_season":
+        # pace = poss / game
+        # total_ros_minutes = minutes
+        # 48 = 1 game / 48 minutes
+        # poss / game * minutes * game / minutes ==> possessions
         possessions = stats_df.pace * stats_df.total_ros_minutes / 48
     else:
         # year to date
         possessions = stats_df.pace * stats_df.minutes_ytd / stats_df.games_played
-    stats_df["possessions_played"] = stats_df.pace * stats_df.minutes / 48
-    stats_df["pts_game"] = stats_df.points_100 * possessions / 100
-    stats_df["reb_game"] = stats_df.rebounds_100 * possessions / 100
-    stats_df["ast_game"] = stats_df.assists_100 * possessions / 100
-    stats_df["stl_game"] = stats_df.steals_100 * possessions / 100
-    stats_df["blk_game"] = stats_df.blocks_100 * possessions / 100
-    stats_df["tov_game"] = stats_df.tov_100 * possessions / 100
-    stats_df["fga_game"] = stats_df.fga_100 * possessions / 100
-    stats_df["fgm_game"] = stats_df.fgm_100 * possessions / 100
-    stats_df["fta_game"] = stats_df.fta_100 * possessions / 100
-    stats_df["ftm_game"] = stats_df.ftm_100 * possessions / 100
-    stats_df["fg3a_game"] = stats_df.fg3a_100 * possessions / 100
-    stats_df["fg3m_game"] = stats_df.fg3m_100 * possessions / 100
 
     if projection_type == "year_to_date":
         # super hacky but w/e
-        stats_df["pts_game"] = stats_df.points_avg * possessions / 100
-        stats_df["reb_game"] = stats_df.rebounds_avg * possessions / 100
-        stats_df["ast_game"] = stats_df.assists_avg * possessions / 100
-        stats_df["stl_game"] = stats_df.steals_avg * possessions / 100
-        stats_df["blk_game"] = stats_df.blocks_avg * possessions / 100
-        stats_df["tov_game"] = stats_df.turnovers_avg * possessions / 100
-        stats_df["fga_game"] = stats_df.field_goal_attempts_avg * possessions / 100
-        stats_df["fgm_game"] = stats_df.field_goals_made_avg * possessions / 100
-        stats_df["fta_game"] = stats_df.free_throw_attempts_avg * possessions / 100
-        stats_df["ftm_game"] = stats_df.free_throws_made_avg * possessions / 100
-        stats_df["fg3a_game"] = stats_df.three_point_attempts_avg * possessions / 100
-        stats_df["fg3m_game"] = stats_df.three_points_made_avg * possessions / 100
+        stats_df["pts_game"] = stats_df.points
+        stats_df["reb_game"] = stats_df.rebounds
+        stats_df["ast_game"] = stats_df.assists
+        stats_df["stl_game"] = stats_df.steals
+        stats_df["blk_game"] = stats_df.blocks
+        stats_df["tov_game"] = stats_df.turnovers
+        stats_df["fga_game"] = stats_df.field_goal_attempts
+        stats_df["fgm_game"] = stats_df.field_goals_made
+        stats_df["fta_game"] = stats_df.free_throw_attempts
+        stats_df["ftm_game"] = stats_df.free_throws_made
+        stats_df["fg3a_game"] = stats_df.three_point_attempts
+        stats_df["fg3m_game"] = stats_df.three_points_made
+    elif projection_type == "rest_of_season":
+        stats_df["pts_game"] = stats_df.points_100 * possessions
+        stats_df["reb_game"] = stats_df.rebounds_100 * possessions
+        stats_df["ast_game"] = stats_df.assists_100 * possessions
+        stats_df["stl_game"] = stats_df.steals_100 * possessions
+        stats_df["blk_game"] = stats_df.blocks_100 * possessions
+        stats_df["tov_game"] = stats_df.tov_100 * possessions
+        stats_df["fga_game"] = stats_df.fga_100 * possessions
+        stats_df["fgm_game"] = stats_df.fgm_100 * possessions
+        stats_df["fta_game"] = stats_df.fta_100 * possessions
+        stats_df["ftm_game"] = stats_df.ftm_100 * possessions
+        stats_df["fg3a_game"] = stats_df.fg3a_100 * possessions
+        stats_df["fg3m_game"] = stats_df.fg3m_100 * possessions
+    else:
+        # don't think I need "possessions_played" anymore
+        stats_df["possessions_played"] = stats_df.pace * stats_df.minutes / 48
+        stats_df["pts_game"] = stats_df.points_100 * possessions / 100
+        stats_df["reb_game"] = stats_df.rebounds_100 * possessions / 100
+        stats_df["ast_game"] = stats_df.assists_100 * possessions / 100
+        stats_df["stl_game"] = stats_df.steals_100 * possessions / 100
+        stats_df["blk_game"] = stats_df.blocks_100 * possessions / 100
+        stats_df["tov_game"] = stats_df.tov_100 * possessions / 100
+        stats_df["fga_game"] = stats_df.fga_100 * possessions / 100
+        stats_df["fgm_game"] = stats_df.fgm_100 * possessions / 100
+        stats_df["fta_game"] = stats_df.fta_100 * possessions / 100
+        stats_df["ftm_game"] = stats_df.ftm_100 * possessions / 100
+        stats_df["fg3a_game"] = stats_df.fg3a_100 * possessions / 100
+        stats_df["fg3m_game"] = stats_df.fg3m_100 * possessions / 100
 
     keep_cols = [
         "player",
@@ -241,6 +263,7 @@ def calc_player_values(
         ),
         axis="columns",
     )
+
     total_league_value = fantasy_df.loc[
         fantasy_df.points_above_repl > 0
     ].points_above_repl.sum()
