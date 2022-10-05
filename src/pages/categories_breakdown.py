@@ -8,7 +8,13 @@ from calc_stats import calc_categories_value, calc_per_game_projections
 from leagues import get_league_rosters
 from transform import prep_stats_df
 
+
 # from utils import convert_df, ottoneu_streamlit_footer
+@st.cache
+def convert_df(df):
+    # Index is set to either player or team at all times
+    return df.to_csv(index=True).encode("utf-8")
+
 
 st.markdown("# Categories Value Breakdown")
 
