@@ -4,7 +4,8 @@ import streamlit as st
 from calc_stats import calc_categories_value, calc_per_game_projections
 from leagues import get_league_rosters
 from transform import prep_stats_df
-from utils import convert_df, ottoneu_streamlit_footer
+
+# from utils import convert_df, ottoneu_streamlit_footer
 
 st.markdown("# Categories Value Breakdown")
 
@@ -76,4 +77,18 @@ else:
     st.markdown("Please input a league ID!")
     display_df = pd.DataFrame()
 
-ottoneu_streamlit_footer("categories_breakdown", display_df)
+# ottoneu_streamlit_footer("categories_breakdown", display_df)
+now = datetime.datetime.now(tz=ZoneInfo("US/Pacific"))
+st.markdown(
+    "About page / README can be found [here](https://github.com/wfordh/ottobasket_values/blob/main/README.md)"
+)
+st.text("ros = rest of season. fs = full strength. ytd = year to date.")
+st.text(f"Last updated: {now.strftime('%Y-%m-%d %I:%M %p (Pacific)')}")
+cats_breakdown_csv = convert_df(display_df)
+st.download_button(
+    "Press to download",
+    cats_breakdown_csv,
+    "categories_breakdown.csv",
+    "text/csv",
+    key="download-csv",
+)
