@@ -59,7 +59,8 @@ def calc_per_game_projections(
         # total_ros_minutes = minutes
         # 48 = 1 game / 48 minutes
         # poss / game * minutes * game / minutes ==> possessions
-        possessions = stats_df.pace * stats_df.total_ros_minutes / 48
+        # 100 since the stats are on a per 100 possession basis
+        possessions = (stats_df.pace / 100) * (stats_df.total_ros_minutes / 48)
     else:
         # year to date
         possessions = stats_df.pace * stats_df.minutes_ytd / stats_df.games_played

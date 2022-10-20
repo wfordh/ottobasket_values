@@ -23,6 +23,61 @@ format_cols = {
     for col in values_df.columns
     if col not in ["player", "ottoneu_position"]
 }
+ros_check = st.sidebar.checkbox("Rest of Season columns", value=True)
+ytd_check = st.sidebar.checkbox("Year to Date columns", value=True)
+current_min_check = st.sidebar.checkbox("Current minutes columns")
+fs_min_check = st.sidebar.checkbox("Full Strength minutes columns")
+id_columns = st.sidebar.checkbox("Show player IDs?", value=False)
+base_columns = [
+    "player",
+    "ottoneu_position",
+]
+
+if ros_check:
+    base_columns.extend(
+        [
+            "total_ros_minutes",
+            "simple_points_value_ros",
+            "trad_points_value_ros",
+            "categories_value_ros",
+        ]
+    )
+if ytd_check:
+    base_columns.extend(
+        [
+            "minutes_ytd",
+            "simple_points_value_ytd",
+            "trad_points_value_ytd",
+            "categories_value_ytd",
+        ]
+    )
+if current_min_check:
+    base_columns.extend(
+        [
+            "minutes",
+            "simple_points_value_current",
+            "trad_points_value_current",
+            "categories_value_current",
+        ]
+    )
+if fs_min_check:
+    base_columns.extend(
+        [
+            "fs_min",
+            "simple_points_value_fs",
+            "trad_points_value_fs",
+            "categories_value_fs",
+        ]
+    )
+if id_columns:
+    base_columns.extend(
+        [
+            "nba_player_id",
+            "ottoneu_player_id",
+        ]
+    )
+if not any([ros_check, ytd_check, current_min_check, fs_min_check]):
+    st.text("Please select a minutes option!!")
 player_input = st.sidebar.text_input("Player name", placeholder="Stephen Curry").lower()
 if player_input:
     values_df = values_df.loc[values_df.player.str.lower().str.contains(player_input)]
@@ -32,11 +87,7 @@ position_input = st.sidebar.multiselect(
 if position_input:
     values_df = values_df.loc[values_df.ottoneu_position.isin(position_input)]
 
-display_df = (
-    values_df.drop(["nba_player_id", "ottoneu_player_id", "tm_id"], axis=1)
-    .copy()
-    .set_index("player")
-)
+display_df = values_df[base_columns].copy().set_index("player")
 st.dataframe(display_df.style.format(format_cols))
 now = datetime.datetime.now(tz=ZoneInfo("US/Pacific"))
 st.markdown(
