@@ -62,6 +62,8 @@ if league_input:
     elif league_scoring == "simple_points":
         scoring_col = f"{league_scoring}_value"
     else:
+        # Ottoneu has it as "traditional_points", need to shorten it to be consistent
+        league_scoring = "trad_points"
         scoring_col = "trad_points_value"
     average_values_df = get_average_values()
     league_values_df = league_values_df.merge(
@@ -83,7 +85,9 @@ if league_input:
         ascending=False,
         inplace=True,
     )
-    display_df.reset_index(drop=True, inplace=True)
+    display_df.set_index(
+        "player", inplace=True
+    )  # .reset_index(drop=True, inplace=True)
     format_cols.update({f"{league_scoring}_proj_production": "{:.2f}"})
 
     st.dataframe(display_df.style.format(format_cols))
