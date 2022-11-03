@@ -18,7 +18,7 @@ def get_league_scoring(league_id: int) -> str:
     return points_row.find_all("td")[-1].get_text().strip().lower().replace(" ", "_")
 
 
-@st.cache
+@st.cache(ttl=12 * 60 * 60)
 def get_league_rosters(league_id: int) -> pd.DataFrame:
     """Pulls the league's rosters and cleans them. Returns a dataframe."""
     league_url = (
