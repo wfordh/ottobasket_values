@@ -18,7 +18,7 @@ from transform import (combine_darko_drip_df, find_surplus_positions,
 
 
 # code for the pipeline here
-@st.cache
+@st.cache(ttl=12 * 60 * 60)
 def ottobasket_values_pipeline(save_df: bool = False) -> Union[None, pd.DataFrame]:
     stats_df = prep_stats_df()
 

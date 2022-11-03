@@ -228,7 +228,7 @@ def prep_stats_df() -> pd.DataFrame:
     return stats_df
 
 
-@st.cache
+@st.cache(ttl=12 * 60 * 60)
 def get_scoring_minutes_combo(
     projection_type: str, stats_df: pd.DataFrame
 ) -> pd.DataFrame:

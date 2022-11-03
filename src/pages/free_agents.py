@@ -30,7 +30,6 @@ def ottoneu_streamlit_footer():
     )
 
 
-@st.cache
 def convert_df(df):
     # Index is set to either player or team at all times
     return df.to_csv(index=True).encode("utf-8")
