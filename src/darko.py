@@ -39,6 +39,18 @@ def get_darko_reb(darko_df: pd.DataFrame) -> pd.DataFrame:
     return darko_df
 
 
+def transform_percentage_columns(darko_df: pd.DataFrame) -> pd.DataFrame:
+    """Turns percentage columns from strings with '%' into a float."""
+    pct_columns = [col for col in darko_df.columns if "pct" in col]
+    for column in pct_columns:
+        try:
+            darko_df[column] = darko_df[column].str.replace("%", "").astype(float)
+        except AttributeError:
+            pass
+
+    return darko_df
+
+
 def rename_darko_cols(darko_columns: List) -> List:
     """
     Adds the '_darko' suffix to some columns to help differentiating between
@@ -86,7 +98,8 @@ def transform_darko(darko_df: pd.DataFrame) -> pd.DataFrame:
 
     darko_df = darko_df[keep_cols].copy()
     darko_df = (
-        darko_df.pipe(get_darko_fgm)
+        darko_df.pipe(transform_percentage_columns)
+        .pipe(get_darko_fgm)
         .pipe(get_darko_fg3m)
         .pipe(get_darko_ftm)
         .pipe(get_darko_reb)
