@@ -3,8 +3,6 @@ This file contains all the necessary functions for extracting and transforming
 the projections coming from DARKO. 
 """
 
-from typing import List
-
 import pandas as pd
 
 
@@ -51,7 +49,7 @@ def transform_percentage_columns(darko_df: pd.DataFrame) -> pd.DataFrame:
     return darko_df
 
 
-def rename_darko_cols(darko_columns: List) -> List:
+def rename_darko_cols(darko_columns: list) -> list:
     """
     Adds the '_darko' suffix to some columns to help differentiating between
     DARKO and DRIP projections in downstream calculations.
