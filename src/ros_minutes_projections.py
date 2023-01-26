@@ -12,27 +12,27 @@ import gspread
 import pandas as pd
 from bs4 import BeautifulSoup
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
+from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.firefox.service import Service
 from selenium.webdriver.support.select import Select
-from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
 
 
-def _setup_chrome_scraper() -> webdriver.chrome.webdriver.WebDriver:
+def _setup_chrome_scraper() -> webdriver.firefox.webdriver.WebDriver:
     chrome_options = Options()
     chrome_options.add_argument("--headless")
-    chrome_service = Service(ChromeDriverManager().install())
-    driver = webdriver.Chrome(options=chrome_options, service=chrome_service)
+    chrome_service = Service(GeckoDriverManager().install())
+    driver = webdriver.Firefox(options=chrome_options, service=chrome_service)
     return driver
 
 
-def _shutdown_chrome_scraper(driver: webdriver.chrome.webdriver.WebDriver) -> None:
+def _shutdown_chrome_scraper(driver: webdriver.firefox.webdriver.WebDriver) -> None:
     driver.close()
     driver.quit()
 
 
-def _get_projections_page(driver: webdriver.chrome.webdriver.WebDriver) -> str:
+def _get_projections_page(driver: webdriver.firefox.webdriver.WebDriver) -> str:
     """
     Pulls the content of the projections page and reloads it after selecting the
     correct dropdown to return all players instead of the initially given top
@@ -80,6 +80,7 @@ def _extract_projections(content: str) -> pd.DataFrame:
 
 
 def _setup_gdrive(client_key_string: str) -> gspread.client.Client:
+    print(client_key_string)
     credentials = json.loads(client_key_string)
     return gspread.service_account_from_dict(credentials)
 

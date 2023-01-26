@@ -42,7 +42,9 @@ def transform_percentage_columns(darko_df: pd.DataFrame) -> pd.DataFrame:
     pct_columns = [col for col in darko_df.columns if "pct" in col]
     for column in pct_columns:
         try:
-            darko_df[column] = darko_df[column].str.replace("%", "").astype(float)
+            darko_df[column] = (
+                darko_df[column].str.replace("%", "").astype(float).divide(100.0)
+            )
         except AttributeError:
             pass
 
