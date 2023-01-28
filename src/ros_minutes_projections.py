@@ -112,23 +112,27 @@ def _extract_projections(is_projections: bool, content: str) -> pd.DataFrame:
 
 def _get_fantasypros_projections() -> pd.DataFrame:
     """
-    Currently no player IDs in this data so skipping as I solved the issue
-    with hashtag data. Could revisit and map it later
+    Currently not useful as no map between FP and Hashtag. Would need
+    the map to be accessible from the GH action...
     """
     url = "https://www.fantasypros.com/nba/projections/ros-overall.php"
     resp = requests.get(url)
     soup = BeautifulSoup(resp.content, "html.parser")
     headers = [th.get_text().strip() for th in soup.find("thead").find_all("th")]
+    headers.append("fantasypros_id")
     rows = soup.find("tbody").find_all("tr")
     data = []
     for row in rows:
         row_data = []
         for idx, td in enumerate(row.find_all("td")):
             if idx == 0:
+                # just want the name
                 row_data.append(td.a.text.strip())
             else:
                 row_data.append(td.get_text().strip())
-        data.append(row_data)
+        # adding the FantasyPros ID to the end
+        fp_id = int(row["class"][0].rsplit("-", 1)[-1])
+        data.append(fp_id)
 
     df = pd.DataFrame(data, columns=headers)
     return df
