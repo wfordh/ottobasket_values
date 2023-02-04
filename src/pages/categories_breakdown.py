@@ -38,7 +38,7 @@ if league_input:
         how="left",
         on="nba_player_id",
     )
-    league_salaries = get_league_rosters(26)
+    league_salaries = get_league_rosters(league_input)
     league_values_df = league_salaries.merge(
         cats_df, on="ottoneu_player_id", how="left"
     )
