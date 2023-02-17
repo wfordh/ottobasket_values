@@ -4,17 +4,35 @@ from zoneinfo import ZoneInfo
 import pandas as pd
 import streamlit as st
 
+
+def convert_df(df):
+    # Index is set to either player or team at all times
+    return df.to_csv(index=True).encode("utf-8")
+
+
 st.markdown("# Historical Stats")
 
 values_df = pd.read_csv("./data/box_stats_revised.csv")
 
+# probably a better way to do this
 format_cols = {
     col: "{:.1f}"
     for col in values_df.columns
-    if col not in ["player", "ottoneu_position"]
+    if col
+    not in [
+        "player",
+        "team",
+        "season",
+        "position",
+        "simple_points_position",
+        "categories_position",
+        "trad_points_position",
+    ]
 }
 
-seasons = st.sidebar.selectbox("Seasons", values_df.season)
+seasons = st.sidebar.multiselect("Seasons", values_df.season.unique().tolist())
+if seasons:
+    values_df = values_df.loc[values_df.season.isin(seasons)]
 player_input = (
     st.sidebar.text_input("Player name", placeholder="Stephen Curry").lower().strip()
 )
