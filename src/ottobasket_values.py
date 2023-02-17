@@ -77,7 +77,9 @@ if id_columns:
     )
 if not any([ros_check, ytd_check, current_min_check, fs_min_check]):
     st.text("Please select a minutes option!!")
-player_input = st.sidebar.text_input("Player name", placeholder="Stephen Curry").lower()
+player_input = (
+    st.sidebar.text_input("Player name", placeholder="Stephen Curry").lower().strip()
+)
 if player_input:
     values_df = values_df.loc[values_df.player.str.lower().str.contains(player_input)]
 position_input = st.sidebar.multiselect(

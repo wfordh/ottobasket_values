@@ -1,6 +1,7 @@
 # ignore most of data folder for now
 /data
 !/data/mappings.csv
+!/data/box_stats_revised.csv
 
 # ignore env file
 .env
