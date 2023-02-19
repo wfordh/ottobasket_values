@@ -100,6 +100,9 @@ if league_input:
         players as 'other', and the middle as depth. This is subject to change during
         the season as injured players may go in and out of the rotation. Other players
         are typically pre-NBA prospects and injured players.
+
+        The rotation level columns are currently only calculated using year-to-date
+        statistics. I hope to add rest of season statistics to it at some point.
         """
         st.markdown(body_string)
     else:
