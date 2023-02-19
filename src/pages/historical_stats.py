@@ -58,9 +58,14 @@ display_df = values_df[base_columns].set_index("player").copy()
 
 st.dataframe(display_df.style.format(format_cols))
 now = datetime.datetime.now(tz=ZoneInfo("US/Pacific"))
-st.markdown(
-    "About page / README can be found [here](https://github.com/wfordh/ottobasket_values/blob/main/README.md)"
-)
+description_string = """
+    Historical stats have been taken from NBA.com and go back to the 1996-97 season as a result. The values are calculated using the position designations listed on NBA.com, and so may not match the positions given to players on Ottoneu, though 
+    this is only relevant for players who are still active or played in seasons since Ottoneu Basketball started. The historical 
+    values do not contain data for the current season.
+        
+    About page / README can be found [here](https://github.com/wfordh/ottobasket_values/blob/main/README.md).
+    """
+st.markdown(description_string)
 st.text(f"Last updated: {now.strftime('%Y-%m-%d %I:%M %p (Pacific)')}")
 values_csv = convert_df(display_df)
 st.download_button(
