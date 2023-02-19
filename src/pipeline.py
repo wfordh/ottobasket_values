@@ -16,7 +16,9 @@ from transform import get_scoring_minutes_combo, prep_stats_df
 
 # code for the pipeline here
 @st.cache(ttl=12 * 60 * 60)
-def ottobasket_values_pipeline(save_df: bool = False) -> Union[None, pd.DataFrame]:
+def ottobasket_values_pipeline(
+    save_df: bool = False, filter_cols: bool = True
+) -> Union[None, pd.DataFrame]:
     stats_df = prep_stats_df()
 
     # full strength
@@ -60,9 +62,11 @@ def ottobasket_values_pipeline(save_df: bool = False) -> Union[None, pd.DataFram
         },
         inplace=True,
     )
-    all_values_df = all_values_df[
-        join_cols + [col for col in all_values_df.columns if "value" in col]
-    ].drop_duplicates()
+    if filter_cols:
+        all_values_df = all_values_df[
+            join_cols + [col for col in all_values_df.columns if "value" in col]
+        ]
+    all_values_df.drop_duplicates(inplace=True)
 
     if save_df:
         all_values_df.to_csv("./data/all_values_df.csv", index=False)

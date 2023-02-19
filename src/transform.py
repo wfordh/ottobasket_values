@@ -257,3 +257,91 @@ def get_scoring_minutes_combo(
         )
 
     return df
+
+
+def get_roster_depth(
+    league_data: pd.DataFrame,
+    league_scoring: str,
+    scoring_col: str,
+    n_rotation: int = 12,
+    n_other: int = 8,
+) -> pd.DataFrame:
+    # n_rotation should match the sum of number of positions in get_draftable_players()
+    team_frames = list()
+    team_values = league_data.groupby("team_name")
+    # maybe make this an additional arg at some point?
+    minutes_format = "ytd"
+
+    for team_name, team_data in team_values:
+        team_data.drop_duplicates(inplace=True)
+        team_data[f"{scoring_col}_position"] = find_surplus_positions(
+            team_data, scoring_type=league_scoring
+        )
+        draftable_players = get_draftable_players(
+            team_data,
+            scoring_type=league_scoring,
+            num_centers=1,
+            num_forwards=2,
+            num_guards=3,
+            num_f_c=1,
+            num_g_f=1,
+            num_util=4,
+        )
+        # have rotation / depth / other (prospects & injured)?
+        team_data["in_rotation"] = team_data.nba_player_id.apply(
+            lambda p: 1 if p in draftable_players else 0
+        )
+        prospects = (
+            team_data.sort_values(by=league_scoring, ascending=True)
+            .head(n_other)
+            .nba_player_id.tolist()
+        )
+        team_data["other_players"] = team_data.nba_player_id.apply(
+            lambda p: 1 if p in prospects else 0
+        )
+        team_data["depth"] = team_data.apply(
+            lambda p: 1 if p.in_rotation + p.other_players == 0 else 0, axis=1
+        )
+        # rotation_value = (
+        #     team_data.loc[team_data.nba_player_id.isin(draftable_players)]
+        #     .simple_points_value_ytd.sum()
+        #     .round()
+        # )
+        # need to drop duplicates before doing any summing
+        team_data["team_name"] = team_name
+        team_frames.append(team_data)
+
+    league_values_df = pd.concat(team_frames)
+    # now roll up to team level data
+    sum_cols = [f"{scoring_col}_{minutes_format}", f"{minutes_format}_surplus"]
+    rotation_data = (
+        league_values_df.where(league_values_df.in_rotation == 1)
+        .groupby("team_name")[sum_cols]
+        .sum()
+        .add_prefix("rotation_")
+        .reset_index()
+    )
+    depth_data = (
+        league_values_df.where(league_values_df.depth == 1)
+        .groupby("team_name")[sum_cols]
+        .sum()
+        .add_prefix("depth_")
+        .reset_index()
+    )
+    other_players_data = (
+        league_values_df.where(league_values_df.other_players == 1)
+        .groupby("team_name")[sum_cols]
+        .sum()
+        .add_prefix("other_")
+        .reset_index()
+    )
+
+    team_value_by_rotation_levels = pd.DataFrame()
+    team_value_by_rotation_levels["team_name"] = league_values_df.team_name.unique()
+    team_value_by_rotation_levels = (
+        team_value_by_rotation_levels.merge(rotation_data, how="inner", on="team_name")
+        .merge(depth_data, how="inner", on="team_name")
+        .merge(other_players_data, how="inner", on="team_name")
+    )
+
+    return team_value_by_rotation_levels

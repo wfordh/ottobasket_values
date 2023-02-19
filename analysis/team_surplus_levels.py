@@ -122,6 +122,7 @@ def main():
         .add_prefix("other_")
         .reset_index()
     )
+    print(rotation_data)
     team_value_by_rotation_levels = pd.DataFrame()
     team_value_by_rotation_levels["team_name"] = league_values_df.team_name.unique()
     team_value_by_rotation_levels = (

@@ -6,6 +6,7 @@ import streamlit as st
 
 from leagues import get_league_rosters, get_league_scoring
 from pipeline import ottobasket_values_pipeline
+from transform import get_roster_depth
 
 st.markdown("# League Values")
 st.sidebar.markdown("# League Values")
@@ -16,12 +17,16 @@ def convert_df(df):
     return df.to_csv(index=True).encode("utf-8")
 
 
-values_df = ottobasket_values_pipeline(False)
-format_cols = {
-    col: "{:.1f}"
-    for col in values_df.columns
-    if col not in ["player", "ottoneu_position"]
-}
+def find_format_cols(df):
+    return {
+        col: "{:.1f}"
+        for col in df.columns
+        if col not in ["player", "ottoneu_position", "team_name"]
+    }
+
+
+values_df = ottobasket_values_pipeline(save_df=False, filter_cols=False)
+
 
 league_input = st.sidebar.text_input("League ID", placeholder="1")
 if league_input:
@@ -61,7 +66,14 @@ if league_input:
     team_or_league_input = st.sidebar.radio(
         "All league or group by team", ["League", "Teams"], 0
     )
+    # why are surplus columns not getting formatted???
+    # not working because the columns for formatting are getting chosen
+    # before the surplus columns are created...need a function?
     if team_or_league_input == "Teams":
+        league_values_df["in_rotation"] = None
+        league_values_df["prospects"] = None
+        rotation_df = get_roster_depth(league_values_df, league_scoring, scoring_col)
+        # currently rotation / depth / other only for ytd
         display_df = league_values_df.groupby("team_name")[
             [
                 "salary",
@@ -75,7 +87,21 @@ if league_input:
                 "ytd_surplus",
             ]
         ].sum()
+        display_df = display_df.merge(
+            rotation_df, how="inner", left_index=True, right_on="team_name"
+        ).set_index("team_name")
+        format_cols = find_format_cols(display_df)
         st.dataframe(display_df.style.format(format_cols))
+        body_string = """
+        The 'rotation', 'depth', and 'other' columns are estimations of where
+        a team is spending their money in their roster construction. I designate the
+        top 3 guards, top 2 forwards, top center, G / F, and F / C, and
+        the next 4 best players by total value as 'rotation' players, the bottom 8
+        players as 'other', and the middle as depth. This is subject to change during
+        the season as injured players may go in and out of the rotation. Other players
+        are typically pre-NBA prospects and injured players.
+        """
+        st.markdown(body_string)
     else:
         display_df = league_values_df[
             [
@@ -97,6 +123,7 @@ if league_input:
                 "ytd_surplus",
             ]
         ].set_index("player")
+        format_cols = find_format_cols(display_df)
         st.dataframe(display_df.style.format(format_cols))
 else:
     st.markdown("Please input a league ID!")

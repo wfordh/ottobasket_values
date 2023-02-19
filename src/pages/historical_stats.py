@@ -11,6 +11,7 @@ def convert_df(df):
 
 
 st.markdown("# Historical Stats")
+st.sidebar.markdown("# Historical Stats")
 
 values_df = pd.read_csv("./data/box_stats_revised.csv")
 
