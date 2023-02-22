@@ -1,5 +1,5 @@
 # ignore most of data folder for now
-/data
+/data/*
 !/data/mappings.csv
 !/data/box_stats_revised.csv
 

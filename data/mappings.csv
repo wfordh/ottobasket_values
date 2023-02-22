@@ -383,7 +383,7 @@ Payton Pritchard,1630202,14,945610,pritcpa01,4066354,27718,G
 Jahmi'us Ramsey,1630186,480,1182151,ramseja01,4431688,27449,G
 Austin Rivers,203085,106,601139,riverau01,6617,9270,G
 Devontae Cacok,1629719,423,899762,cacokde01,3946974,17212,F
-Jason Preston,1630554,415,1137126,,,,G
+Jason Preston,1630554,415,1137126,,,31062,G
 Joe Wieskamp,1630580,462,1141061,wieskjo01,4397033,31070,G/F
 Daishen Nix,1630227,17689,,nixda01,4432176,36250,G
 Killian Hayes,1630165,413,1257421,hayeski01,4683024,27587,G
@@ -391,7 +391,7 @@ Aaron Henry,1630565,19,1133812,henryaa01,4397209,35119,F
 Daulton Hommes,1629756,191,,,,,F
 JaQuori McLaughlin,1630605,17762,945673,mclauja01,4066496,35221,G
 Grant Riller,1630203,497,895835,,,27656,G
-Ish Wainwright,1630688,280,,wainris01,3059307,,F
+Ish Wainwright,1630688,280,,wainris01,3059307,31158,F
 Duane Washington Jr.,1630613,16,1133864,washidu02,4397235,31136,G
 Kessler Edwards,1630556,425,1135006,edwarke02,4397693,31073,F
 Jared Butler,1630215,25,1134886,butleja02,4395695,31069,G
@@ -437,7 +437,7 @@ Carmelo Anthony,2546,102,172890,anthoca01,1975,9369,F
 Rui Hachimura,1629060,198,955893,hachiru01,4066648,17195,F
 Elijah Hughes,1630190,15,950031,hugheel01,4066446,27684,G
 David Duke Jr.,1630561,17675,1134645,dukeda01,4397107,35040,G
-Vit Krejci,1630249,17766,1257428,krejcvi01,4578893,,G
+Vit Krejci,1630249,17766,1257428,krejcvi01,4578893,27859,G
 Killian Tillie,1629681,38,955890,tilliki02,4066651,27852,F/C
 Sharife Cooper,1630536,177,1251661,coopesh01,4432173,31077,G
 Danuel House Jr.,1627863,39,692110,houseda01,2991155,10173,F/G
@@ -448,7 +448,7 @@ Brad Wanamaker,202954,125,402376,wanambr01,6507,15260,G
 Jay Huff,1630643,52,942843,huffja01,4065731,35209,C
 Austin Reaves,1630559,428,953291,reaveau01,4066457,35041,G
 Miles McBride,1630540,109,1175084,mcbrimi01,4431823,31065,G
-McKinley Wright,1630593,142,1061526,wrighmc01,4278507,,G
+McKinley Wright,1630593,142,1061526,wrighmc01,4278507,31156,G
 Marcus Garrett,1630585,17751,1060962,garrema01,4277892,33591,G
 Jalen Johnson,1630552,464,1230356,johnsja05,4701230,31049,F
 CJ Elleby,1629604,535,1135177,ellebcj01,4397166,27620,F
@@ -515,8 +515,8 @@ Patrick Baldwin Jr.,1631116,21167,1324451,,,38943,F
 AJ Griffin,1631100,21158,1323994,,,38836,F
 Daimion Collins,,21286,,,,,
 Max Abmas,,4287,,,,,
-Tyty Washington Jr.,1631102,20654,1340789,,,38657,
-Peyton Watson,1631212,20859,1326502,,,,G
+Tyty Washington Jr.,1631102,20654,1340789,,,38657,G
+Peyton Watson,1631212,20859,1326502,,,38944,G
 Jaden Ivey,1631093,11761,1231418,,,38635,G
 Jaime Jaquez Jr.,,3487,,,,,
 Hunter Sallis,,20252,,,,,G
@@ -542,8 +542,8 @@ JD Davison,1631120,21220,1323515,,,,G
 Matthew Cleveland,,21272,,,,,G
 Trayce Jackson-Davis,,11580,,,,,F
 Ian Martinez,,3516,,,,,
-Buddy Boeheim,1631205,2322,1140338,,,,
-Jabari Walker,1631133,2731,1232517,,,38959,
+Buddy Boeheim,1631205,2322,1140338,,,40284,F
+Jabari Walker,1631133,2731,1232517,,,38959,F
 Hunter Dickinson,,2764,,,,,
 Andrew Jones,,3484,,,,,
 Rokas Jokubaitis,,114,,,,,
@@ -654,13 +654,10 @@ Sekou Doumbouya,1629635,228,1172131,doumbse01,4423314,17256,F
 ,,,,moonxa01,3914075,,
 ,,,,sneedxa01,4066303,,
 Greg Monroe,202328,18318,467468,monrogr01,4260,9335,
-Robert Williams,,,,,,15224,
-PJ Washington,,,,,,17273,
 Kris Dunn,,,,,,10129,
 Amir Coffey,,,,,,17215,
 Marquese Chriss,,,,,,10144,
 Haywood Highsmith,,,,,,15462,
-KJ Martin Jr.,,,,,,27624,
 Derrick Walton Jr.,,,,,,13802,
 Lindy Waters III,,,,,,37944,
 Davon Reed,,,,,,13758,
@@ -783,7 +780,7 @@ Dereck Lively II,,23371,,,,,C
 Gradey Dick,,24558,,,,,G
 Tyrese Proctor,,23880,,,,,G
 Yannick Nzosa,,22360,,,,,C
-Kendall Brown,1631112,20934,1342729,brownke03,,,G
+Kendall Brown,1631112,20934,1342729,brownke03,,38952,G
 Malaki Branham,1631103,21171,1325163,branhma01,,38740,F
 Terry Taylor,1630678,275,1077609,taylote01,,35204,F
 Keyonte George,,24233,,,,,G
@@ -821,7 +818,7 @@ Moussa Diabate,,21379,,,,,F
 Jaren Holmes,,13101,,,,,G
 Scotty Pippen Jr.,1630590,12518,1176798,pippesc02,,,G
 Julian Strawther,,9860,,,,,G
-Christian Braun,,9522,,,,,G
+Christian Braun,1631128,9522,,,,38570,G
 Marcus Sasser,,7831,,,,,G
 Colby Jones,,6016,,,,,G
 Jamal Cain,,3604,,,,,F

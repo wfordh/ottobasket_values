@@ -15,7 +15,10 @@ def get_league_scoring(league_id: int) -> str:
     soup = BeautifulSoup(resp.content, "html.parser")
     table = soup.find("main").find("table").find("tbody").find_all("tr")
     points_row = table[2]  # better way to do this??
-    return points_row.find_all("td")[-1].get_text().strip().lower().replace(" ", "_")
+    scoring = points_row.find_all("td")[-1].get_text().strip().lower().replace(" ", "_")
+    if scoring == "traditional_points":
+        return "trad_points"
+    return scoring
 
 
 @st.cache(ttl=12 * 60 * 60)
