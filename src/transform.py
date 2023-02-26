@@ -16,7 +16,7 @@ def get_hashtag_ros_projections() -> pd.DataFrame:
     """Gets the hashtagbasketball projections from the Google sheet."""
     sheet_id = "1RiXnGk2OFnGRmW9QNQ_1CFde0xfSZpyC9Cn3OLLojsY"  # env variable?
     return pd.read_csv(
-        f"https://docs.google.com/spreadsheets/d/{sheet_id}/gviz/tq?tqx=out:csv&gid=284274620"
+        f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=csv&gid=0"
     )
 
 
