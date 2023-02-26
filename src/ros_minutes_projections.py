@@ -164,9 +164,12 @@ def main():
     try:
         data = proj_data.merge(rankings_data, how="left", on="pid")
         data.fillna(0, inplace=True)
-        data["games_forecast"] = data.games_forecast.astype(
-            int
-        ) - data.games_played.astype(int)
+        # commented out on 2/25/23 since hashtagbasketball switched back to
+        # forecasting as expected with the rest of the season without including
+        # the season to date
+        # data["games_forecast"] = data.games_forecast.astype(
+        #    int
+        # ) - data.games_played.astype(int)
         print("got projections")
         gc = _setup_gdrive(client_key_string)
         _upload_data(gc, data)
