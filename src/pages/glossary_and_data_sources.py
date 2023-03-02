@@ -8,10 +8,11 @@ st.markdown(
 	# Glossary and Data Sources
 
 	## Glossary
-	- Current minutes: An estimate of how many minutes a player would play today based on roster construction and health.
-	- Full strength minutes: An estimate of how many minutes a player would play if their team's roster was at full strength, ie everyone was healthy and active.
-	- Rest of season minutes: A projection of how many minutes the player will play for the remaining duration of the season. 
+	- Rest of season minutes: A projection of how many minutes the player will play for the remaining duration of the season. The associated values do not take into account any stats players have already accumulated. It should be read as "if the season started today, this is what Player X is projected to do."
 	- Year to date values: Reflect players' production for the season to date. It uses Ottoneu's basketball leaderboard, so it will use the previous season's data during the offseason until the next season starts.
+	- Current minutes: An estimate of how many minutes a player would play today given the state of the league (ie injuries, rest, etc). It is not reasonable to project this number forward since you cannot expect the state of the league to remain the same as other players heal or get injured, or rotations change. It is best thought of as a DFS projection.
+	- Full strength minutes: An estimate of how many minutes a player would play if their team's roster was at full strength, ie everyone was healthy and active.
+	
 
 	## Data Sources
 	- [DARKO](https://docs.google.com/spreadsheets/d/1mhwOLqPu2F9026EQiVxFPIN1t9RGafGpl-dokaIsm9c/edit#gid=284274620)
