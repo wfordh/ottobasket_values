@@ -90,7 +90,7 @@ def _extract_projections(is_projections: bool, content: str) -> pd.DataFrame:
     MINUTES_INDEX = headers.index("MPG")
 
     for row in rows:
-        if row.find("td") is None or row.find("b"):
+        if row.find("td") is None or row.find("b") or row.find("td").text == "R#":
             continue
         row_data = row.find_all("td")
         # player_data = dict()
@@ -103,7 +103,8 @@ def _extract_projections(is_projections: bool, content: str) -> pd.DataFrame:
             else:
                 player_data = _get_player_ytd_data(row_data, NAME_INDEX, GP_INDEX)
             all_players.append(player_data)
-        except Exception as e:
+        except AttributeError as e:
+            print(row_data)
             # should probably add logging here...
             # specify error. do I want to do anything?
             print(player_data, e)
