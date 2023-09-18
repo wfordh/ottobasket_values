@@ -7,21 +7,23 @@ from bs4 import BeautifulSoup
 
 
 # not sure I need st.cache on all of them...
-@st.cache
+@st.cache_data
 def get_league_scoring(league_id: int) -> str:
     """Scrapes the league's settings page. Returns the scoring type."""
     league_url = f"https://ottoneu.fangraphs.com/basketball/{league_id}/settings"
     resp = requests.get(league_url)
     soup = BeautifulSoup(resp.content, "html.parser")
+    # pytype: disable=attribute-error
     table = soup.find("main").find("table").find("tbody").find_all("tr")
     points_row = table[2]  # better way to do this??
     scoring = points_row.find_all("td")[-1].get_text().strip().lower().replace(" ", "_")
+    # pytype: enable=attribute-error
     if scoring == "traditional_points":
         return "trad_points"
     return scoring
 
 
-@st.cache(ttl=12 * 60 * 60)
+@st.cache_data(ttl=12 * 60 * 60)
 def get_league_rosters(league_id: int) -> pd.DataFrame:
     """Pulls the league's rosters and cleans them. Returns a dataframe."""
     league_url = (
@@ -42,7 +44,7 @@ def get_league_rosters(league_id: int) -> pd.DataFrame:
 
 
 def get_league_leaderboard(
-    league_id, start_date, end_date, free_agents_only
+    league_id: int, start_date: str, end_date: str, free_agents_only: bool
 ) -> pd.DataFrame:
     # need both
     if start_date and end_date:
