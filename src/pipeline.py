@@ -15,7 +15,7 @@ from transform import get_scoring_minutes_combo, prep_stats_df
 
 
 # code for the pipeline here
-@st.cache(ttl=12 * 60 * 60)
+@st.cache_data(ttl=12 * 60 * 60)
 def ottobasket_values_pipeline(
     save_df: bool = False, filter_cols: bool = True
 ) -> Union[None, pd.DataFrame]:

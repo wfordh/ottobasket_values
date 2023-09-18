@@ -43,9 +43,17 @@ def _get_projections_page(
     """
     driver.get(url)
     time.sleep(1.2)
-    dropdown = Select(driver.find_element(By.ID, "ContentPlaceHolder1_DDSHOW"))
+    num_players_dropdown = Select(
+        driver.find_element(By.ID, "ContentPlaceHolder1_DDSHOW")
+    )
     # "All" is represented as 900 in the webpage
-    dropdown.select_by_value("900")
+    num_players_dropdown.select_by_value("900")
+    time.sleep(2.1)
+    totals_dropdown = Select(driver.find_element(By.ID, "ContentPlaceHolder1_DDRANK"))
+    totals_dropdown.select_by_value("TOT")
+    # for getting the stats for rookies
+    three_point_perc_checkbox = driver.find_element(By.ID, "ContentPlaceHolder1_CB3PP")
+    three_point_perc_checkbox.click()
     time.sleep(3)
     content = driver.page_source
     return content
@@ -59,6 +67,34 @@ def _get_player_projection_data(
     player_data["pid"] = row_data[name_idx].a["href"].split("/")[1]
     player_data["games_forecast"] = str(row_data[game_idx].text.strip())
     player_data["minutes_forecast"] = str(row_data[minutes_idx].text.strip())
+    fg_data = (
+        row_data[headers.index("FG%")]
+        .find("span", {"class": "float-end small"})
+        .text.split("/")
+    )
+    player_data["fga_game"] = fg_data[1].replace(")", "")
+    player_data["fgm_game"] = fg_data[0].replace("(", "")
+    ft_data = (
+        row_data[headers.index("FT%")]
+        .find("span", {"class": "float-end small"})
+        .text.split("/")
+    )
+    player_data["fta_game"] = ft_data[1].replace(")", "")
+    player_data["ftm_game"] = ft_data[0].replace("(", "")
+    fg3_data = (
+        row_data[headers.index("3P%")]
+        .find("span", {"class": "float-end small"})
+        .text.split("/")
+    )
+    player_data["fg3a_game"] = fg3_data[1].replace(")", "")
+    player_data["fg3m_game"] = fg_data[0].replace("(", "")
+    player_data["fg3m_game"] = row_data[headers.index("3PM")].span.text.strip()
+    player_data["pts_game"] = row_data[headers.index("PTS")].span.text.strip()
+    player_data["reb_game"] = row_data[headers.index("TREB")].span.text.strip()
+    player_data["ast_game"] = row_data[headers.index("AST")].span.text.strip()
+    player_data["stl_game"] = row_data[headers.index("STL")].span.text.strip()
+    player_data["blk_game"] = row_data[headers.index("BLK")].span.text.strip()
+    player_data["tov_game"] = row_data[headers.index("TO")].span.text.strip()
     return player_data
 
 
@@ -104,7 +140,6 @@ def _extract_projections(is_projections: bool, content: str) -> pd.DataFrame:
                 player_data = _get_player_ytd_data(row_data, NAME_INDEX, GP_INDEX)
             all_players.append(player_data)
         except AttributeError as e:
-            print(row_data)
             # should probably add logging here...
             # specify error. do I want to do anything?
             print(player_data, e)
@@ -144,9 +179,8 @@ def _setup_gdrive(client_key_string: str) -> gspread.client.Client:
     return gspread.service_account_from_dict(credentials)
 
 
-def _upload_data(gc: gspread.client.Client, data: pd.DataFrame) -> None:
+def _upload_data(gc: gspread.client.Client, data: pd.DataFrame, sheet_key: str) -> None:
     """Uploads data to the provided Google sheet."""
-    sheet_key = "1RiXnGk2OFnGRmW9QNQ_1CFde0xfSZpyC9Cn3OLLojsY"
     sheet = gc.open_by_key(sheet_key)
     worksheet = sheet.get_worksheet(0)
     worksheet.update([data.columns.values.tolist()] + data.values.tolist())
@@ -173,7 +207,8 @@ def main():
         # ) - data.games_played.astype(int)
         print("got projections")
         gc = _setup_gdrive(client_key_string)
-        _upload_data(gc, data)
+        sheet_key = "1RiXnGk2OFnGRmW9QNQ_1CFde0xfSZpyC9Cn3OLLojsY"
+        _upload_data(gc, data, sheet_key)
     except (KeyError, TypeError) as e:
         # again should prob use logging
         print(e)

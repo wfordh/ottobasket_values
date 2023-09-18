@@ -113,6 +113,7 @@ def calc_per_game_projections(
         "player",
         "nba_player_id",
         "ottoneu_player_id",
+        "hashtag_id",
         "tm_id",
         "ottoneu_position",
         "minutes",

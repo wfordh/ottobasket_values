@@ -15,11 +15,15 @@ selenium = "*"
 gspread = "*"
 webdriver-manager = "*"
 altair = "*"
+pytype = "*"
+mypy = "*"
+plottable = "*"
+nba-api = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.9.12"
+python_version = "3.9.1"
 
 [pipenv]
 allow_prereleases = true

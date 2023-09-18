@@ -3,21 +3,33 @@ import streamlit as st
 
 import darko
 import drip
+# from hashtag_rookies import get_hashtag_rookie_per_game_stats
 from calc_stats import (calc_categories_value, calc_fantasy_pts,
                         calc_per_game_projections, calc_player_values)
 
 
 def get_name_map() -> pd.DataFrame:
     """Gets the mapping for names and IDs."""
-    return pd.read_csv("./data/mappings.csv")
+    return pd.read_csv("./data/mappings_update_2023-09-14.csv")
 
 
 def get_hashtag_ros_projections() -> pd.DataFrame:
     """Gets the hashtagbasketball projections from the Google sheet."""
     sheet_id = "1RiXnGk2OFnGRmW9QNQ_1CFde0xfSZpyC9Cn3OLLojsY"  # env variable?
-    return pd.read_csv(
+    df = pd.read_csv(
         f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=csv&gid=0"
     )
+    return df[["name", "pid", "games_forecast", "minutes_forecast"]]
+
+
+def get_hashtag_rookie_projections() -> pd.DataFrame:
+    sheet_id = "1RiXnGk2OFnGRmW9QNQ_1CFde0xfSZpyC9Cn3OLLojsY"  # env variable?
+    df = pd.read_csv(
+        f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=csv&gid=0"
+    )
+    rookies = pd.read_csv("data/rookies.csv")
+    hashtag_rookies = [str(int(pid)) for pid in rookies.hashtag_id.dropna().tolist()]
+    return df.loc[df.pid.isin(hashtag_rookies)]
 
 
 def get_ottoneu_leaderboard() -> pd.DataFrame:
@@ -37,7 +49,7 @@ def combine_darko_drip_df(
     # everything is per 100 to start, so keep it there and translate to per game later
     # this won't work because need to make sure they're in the right order
     combined_df = darko_df.merge(
-        name_mapping, how="inner", left_on="nba_id", right_on="nba_player_id"
+        name_mapping, how="outer", left_on="nba_id", right_on="nba_player_id"
     ).merge(drip_df, how="outer", left_on="stats_player_id", right_on="player_id")
     combined_df["points_100"] = combined_df[["pts_100_darko", "PTS_drip"]].mean(axis=1)
     combined_df["rebounds_100"] = combined_df[["reb_100_darko", "reb_drip"]].mean(
@@ -228,7 +240,7 @@ def prep_stats_df() -> pd.DataFrame:
     return stats_df
 
 
-@st.cache(ttl=12 * 60 * 60)
+@st.cache_data(ttl=12 * 60 * 60)
 def get_scoring_minutes_combo(
     projection_type: str, stats_df: pd.DataFrame
 ) -> pd.DataFrame:
@@ -240,6 +252,28 @@ def get_scoring_minutes_combo(
     # added .copy() method to maybe help with the StCachedObjectMutation warning
     # note: need to actually test that
     df = calc_per_game_projections(stats_df.copy(), projection_type=projection_type)
+    if projection_type == "rest_of_season":
+        hashtag_rookies = get_hashtag_rookie_projections().set_index("pid")
+        hashtag_rookies["fg_pct"] = hashtag_rookies.fgm_game / hashtag_rookies.fga_game
+        hashtag_rookies["fg3_pct"] = (
+            hashtag_rookies.fg3m_game / hashtag_rookies.fg3a_game
+        )
+        # hashtag_rookies["fga_game"] = hashtag_rookies.fga_game * hashtag_rookies.games_forecast
+        # hashtag_rookies["fgm_game"] = hashtag_rookies.fgm_game * hashtag_rookies.games_forecast
+        # hashtag_rookies["fg3a_game"] = hashtag_rookies.fg3a_game * hashtag_rookies.games_forecast
+        # hashtag_rookies["fg3m_game"] = hashtag_rookies.fg3m_game * hashtag_rookies.games_forecast
+        # hashtag_rookies["fta_game"] = hashtag_rookies.fta_game * hashtag_rookies.games_forecast
+        # hashtag_rookies["ftm_game"] = hashtag_rookies.ftm_game * hashtag_rookies.games_forecast
+        # hashtag_rookies["pts_game"] = hashtag_rookies.pts_game * hashtag_rookies.games_forecast
+        # hashtag_rookies["reb_game"] = hashtag_rookies.reb_game * hashtag_rookies.games_forecast
+        # hashtag_rookies["ast_game"] = hashtag_rookies.ast_game * hashtag_rookies.games_forecast
+        # hashtag_rookies["stl_game"] = hashtag_rookies.stl_game * hashtag_rookies.games_forecast
+        # hashtag_rookies["blk_game"] = hashtag_rookies.blk_game * hashtag_rookies.games_forecast
+        # hashtag_rookies["tov_game"] = hashtag_rookies.tov_game * hashtag_rookies.games_forecast
+        temp_df = df.set_index("hashtag_id")
+        temp_df.update(hashtag_rookies)
+        df = temp_df.reset_index()
+        # df.to_csv("data/temp_per_game_stats_2023-09-14.csv")
     for scoring_type in scoring_types:
         if scoring_type == "categories":
             df[f"{scoring_type}"] = calc_categories_value(df)
