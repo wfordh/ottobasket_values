@@ -52,7 +52,7 @@ def _get_projections_page(
 
 
 def _get_player_projection_data(
-    row_data: list, name_idx: int, game_idx: int, minutes_idx: int
+    row_data: list, name_idx: int, game_idx: int, minutes_idx: int, headers: list
 ) -> dict:
     player_data = dict()
     player_data["name"] = row_data[name_idx].a.text.strip()
@@ -101,7 +101,9 @@ def _extract_projections(is_projections: bool, content: str) -> pd.DataFrame:
                     row_data, NAME_INDEX, GP_INDEX, MINUTES_INDEX
                 )
             else:
-                player_data = _get_player_ytd_data(row_data, NAME_INDEX, GP_INDEX)
+                player_data = _get_player_ytd_data(
+                    row_data, NAME_INDEX, GP_INDEX, headers
+                )
             all_players.append(player_data)
         except AttributeError as e:
             print(row_data)
