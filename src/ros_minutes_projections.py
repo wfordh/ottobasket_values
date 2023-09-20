@@ -98,12 +98,10 @@ def _extract_projections(is_projections: bool, content: str) -> pd.DataFrame:
         try:
             if is_projections:
                 player_data = _get_player_projection_data(
-                    row_data, NAME_INDEX, GP_INDEX, MINUTES_INDEX
+                    row_data, NAME_INDEX, GP_INDEX, MINUTES_INDEX, headers
                 )
             else:
-                player_data = _get_player_ytd_data(
-                    row_data, NAME_INDEX, GP_INDEX, headers
-                )
+                player_data = _get_player_ytd_data(row_data, NAME_INDEX, GP_INDEX)
             all_players.append(player_data)
         except AttributeError as e:
             print(row_data)
