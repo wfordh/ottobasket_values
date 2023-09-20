@@ -2,6 +2,7 @@
 /data/*
 !/data/mappings.csv
 !/data/box_stats_revised.csv
+!/data/mappings_update_2023-09-14.csv
 
 # ignore env file
 .env
