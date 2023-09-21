@@ -43,11 +43,13 @@ def ottobasket_values_pipeline(
     all_values_df = current_minutes_df.merge(
         ros_df, how="left", on=join_cols, suffixes=["", "_ros"]
     ).merge(ytd_df, how="left", on=join_cols, suffixes=["", "_ytd"])
+    # need to rename the columns from the base dataframe in the merge
+    # to accurately reflect their source
     all_values_df.rename(
         columns={
-            "simple_points_value": "simple_points_value_ros",
-            "categories_value": "categories_value_ros",
-            "trad_points_value": "trad_points_value_ros",
+            "simple_points_value": "simple_points_value_current",
+            "categories_value": "categories_value_current",
+            "trad_points_value": "trad_points_value_current",
         },
         inplace=True,
     )
