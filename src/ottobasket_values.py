@@ -84,9 +84,7 @@ now = datetime.datetime.now(tz=ZoneInfo("US/Pacific"))
 st.markdown(
     "About page / README can be found [here](https://github.com/wfordh/ottobasket_values/blob/main/README.md)"
 )
-st.text(
-    "ros = rest of season. ytd = year to date. Full glossary [here](https://ottobasketvalues.streamlit.app/glossary_and_data_sources)."
-)
+st.text("ros = rest of season. ytd = year to date. Full glossary found in the sidebar.")
 st.text(f"Last updated: {now.strftime('%Y-%m-%d %I:%M %p (Pacific)')}")
 values_csv = convert_df(display_df)
 st.download_button(
