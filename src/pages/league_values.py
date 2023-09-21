@@ -54,9 +54,6 @@ if league_input:
     league_values_df["current_surplus"] = (
         league_values_df[f"{scoring_col}_current"] - league_values_df.salary
     )
-    league_values_df["fs_surplus"] = (
-        league_values_df[f"{scoring_col}_fs"] - league_values_df.salary
-    )
     league_values_df["ros_surplus"] = (
         league_values_df[f"{scoring_col}_ros"] - league_values_df.salary
     )
@@ -78,11 +75,9 @@ if league_input:
             [
                 "salary",
                 f"{scoring_col}_current",
-                f"{scoring_col}_fs",
                 f"{scoring_col}_ros",
                 f"{scoring_col}_ytd",
                 "current_surplus",
-                "fs_surplus",
                 "ros_surplus",
                 "ytd_surplus",
             ]
@@ -113,15 +108,12 @@ if league_input:
                 "ottoneu_position",
                 "salary",
                 "minutes",
-                "fs_min",
                 "total_ros_minutes",
                 "minutes_ytd",
                 f"{scoring_col}_current",
-                f"{scoring_col}_fs",
                 f"{scoring_col}_ros",
                 f"{scoring_col}_ytd",
                 "current_surplus",
-                "fs_surplus",
                 "ros_surplus",
                 "ytd_surplus",
             ]
@@ -136,7 +128,7 @@ now = datetime.datetime.now(tz=ZoneInfo("US/Pacific"))
 st.markdown(
     "About page / README can be found [here](https://github.com/wfordh/ottobasket_values/blob/main/README.md)"
 )
-st.text("ros = rest of season. fs = full strength. ytd = year to date.")
+st.text("ros = rest of season. ytd = year to date.")
 st.text(f"Last updated: {now.strftime('%Y-%m-%d %I:%M %p (Pacific)')}")
 values_csv = convert_df(display_df)
 st.download_button(

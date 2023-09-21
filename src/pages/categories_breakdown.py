@@ -90,7 +90,7 @@ now = datetime.datetime.now(tz=ZoneInfo("US/Pacific"))
 st.markdown(
     "About page / README can be found [here](https://github.com/wfordh/ottobasket_values/blob/main/README.md)"
 )
-st.text("ros = rest of season. fs = full strength. ytd = year to date.")
+st.text("ros = rest of season. ytd = year to date.")
 st.text(f"Last updated: {now.strftime('%Y-%m-%d %I:%M %p (Pacific)')}")
 cats_breakdown_csv = convert_df(display_df)
 st.download_button(
