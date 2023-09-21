@@ -509,7 +509,7 @@ ottoneu_player_id,name,nba_player_id,stats_player_id,bref_id,espn_id,hashtag_id,
 20354,Emoni Bates,1641734,,,,111245,F
 12693,Milos Jovic,,,,,,
 20032,Jabari Smith Jr.,1631095,1342755,smithja05,,38797,F
-20478,Trevor Keels,1631211,1323990,,,,
+20478,Trevor Keels,1631211,1323990,,,,G
 21270,Caleb Houstan,1631216,1324361,,,38958,G
 21167,Patrick Baldwin Jr.,1631116,1324451,,,38943,F
 21158,AJ Griffin,1631100,1323994,,,38836,F
@@ -518,7 +518,7 @@ ottoneu_player_id,name,nba_player_id,stats_player_id,bref_id,espn_id,hashtag_id,
 20654,Tyty Washington Jr.,1631102,1340789,,,38657,G
 20859,Peyton Watson,1631212,1326502,,,38944,G
 11761,Jaden Ivey,1631093,1231418,,,38635,G
-3487,Jaime Jaquez Jr.,1631170,,,,111214,
+3487,Jaime Jaquez Jr.,1631170,,,,111214,G/F
 20252,Hunter Sallis,,,,,,G
 6949,Ochai Agbaji,1630534,1132831,,,38571,G
 7654,Bennedict Mathurin,1631097,1239596,,,38940,G/F
@@ -529,8 +529,8 @@ ottoneu_player_id,name,nba_player_id,stats_player_id,bref_id,espn_id,hashtag_id,
 5508,Drew Timme,1631166,,,,,F
 8214,Johnny Juzang,1630548,1186159,,,,G
 13387,Kofi Cockburn,,,,,,C
-9255,Andre Jackson Jr.,1641748,,,,111232,
-21503,Michael Foster Jr.,1630701,1357746,,,,
+9255,Andre Jackson Jr.,1641748,,,,111232,G
+21503,Michael Foster Jr.,1630701,1357746,,,,F
 19863,MarJon Beauchamp,1630699,1357744,,,39835,F
 7000,Oscar Tshiebwe,1631131,,,,,F
 13840,Caleb Love,,,,,,G
@@ -544,15 +544,15 @@ ottoneu_player_id,name,nba_player_id,stats_player_id,bref_id,espn_id,hashtag_id,
 3516,Ian Martinez,,,,,,
 2322,Buddy Boeheim,1631205,1140338,,,40284,F
 2731,Jabari Walker,1631133,1232517,,,38959,F
-2764,Hunter Dickinson,,,,,,
+2764,Hunter Dickinson,,,,,,C
 3484,Andrew Jones,,,,,,
-114,Rokas Jokubaitis,,,,,,
+114,Rokas Jokubaitis,,,,,,G
 18700,DeMarcus Cousins,202326,509450,couside01,4258,9457,C
 18564,Anzejs Pasecniks,1628394,,,,,C/F
 382,Elijah Bryant,1629091,,,,,G
 256,Sam Dekker,1626155,,dekkesa01,2991184,9238,F
 228,Sekou Doumbouya,1629635,1172131,doumbse01,4423314,17256,F
-18318,Greg Monroe,202328,467468,monrogr01,4260,9335,
+18318,Greg Monroe,202328,467468,monrogr01,4260,9335,C
 9410,Tari Eason,1631106,1235198,easonta01,,38950,F
 7811,Jalen Williams,1631114,1182404,willija06,,38949,G/F
 22749,Shaedon Sharpe,1631101,1371494,sharpsh01,,38941,G
@@ -623,5 +623,5 @@ ottoneu_player_id,name,nba_player_id,stats_player_id,bref_id,espn_id,hashtag_id,
 19919,Terquavion Smith,1631173,,,,,G
 18389,Noah Vonleh,203943,786397,vonleno01,,9451,F
 22316,Victor Wembanyama,1641705,,wembavi01,,110399,F/C
-25838,Amen Thompson,1641708,,,,111204,
-25831,Ausar Thompson,1641709,,,,111205,
+25838,Amen Thompson,1641708,,,,111204,G/F
+25831,Ausar Thompson,1641709,,,,111205,G/F

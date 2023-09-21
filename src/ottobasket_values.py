@@ -25,7 +25,6 @@ format_cols = {
 ros_check = st.sidebar.checkbox("Rest of Season columns", value=True)
 ytd_check = st.sidebar.checkbox("Year to Date columns", value=True)
 current_min_check = st.sidebar.checkbox("Current minutes columns")
-fs_min_check = st.sidebar.checkbox("Full Strength minutes columns")
 id_columns = st.sidebar.checkbox("Show player IDs?", value=False)
 base_columns = [
     "player",
@@ -59,15 +58,6 @@ if current_min_check:
             "categories_value_current",
         ]
     )
-if fs_min_check:
-    base_columns.extend(
-        [
-            "fs_min",
-            "simple_points_value_fs",
-            "trad_points_value_fs",
-            "categories_value_fs",
-        ]
-    )
 if id_columns:
     base_columns.extend(
         [
@@ -75,7 +65,7 @@ if id_columns:
             "ottoneu_player_id",
         ]
     )
-if not any([ros_check, ytd_check, current_min_check, fs_min_check]):
+if not any([ros_check, ytd_check, current_min_check]):
     st.text("Please select a minutes option!!")
 player_input = (
     st.sidebar.text_input("Player name", placeholder="Stephen Curry").lower().strip()
@@ -95,7 +85,7 @@ st.markdown(
     "About page / README can be found [here](https://github.com/wfordh/ottobasket_values/blob/main/README.md)"
 )
 st.text(
-    "ros = rest of season. fs = full strength. ytd = year to date. Full glossary [here](https://ottobasketvalues.streamlit.app/glossary_and_data_sources)."
+    "ros = rest of season. ytd = year to date. Full glossary [here](https://ottobasketvalues.streamlit.app/glossary_and_data_sources)."
 )
 st.text(f"Last updated: {now.strftime('%Y-%m-%d %I:%M %p (Pacific)')}")
 values_csv = convert_df(display_df)

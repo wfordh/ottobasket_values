@@ -25,6 +25,8 @@ st.markdown(
 	- [538](https://fivethirtyeight.com/methodology/how-our-nba-predictions-work/)
 		- Full strength minutes come from 538 and are pulled in via DARKO.
 
+	## Player ID Mapping
+	You may find the mapping / crosswalk file I use [here](https://github.com/wfordh/ottobasket_values/blob/main/data/mappings_update_2023-09-14.csv). It is updated in a semi-manual manner. Please open an [issue on GitHub](https://github.com/wfordh/ottobasket_values/issues), DM me in the Ottoneu Slack, tag me on the [Ottoneu forums](https://www.community.ottoneu.com/), or tag [me on Twitter](https://twitter.com/wfordh)(don't check Twitter that often anymore) if a player is missing.
 
 	Feel free to request clarifications or additions on the [community forums](https://www.community.ottoneu.com/)
 	"""

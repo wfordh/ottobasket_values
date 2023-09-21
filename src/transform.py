@@ -28,7 +28,7 @@ def get_hashtag_rookie_projections() -> pd.DataFrame:
         f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=csv&gid=0"
     )
     rookies = pd.read_csv("data/rookies.csv")
-    hashtag_rookies = [str(int(pid)) for pid in rookies.hashtag_id.dropna().tolist()]
+    hashtag_rookies = [int(pid) for pid in rookies.hashtag_id.dropna().tolist()]
     return df.loc[df.pid.isin(hashtag_rookies)]
 
 
@@ -258,22 +258,9 @@ def get_scoring_minutes_combo(
         hashtag_rookies["fg3_pct"] = (
             hashtag_rookies.fg3m_game / hashtag_rookies.fg3a_game
         )
-        # hashtag_rookies["fga_game"] = hashtag_rookies.fga_game * hashtag_rookies.games_forecast
-        # hashtag_rookies["fgm_game"] = hashtag_rookies.fgm_game * hashtag_rookies.games_forecast
-        # hashtag_rookies["fg3a_game"] = hashtag_rookies.fg3a_game * hashtag_rookies.games_forecast
-        # hashtag_rookies["fg3m_game"] = hashtag_rookies.fg3m_game * hashtag_rookies.games_forecast
-        # hashtag_rookies["fta_game"] = hashtag_rookies.fta_game * hashtag_rookies.games_forecast
-        # hashtag_rookies["ftm_game"] = hashtag_rookies.ftm_game * hashtag_rookies.games_forecast
-        # hashtag_rookies["pts_game"] = hashtag_rookies.pts_game * hashtag_rookies.games_forecast
-        # hashtag_rookies["reb_game"] = hashtag_rookies.reb_game * hashtag_rookies.games_forecast
-        # hashtag_rookies["ast_game"] = hashtag_rookies.ast_game * hashtag_rookies.games_forecast
-        # hashtag_rookies["stl_game"] = hashtag_rookies.stl_game * hashtag_rookies.games_forecast
-        # hashtag_rookies["blk_game"] = hashtag_rookies.blk_game * hashtag_rookies.games_forecast
-        # hashtag_rookies["tov_game"] = hashtag_rookies.tov_game * hashtag_rookies.games_forecast
         temp_df = df.set_index("hashtag_id")
         temp_df.update(hashtag_rookies)
         df = temp_df.reset_index()
-        # df.to_csv("data/temp_per_game_stats_2023-09-14.csv")
     for scoring_type in scoring_types:
         if scoring_type == "categories":
             df[f"{scoring_type}"] = calc_categories_value(df)

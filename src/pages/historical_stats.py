@@ -67,7 +67,7 @@ description_string = """
     About page / README can be found [here](https://github.com/wfordh/ottobasket_values/blob/main/README.md).
     """
 st.markdown(description_string)
-st.text(f"Last updated: {now.strftime('%Y-%m-%d %I:%M %p (Pacific)')}")
+st.text(f"Last updated: Prior to 2023-24 season, so 2022-23 data is not yet included.")
 values_csv = convert_df(display_df)
 st.download_button(
     "Press to download",
