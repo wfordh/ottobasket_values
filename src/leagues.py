@@ -64,6 +64,6 @@ def get_average_values() -> pd.DataFrame:
     return df.rename(
         columns={
             "id": "ottoneu_player_id",
-            "position": "ottoneu_position",
+            # "position": "ottoneu_position",
         }
     )
