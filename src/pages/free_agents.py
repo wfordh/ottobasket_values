@@ -66,7 +66,7 @@ if league_input:
         scoring_col = "trad_points_value"
     average_values_df = get_average_values()
     league_values_df = league_values_df.merge(
-        average_values_df, how="left", on=["ottoneu_player_id", "ottoneu_position"]
+        average_values_df, how="left", on="ottoneu_player_id"
     )
     display_df = league_values_df[
         [
@@ -88,7 +88,15 @@ if league_input:
         "player", inplace=True
     )  # .reset_index(drop=True, inplace=True)
     format_cols.update({f"{league_scoring}_proj_production": "{:.2f}"})
+    # this stuff not ready for prod...need to work on it more
+    # display_df["is_drafted"] = False
 
+    # st.data_editor(
+    #     display_df.style.format(format_cols),
+    #     column_config={
+    #         "is_drafted": st.column_config.CheckboxColumn("Drafted?", default=False)
+    #     },
+    # )
     st.dataframe(display_df.style.format(format_cols))
     st.text("Free agents are sorted by projected rest of season value and production.")
 else:
