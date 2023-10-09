@@ -128,7 +128,7 @@ ottoneu_player_id,name,nba_player_id,stats_player_id,bref_id,espn_id,hashtag_id,
 257,Joe Harris,203925,549969,harrijo01,2528794,9540,G/F
 327,Gary Payton II,1627780,846407,paytoga02,3134903,11882,G
 494,Cody Zeller,203469,602028,zelleco01,2579258,9130,F/C
-75,Nicolas Claxton,1629651,1061682,claxtni01,4278067,17252,F/C
+75,Nicolas Claxton,1629651,1061682,claxtni01,4278067,17252,C
 371,Nemanja Bjelica,202357,550431,bjeline01,4269,9348,F
 68,Julius Randle,203944,786412,randlju01,3064514,9282,F/C
 163,Klay Thompson,202691,457611,thompkl01,6475,9221,G
@@ -153,7 +153,7 @@ ottoneu_player_id,name,nba_player_id,stats_player_id,bref_id,espn_id,hashtag_id,
 496,T.J. McConnell,204456,551787,mccontj01,2530530,9423,G
 322,Skylar Mays,1630219,948123,mayssk01,4066269,27614,G
 315,John Konchar,1629723,852907,konchjo01,3134932,17308,G
-24,Damion Lee,1627814,609081,leeda03,2595209,14134,G
+24,Damion Lee,1627814,609081,leeda03,2595209,14134,G/F
 426,Caris LeVert,1627747,698991,leverca01,2991043,9659,G
 134,Maxi Kleber,1628467,1072048,klebima01,2960236,13817,F
 11,Justin Holiday,203200,395365,holidju01,2284101,9155,F/G
@@ -352,14 +352,14 @@ ottoneu_player_id,name,nba_player_id,stats_player_id,bref_id,espn_id,hashtag_id,
 246,Chimezie Metu,1629002,884121,metuch01,3914283,15322,F/C
 469,Rodney Hood,203918,603106,hoodro01,2581177,9510,G/F
 351,Naji Marshall,1630230,1060704,marshna01,4278594,27850,F
-6,Ty Jerome,1629660,942866,jeromty01,4065733,17304,G
+6,Ty Jerome,1629660,942866,jeromty01,4065733,17304,G/F
 1,DeAndre Jordan,201599,398142,jordade01,3442,9268,C
 219,Herbert Jones,1630529,1061638,joneshe01,4277813,31064,F
 56,James Johnson,201949,398037,johnsja01,3999,9493,F
 156,Jarrett Culver,1629633,1078671,culveja01,4277928,17192,G/F
 355,Coby White,1629632,1138387,whiteco01,4395651,17193,G
 222,Patrick Williams,1630172,1174904,willipa01,4431687,27627,F
-91,Bruno Fernandes,1628981,1076674,fernabr01,4277952,,C
+91,Bruno Fernandes,1628981,1076674,fernabr01,4277952,,F/C
 251,Scottie Lewis,1630575,1175355,lewissc01,4432812,31085,G
 518,Josh Richardson,1626196,604288,richajo01,2581190,9317,G
 538,Goran Dragic,201609,456456,dragigo01,3423,9314,G
@@ -589,14 +589,14 @@ ottoneu_player_id,name,nba_player_id,stats_player_id,bref_id,espn_id,hashtag_id,
 23625,Cason Wallace,1641717,,,,109469,G
 23560,Brandon Miller,1641706,,,,110400,F
 8901,Jake LaRavia,1631222,1175125,laravja01,,38948,F
-24371,Jordan Walsh,1641775,,,,111234,G/F
+24371,Jordan Walsh,1641775,,,,111234,F
 24102,Bobi Klintman,,,,,,F
 22190,Lefteris Mantzoukas,,,,,,F
 24263,Kyle Filipowski,,,,,,C
 24628,Yohan Traore,,,,,,F
 23966,Chris Livingston,1641753,,,,,F
 22371,James Nnaji,1641762,,,,,C
-22549,Sidy Cissoko,1631321,,,,,G
+22549,Sidy Cissoko,1631321,,,,,F
 23039,Leonard Miller,1631159,,,,111229,F
 23071,Baba,,,,,,F
 22995,Gabriele Procida,,,,,,G
@@ -609,10 +609,10 @@ ottoneu_player_id,name,nba_player_id,stats_player_id,bref_id,espn_id,hashtag_id,
 21379,Moussa Diabate,1631217,1324359,,,,F
 13101,Jaren Holmes,,,,,,G
 12518,Scotty Pippen Jr.,1630590,1176798,pippesc02,,,G
-9860,Julian Strawther,1631124,,,,111225,G
+9860,Julian Strawther,1631124,,,,111225,G/F
 9522,Christian Braun,1631128,1174878,,,38570,G
 7831,Marcus Sasser,1631204,,,,111221,G
-6016,Colby Jones,1641732,,,,,G
+6016,Colby Jones,1641732,,,,,G/F
 3604,Jamal Cain,1631288,1060409,,,,F
 1635,Andrew Nembhard,1629614,1134158,nembhan01,,,G/F
 2725,Clifford Omoruyi,,,,,,C
