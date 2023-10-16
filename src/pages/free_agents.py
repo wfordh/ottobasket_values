@@ -30,7 +30,7 @@ def ottoneu_streamlit_footer():
     )
 
 
-def convert_df(df):
+def convert_df(df: pd.DataFrame) -> str:
     # Index is set to either player or team at all times
     return df.to_csv(index=True).encode("utf-8")
 
@@ -64,6 +64,9 @@ if league_input:
         # Ottoneu has it as "traditional_points", need to shorten it to be consistent
         league_scoring = "trad_points"
         scoring_col = "trad_points_value"
+    league_values_df[f"{league_scoring}_ppg"] = (
+        league_values_df[f"{league_scoring}"] / league_values_df.games_forecast
+    )
     average_values_df = get_average_values()
     league_values_df = league_values_df.merge(
         average_values_df, how="left", on="ottoneu_player_id"
@@ -72,8 +75,10 @@ if league_input:
         [
             "player",
             "ottoneu_position",
+            "games_forecast",
             "total_ros_minutes",
             f"{league_scoring}",
+            f"{league_scoring}_ppg",
             f"{league_scoring}_value",
             "ottoneu av",
             "ottoneu roster%",
@@ -84,10 +89,20 @@ if league_input:
         ascending=False,
         inplace=True,
     )
+    display_df.dropna(subset=f"{league_scoring}_ppg", inplace=True)
     display_df.set_index(
         "player", inplace=True
     )  # .reset_index(drop=True, inplace=True)
-    format_cols.update({f"{league_scoring}_proj_production": "{:.2f}"})
+    # dropping the categories per game scoring until I come up with a better way
+    # to display it...per 82 games?
+    if league_scoring == "categories":
+        display_df.drop(f"{league_scoring}_ppg", axis=1, inplace=True)
+    format_cols.update(
+        {
+            f"{league_scoring}_proj_production": "{:.1f}",
+            f"{league_scoring}_ppg": "{:.1f}",
+        }
+    )
     # this stuff not ready for prod...need to work on it more
     # display_df["is_drafted"] = False
 

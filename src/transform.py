@@ -252,6 +252,7 @@ def get_scoring_minutes_combo(
     # added .copy() method to maybe help with the StCachedObjectMutation warning
     # note: need to actually test that
     df = calc_per_game_projections(stats_df.copy(), projection_type=projection_type)
+
     if projection_type == "rest_of_season":
         hashtag_rookies = get_hashtag_rookie_projections().set_index("pid")
         hashtag_rookies["fg_pct"] = hashtag_rookies.fgm_game / hashtag_rookies.fga_game
@@ -360,9 +361,9 @@ def get_roster_depth(
     team_value_by_rotation_levels = pd.DataFrame()
     team_value_by_rotation_levels["team_name"] = league_values_df.team_name.unique()
     team_value_by_rotation_levels = (
-        team_value_by_rotation_levels.merge(rotation_data, how="inner", on="team_name")
-        .merge(depth_data, how="inner", on="team_name")
-        .merge(other_players_data, how="inner", on="team_name")
+        team_value_by_rotation_levels.merge(rotation_data, how="left", on="team_name")
+        .merge(depth_data, how="left", on="team_name")
+        .merge(other_players_data, how="left", on="team_name")
     )
 
     return team_value_by_rotation_levels

@@ -118,6 +118,8 @@ def calc_per_game_projections(
         "ottoneu_position",
         "minutes",
         "fs_min",
+        "games_forecast",
+        "minutes_forecast",
         "total_ros_minutes",
         "minutes_ytd",
         "pts_game",
