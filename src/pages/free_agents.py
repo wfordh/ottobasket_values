@@ -38,7 +38,7 @@ def convert_df(df: pd.DataFrame) -> str:
 stats_df = prep_stats_df()
 ros_df = get_scoring_minutes_combo("rest_of_season", stats_df)
 format_cols = {
-    col: "{:.1f}" for col in ros_df.columns if col not in ["player", "ottoneu_position"]
+    col: "{:.0f}" for col in ros_df.columns if col not in ["player", "ottoneu_position"]
 }
 
 

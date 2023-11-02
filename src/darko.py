@@ -40,6 +40,9 @@ def get_darko_reb(darko_df: pd.DataFrame) -> pd.DataFrame:
 def transform_percentage_columns(darko_df: pd.DataFrame) -> pd.DataFrame:
     """Turns percentage columns from strings with '%' into a float."""
     pct_columns = [col for col in darko_df.columns if "pct" in col]
+    # temporary fix 10/23/23 due to DARKO sheet having these as percentages
+    # for now.
+    pct_columns.extend(["pts_100", "orb_100", "drb_100"])
     for column in pct_columns:
         try:
             darko_df[column] = (
@@ -60,8 +63,9 @@ def rename_darko_cols(darko_columns: list) -> list:
         "nba_id",
         "available",
         "tm_id",
-        "current_min",
-        "fs_min",
+        # 10/23/23 - DARKO dropped current min and fs min
+        # "current_min",
+        # "fs_min",
         "minutes",
         "pace",
     ]
@@ -77,8 +81,8 @@ def transform_darko(darko_df: pd.DataFrame) -> pd.DataFrame:
         "nba_id",
         "available",
         "tm_id",
-        "current_min",
-        "fs_min",
+        # "current_min",
+        # "fs_min",
         "minutes",
         "pace",
         "pts_100",
