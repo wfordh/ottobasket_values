@@ -18,7 +18,7 @@ def convert_df(df):
 st.title("Ottobasket Player Values")
 values_df = ottobasket_values_pipeline(False)
 format_cols = {
-    col: "{:.1f}"
+    col: "${:.0f}" if "value" in col else "{:.0f}"
     for col in values_df.columns
     if col not in ["player", "ottoneu_position"]
 }

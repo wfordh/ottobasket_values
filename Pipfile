@@ -19,6 +19,8 @@ pytype = "*"
 mypy = "*"
 plottable = "*"
 nba-api = "*"
+chompjs = "*"
+tqdm = "*"
 
 [dev-packages]
 

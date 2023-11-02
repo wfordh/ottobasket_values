@@ -19,7 +19,7 @@ def convert_df(df):
 
 def find_format_cols(df):
     return {
-        col: "{:.1f}"
+        col: "{:.0f}"
         for col in df.columns
         if col not in ["player", "ottoneu_position", "team_name"]
     }
