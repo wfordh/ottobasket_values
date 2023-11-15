@@ -104,7 +104,7 @@ def combine_darko_drip_df(
     return combined_df[keep_cols].rename(columns={"name": "player"})
 
 
-def find_surplus_positions(fantasy_df: pd.DataFrame, scoring_type: str) -> pd.DataFrame:
+def find_surplus_positions(fantasy_df: pd.DataFrame, scoring_type: str) -> pd.Series:
     """
     Assigns the position each player will be considered for the value calculations
     according to where they are eligible and their ranked production.
@@ -154,7 +154,7 @@ def get_draftable_players(
     num_f_c: int = 12,
     num_g_f: int = 12,
     num_util: int = 36,
-) -> pd.DataFrame:
+) -> list:
     """
     Finds the draftable players for each position group, moving from centers down
     the positional spectrum to guards and repeating for the combined positions.
@@ -162,7 +162,7 @@ def get_draftable_players(
     the pool for future positions.
     """
     # Need to figure out the full strength thing here - 1/11/21
-    draftable_players = list()
+    draftable_players: list = list()
     draftable_players.extend(
         fantasy_df.loc[
             (fantasy_df.is_center) & (~fantasy_df.nba_player_id.isin(draftable_players))
@@ -234,7 +234,7 @@ def prep_stats_df() -> pd.DataFrame:
     # stick with inner join for now
     stats_df = stats_df.merge(
         hashtag_minutes, left_on="hashtag_id", right_on="pid", how="left"
-    ).merge(leaderboards, on="ottoneu_player_id", how="left", suffixes=["", "_ytd"])
+    ).merge(leaderboards, on="ottoneu_player_id", how="left", suffixes=("", "_ytd"))
     stats_df["total_ros_minutes"] = stats_df.minutes_forecast * stats_df.games_forecast
 
     return stats_df
@@ -253,6 +253,7 @@ def get_scoring_minutes_combo(
     # note: need to actually test that
     df = calc_per_game_projections(stats_df.copy(), projection_type=projection_type)
 
+    print(df.loc[df.player.duplicated()])
     if projection_type == "rest_of_season":
         hashtag_rookies = get_hashtag_rookie_projections().set_index("pid")
         hashtag_rookies["fg_pct"] = hashtag_rookies.fgm_game / hashtag_rookies.fga_game

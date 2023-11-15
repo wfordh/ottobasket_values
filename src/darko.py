@@ -54,7 +54,7 @@ def transform_percentage_columns(darko_df: pd.DataFrame) -> pd.DataFrame:
     return darko_df
 
 
-def rename_darko_cols(darko_columns: list) -> list:
+def rename_darko_cols(darko_columns: pd.Index) -> pd.Index:
     """
     Adds the '_darko' suffix to some columns to help differentiating between
     DARKO and DRIP projections in downstream calculations.
@@ -69,7 +69,9 @@ def rename_darko_cols(darko_columns: list) -> list:
         "minutes",
         "pace",
     ]
-    return [col + "_darko" if col not in ignore_cols else col for col in darko_columns]
+    return pd.Index(
+        [col + "_darko" if col not in ignore_cols else col for col in darko_columns]
+    )
 
 
 def transform_darko(darko_df: pd.DataFrame) -> pd.DataFrame:

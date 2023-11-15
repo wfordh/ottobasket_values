@@ -117,7 +117,7 @@ def calc_per_game_projections(
         "tm_id",
         "ottoneu_position",
         "minutes",
-        "fs_min",
+        # "fs_min",
         "games_forecast",
         "minutes_forecast",
         "total_ros_minutes",
@@ -142,7 +142,7 @@ def calc_per_game_projections(
 
 def calc_fantasy_pts(
     stats_df: pd.DataFrame, is_simple_scoring: bool = True
-) -> pd.DataFrame:
+) -> pd.Series:
     """
     Calculates the fantasy points for per game statistics given the scoring type.
     """
