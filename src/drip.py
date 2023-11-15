@@ -4,8 +4,6 @@ the projections coming from DRIP. All of the provided statistics are already in
 a per 100 possessions format.
 """
 
-from typing import List
-
 import pandas as pd
 
 
@@ -70,13 +68,15 @@ def get_drip_reb(drip_df: pd.DataFrame) -> pd.DataFrame:
     return drip_df
 
 
-def rename_drip_cols(drip_columns: List) -> List:
+def rename_drip_cols(drip_columns: pd.Index) -> pd.Index:
     """
     Adds the '_drip' suffix to some columns to help differentiating between
     DARKO and DRIP projections in downstream calculations.
     """
     ignore_cols = ["player", "player_id"]
-    return [col + "_drip" if col not in ignore_cols else col for col in drip_columns]
+    return pd.Index(
+        [col + "_drip" if col not in ignore_cols else col for col in drip_columns]
+    )
 
 
 def transform_drip(drip_df: pd.DataFrame) -> pd.DataFrame:
