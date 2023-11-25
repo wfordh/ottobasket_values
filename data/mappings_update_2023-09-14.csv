@@ -504,9 +504,9 @@ ottoneu_player_id,name,nba_player_id,stats_player_id,bref_id,espn_id,hashtag_id,
 21027,Chet Holmgren,1631096,1343009,,,38617,C/F
 21408,Paolo Banchero,1631094,1323993,,,38840,F
 21508,Jaden Hardy,1630702,1357748,,,39838,G
-21507,Scoot Henderson,1630703,,,,111203,G
+21507,Scoot Henderson,1630703,1357750,,,111203,G
 20219,Jalen Duren,1631105,1344765,,,38848,C
-20354,Emoni Bates,1641734,,,,111245,F
+20354,Emoni Bates,1641734,1344764,,,111245,F
 12693,Milos Jovic,,,,,,
 20032,Jabari Smith Jr.,1631095,1342755,smithja05,,38797,F
 20478,Trevor Keels,1631211,1323990,,,,G
@@ -518,7 +518,7 @@ ottoneu_player_id,name,nba_player_id,stats_player_id,bref_id,espn_id,hashtag_id,
 20654,Tyty Washington Jr.,1631102,1340789,,,38657,G
 20859,Peyton Watson,1631212,1326502,,,38944,G
 11761,Jaden Ivey,1631093,1231418,,,38635,G
-3487,Jaime Jaquez Jr.,1631170,,,,111214,G/F
+3487,Jaime Jaquez Jr.,1631170,1176708,,,111214,G/F
 20252,Hunter Sallis,,,,,,G
 6949,Ochai Agbaji,1630534,1132831,,,38571,G
 7654,Bennedict Mathurin,1631097,1239596,,,38940,G/F
@@ -529,7 +529,7 @@ ottoneu_player_id,name,nba_player_id,stats_player_id,bref_id,espn_id,hashtag_id,
 5508,Drew Timme,1631166,,,,,F
 8214,Johnny Juzang,1630548,1186159,,,,G
 13387,Kofi Cockburn,,,,,,C
-9255,Andre Jackson Jr.,1641748,,,,111232,G
+9255,Andre Jackson Jr.,1641748,1231279,,,111232,G
 21503,Michael Foster Jr.,1630701,1357746,,,,F
 19863,MarJon Beauchamp,1630699,1357744,,,39835,F
 7000,Oscar Tshiebwe,1631131,,,,,F
@@ -540,7 +540,7 @@ ottoneu_player_id,name,nba_player_id,stats_player_id,bref_id,espn_id,hashtag_id,
 20884,Kennedy Chandler,1631113,1328253,,,,G
 21220,JD Davison,1631120,1323515,,,38917,G
 21272,Matthew Cleveland,,,,,,G
-11580,Trayce Jackson-Davis,1631218,,,,111253,F
+11580,Trayce Jackson-Davis,1631218,1187569,,,111253,F
 3516,Ian Martinez,,,,,,
 2322,Buddy Boeheim,1631205,1140338,,,40284,F
 2731,Jabari Walker,1631133,1232517,,,38959,F
@@ -559,62 +559,62 @@ ottoneu_player_id,name,nba_player_id,stats_player_id,bref_id,espn_id,hashtag_id,
 22699,Nikola Jovic,1631107,1349630,jovicni01,,39836,F
 20098,Jeremy Sochan,1631110,1342728,sochaje01,,38938,F
 13542,E.J. Liddell,1630604,1176246,liddeej01,,,F
-23730,Cam Whitmore,1641715,,,,111216,F
+23730,Cam Whitmore,1641715,1408228,,,111216,F
 5885,Johnny Davis,1631098,1231530,davisjo06,,38939,G
 21498,Dyson Daniels,1630700,1357745,daniedy01,,39833,G
 3527,Wendell Moore Jr.,1631111,1174855,moorewe01,,,G
 23016,Simone Fontecchio,1631323,1314104,fontesi01,,43375,F
 20654,TyTy Washington Jr.,1631102,1340789,washity02,,38657,G
-23787,Dariq Whitehead,1641727,,,,111218,F
+23787,Dariq Whitehead,1641727,1401778,,,111218,F
 5943,Christian Koloko,1631132,1193674,kolokch01,,38957,C
 91,Bruno Fernando,1628981,1076674,fernabr01,,17327,F/C
-23371,Dereck Lively II,1641726,,,,109470,C
-24558,Gradey Dick,1641711,,,,111209,G
+23371,Dereck Lively II,1641726,1401780,,,109470,C
+24558,Gradey Dick,1641711,1416377,,,111209,G
 23880,Tyrese Proctor,,,,,,G
 22360,Yannick Nzosa,,,,,,C
 20934,Kendall Brown,1631112,1342729,brownke03,,38952,G
 21171,Malaki Branham,1631103,1325163,branhma01,,38740,F
 275,Terry Taylor,1630678,1077609,taylote01,,35204,F
-24233,Keyonte George,1641718,,,,111212,G
-23375,Anthony Black,1641710,,,,111206,G
-23549,GG Jackson,1641713,,,,,F
+24233,Keyonte George,1641718,1408151,,,111212,G
+23375,Anthony Black,1641710,1401385,,,111206,G
+23549,GG Jackson,1641713,1405584,,,111241,F
 23562,Dillon Mitchell,,,,,,F
 22574,Zaccharie Risacher,,,,,,F
 24576,Kel'el Ware,,,,,,C
 21456,Blake Wesley,1631104,1325125,weslebl01,,38946,G
 22988,Ousmane Dieng,1631172,1375876,diengou01,,39834,F
 6057,Armando Bacot,,,,,,F/C
-24478,Jarace Walker,1641716,,,,109468,F
+24478,Jarace Walker,1641716,1402709,,,109468,F
 10658,Kenneth Lofton Jr.,1631254,1232218,loftoke01,,39848,F
-23625,Cason Wallace,1641717,,,,109469,G
-23560,Brandon Miller,1641706,,,,110400,F
+23625,Cason Wallace,1641717,1408195,,,109469,G
+23560,Brandon Miller,1641706,1401381,,,110400,F
 8901,Jake LaRavia,1631222,1175125,laravja01,,38948,F
-24371,Jordan Walsh,1641775,,,,111234,F
+24371,Jordan Walsh,1641775,1401388,,,111234,F
 24102,Bobi Klintman,,,,,,F
 22190,Lefteris Mantzoukas,,,,,,F
 24263,Kyle Filipowski,,,,,,C
 24628,Yohan Traore,,,,,,F
-23966,Chris Livingston,1641753,,,,,F
+23966,Chris Livingston,1641753,1408196,,,,F
 22371,James Nnaji,1641762,,,,,C
-22549,Sidy Cissoko,1631321,,,,,F
-23039,Leonard Miller,1631159,,,,111229,F
+22549,Sidy Cissoko,1631321,1432656,,,111240,F
+23039,Leonard Miller,1631159,1376841,,,111229,F
 23071,Baba,,,,,,F
 22995,Gabriele Procida,,,,,,G
 20775,Arthur Kaluma,,,,,,F
 374,Jared Harper,,,,,,G
-23887,Amari Bailey,1641735,,,,,G
+23887,Amari Bailey,1641735,1408246,,,,G
 22585,Miller Baba,,,,,,F
 23018,Darius Days,1630620,1137208,,,,F
 22700,Nikola Djurisic,,,,,,G
 21379,Moussa Diabate,1631217,1324359,,,,F
 13101,Jaren Holmes,,,,,,G
 12518,Scotty Pippen Jr.,1630590,1176798,pippesc02,,,G
-9860,Julian Strawther,1631124,,,,111225,G/F
+9860,Julian Strawther,1631124,1241584,,,111225,G/F
 9522,Christian Braun,1631128,1174878,,,38570,G
-7831,Marcus Sasser,1631204,,,,111221,G
-6016,Colby Jones,1641732,,,,,G/F
-3604,Jamal Cain,1631288,1060409,,,,F
-1635,Andrew Nembhard,1629614,1134158,nembhan01,,,G/F
+7831,Marcus Sasser,1631204,1174920,,,111221,G
+6016,Colby Jones,1641732,1231798,,,111230,G/F
+3604,Jamal Cain,1631288,1060409,,,53608,F
+1635,Andrew Nembhard,1629614,1134158,nembhan01,,38614,G/F
 2725,Clifford Omoruyi,,,,,,C
 13457,Jaylin Williams,1631119,1231367,willija07,,38695,F
 14590,Dalen Terry,1631207,1239611,terryda01,,38947,F
@@ -622,6 +622,34 @@ ottoneu_player_id,name,nba_player_id,stats_player_id,bref_id,espn_id,hashtag_id,
 20094,Payton Shumpert,,,,,,F
 19919,Terquavion Smith,1631173,,,,,G
 18389,Noah Vonleh,203943,786397,vonleno01,,9451,F
-22316,Victor Wembanyama,1641705,,wembavi01,,110399,F/C
-25838,Amen Thompson,1641708,,,,111204,G/F
-25831,Ausar Thompson,1641709,,,,111205,G/F
+22316,Victor Wembanyama,1641705,1373356,wembavi01,,110399,F/C
+25838,Amen Thompson,1641708,1429337,,,111204,G/F
+25831,Ausar Thompson,1641709,1429338,,,111205,G/F
+18297,Aleksandar Vezenkov,1628426,1350854,,,38423,F
+12802,Kobe Brown,1641738,1176611,,,12802,F
+20324,Kobe Bufkin,1641723,1324350,,,20324,G
+10384,Toumani Camara,1641739,1175364,,,10384,F
+23162,Noah Clowney,1641730,1401380,,,23162,F
+25832,Bilal Coulibaly,1641731,1437526,,,109467,G/F
+13727,Mouhamadou Gueye,1631338,,,,,F
+20961,Mouhamed Gueye,1631243,1325101,,,,F
+20134,Jordan Hawkins,1641722,1327798,,,111210,G
+23321,Taylor Hendricks,1641707,1405861,,,111207,F
+23869,Jalen Hood-Schifino,1641720,1402780,,,111213,G
+18283,Vasilije Micic,203995,830652,,,28550,G
+2090,Kris Murray,1631200,1231166,,,111219,F
+23480,Julian Phillips,1641763,1405696,,,111231,F
+3034,Jalen Pickett,1629618,1136567,,,111228,G
+20992,Brandin Podziemski,1641764,1324108,,,111215,G
+25824,Craig Porter Jr.,1641854,1236197,,,111258,G
+20530,Olivier-Maxence Prosper,1641765,1232483,,,111220,F
+25458,Rayan Rupert,1641712,1433295,,,111239,G
+24430,Brice Sensabaugh,1641729,1408260,,,111224,F
+6056,Ben Sheppard,1641767,1175324,,,111222,G
+23776,Nick Smith Jr,1641733,1401374,,,111223,G
+9423,Hunter Tyson,1641816,1132015,,,111233,F
+25823,Jalen Wilson,1630592,1174884,,,111247,F
+25829,Isaiah Wong,1631209,1175076,,,,G
+22981,Dominick Barlow,1631230,1419291,,,53821,F
+8500,Julian Champagnie,1630577,1176070,,,53823,F
+23837,Jett Howard,1641724,1408232,,,111208,F
