@@ -57,11 +57,11 @@ if not any([cats_check, simple_pts_check, trad_pts_check]):
 
 display_df = values_df[base_columns].set_index("player").copy()
 
-st.dataframe(display_df.style.format(format_cols))
+st.dataframe(display_df.style.format(format_cols))  # type: ignore
 now = datetime.datetime.now(tz=ZoneInfo("US/Pacific"))
 description_string = """
-    Historical stats have been taken from NBA.com and go back to the 1996-97 season as a result. The values are calculated using the position designations listed on NBA.com, and so may not match the positions given to players on Ottoneu, though 
-    this is only relevant for players who are still active or played in seasons since Ottoneu Basketball started. The historical 
+    Historical stats have been taken from NBA.com and go back to the 1996-97 season as a result. The values are calculated using the position designations listed on NBA.com through the 2021-22 season, and so may not match the positions given to players on Ottoneu, though 
+    this is only relevant for players who are still active or played in seasons since Ottoneu Basketball started. The 2022-23 values use the players' Ottoneu positions. The historical 
     values do not contain data for the current season.
         
     About page / README can be found [here](https://github.com/wfordh/ottobasket_values/blob/main/README.md).
