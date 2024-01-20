@@ -240,7 +240,7 @@ def prep_stats_df() -> pd.DataFrame:
     return stats_df
 
 
-@st.cache_data(ttl=12 * 60 * 60)
+@st.cache_data(ttl=12 * 60 * 60)  # type: ignore
 def get_scoring_minutes_combo(
     projection_type: str, stats_df: pd.DataFrame
 ) -> pd.DataFrame:
@@ -253,7 +253,6 @@ def get_scoring_minutes_combo(
     # note: need to actually test that
     df = calc_per_game_projections(stats_df.copy(), projection_type=projection_type)
 
-    print(df.loc[df.player.duplicated()])
     if projection_type == "rest_of_season":
         hashtag_rookies = get_hashtag_rookie_projections().set_index("pid")
         hashtag_rookies["fg_pct"] = hashtag_rookies.fgm_game / hashtag_rookies.fga_game

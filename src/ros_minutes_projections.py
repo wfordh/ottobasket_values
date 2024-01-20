@@ -8,7 +8,7 @@ import json
 import os
 import time
 
-import gspread
+import gspread  # type: ignore
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
@@ -18,6 +18,8 @@ from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.firefox.service import Service
 from selenium.webdriver.support.select import Select
 from webdriver_manager.firefox import GeckoDriverManager
+
+from utils import _setup_gdrive, _upload_data
 
 
 def _setup_chrome_scraper() -> webdriver.firefox.webdriver.WebDriver:
@@ -154,9 +156,9 @@ def _get_fantasypros_projections() -> pd.DataFrame:
     url = "https://www.fantasypros.com/nba/projections/ros-overall.php"
     resp = requests.get(url)
     soup = BeautifulSoup(resp.content, "html.parser")
-    headers = [th.get_text().strip() for th in soup.find("thead").find_all("th")]
+    headers = [th.get_text().strip() for th in soup.find("thead").find_all("th")]  # type: ignore
     headers.append("fantasypros_id")
-    rows = soup.find("tbody").find_all("tr")
+    rows = soup.find("tbody").find_all("tr")  # type: ignore
     data = []
     for row in rows:
         row_data = []
@@ -172,18 +174,6 @@ def _get_fantasypros_projections() -> pd.DataFrame:
 
     df = pd.DataFrame(data, columns=headers)
     return df
-
-
-def _setup_gdrive(client_key_string: str) -> gspread.client.Client:
-    credentials = json.loads(client_key_string)
-    return gspread.service_account_from_dict(credentials)
-
-
-def _upload_data(gc: gspread.client.Client, data: pd.DataFrame, sheet_key: str) -> None:
-    """Uploads data to the provided Google sheet."""
-    sheet = gc.open_by_key(sheet_key)
-    worksheet = sheet.get_worksheet(0)
-    worksheet.update([data.columns.values.tolist()] + data.values.tolist())
 
 
 # factory pattern?

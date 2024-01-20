@@ -31,7 +31,7 @@ trad_scoring_values = {
 
 
 def calc_per_game_projections(
-    df: pd.DataFrame, projection_type: str = "full_strength"
+    df: pd.DataFrame, projection_type: str = "year_to_date"
 ) -> pd.DataFrame:
     """
     Translates the provided dataframe from a per 100 basis to per game basis,
@@ -61,9 +61,6 @@ def calc_per_game_projections(
         # poss / game * minutes * game / minutes ==> possessions
         # 100 since the stats are on a per 100 possession basis
         possessions = (stats_df.pace / 100) * (stats_df.total_ros_minutes / 48)
-    else:
-        # year to date
-        possessions = stats_df.pace * stats_df.minutes_ytd / stats_df.games_played
 
     if projection_type == "year_to_date":
         # super hacky but w/e
@@ -117,7 +114,7 @@ def calc_per_game_projections(
         "tm_id",
         "ottoneu_position",
         "minutes",
-        # "fs_min",
+        "games_played",
         "games_forecast",
         "minutes_forecast",
         "total_ros_minutes",
@@ -259,12 +256,14 @@ def calc_player_values(
     )
 
     fantasy_df[f"points_above_repl"] = fantasy_df.apply(
-        lambda row: row[scoring_type] - replacement_values["C"]
-        if row[f"{scoring_type}_position"] == "C"
-        else (
-            row[scoring_type] - replacement_values["F"]
-            if row[f"{scoring_type}_position"] == "F"
-            else row[scoring_type] - replacement_values["G"]
+        lambda row: (
+            row[scoring_type] - replacement_values["C"]
+            if row[f"{scoring_type}_position"] == "C"
+            else (
+                row[scoring_type] - replacement_values["F"]
+                if row[f"{scoring_type}_position"] == "F"
+                else row[scoring_type] - replacement_values["G"]
+            )
         ),
         axis="columns",
     )
@@ -276,8 +275,10 @@ def calc_player_values(
         4800 - len(fantasy_df.loc[fantasy_df.points_above_repl > 0])
     ) / total_league_value
     return fantasy_df.apply(
-        lambda row: round(row.points_above_repl * surplus_factor + 1, 1)
-        if row.points_above_repl > 0
-        else 0,
+        lambda row: (
+            round(row.points_above_repl * surplus_factor + 1, 1)
+            if row.points_above_repl > 0
+            else 0
+        ),
         axis=1,
     )
