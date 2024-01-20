@@ -2,6 +2,7 @@
 The pipeline for pulling the stats and deriving the values for each player, scoring
 type, and minutes type. It forms the basis for the homepage of the app.
 """
+
 from typing import Union
 
 import pandas as pd
@@ -15,7 +16,7 @@ from transform import get_scoring_minutes_combo, prep_stats_df
 
 
 # code for the pipeline here
-@st.cache_data(ttl=12 * 60 * 60)
+@st.cache_data(ttl=12 * 60 * 60)  # type: ignore
 def ottobasket_values_pipeline(
     save_df: bool = False, filter_cols: bool = True
 ) -> Union[None, pd.DataFrame]:
@@ -61,8 +62,7 @@ def ottobasket_values_pipeline(
 
     if save_df:
         all_values_df.to_csv("./data/all_values_df.csv", index=False)
-    else:
-        return all_values_df
+    return all_values_df
 
 
 def main():

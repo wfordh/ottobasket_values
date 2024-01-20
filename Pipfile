@@ -21,6 +21,9 @@ plottable = "*"
 nba-api = "*"
 chompjs = "*"
 tqdm = "*"
+lxml = "*"
+protobuf = "3.19.0"
+types-beautifulsoup4 = "*"
 
 [dev-packages]
 
