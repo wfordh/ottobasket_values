@@ -31,9 +31,12 @@ def clean_avg_vals_df(avg_vals: pd.DataFrame) -> pd.DataFrame:
     ]
     avg_vals.columns = pd.Index(avg_vals_cols)
     avg_vals["ottoneu_av"] = avg_vals.ottoneu_av.str.replace("$", "").astype(float)
-    avg_vals["ottoneu_roster_pct"] = avg_vals.ottoneu_roster_pct.str.replace(
-        "%", ""
-    ).astype(float)
+    try:
+        avg_vals["ottoneu_roster_pct"] = avg_vals.ottoneu_roster_pct.str.replace(
+            "%", ""
+        ).astype(float)
+    except AttributeError:
+        pass
 
     return avg_vals
 
