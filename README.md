@@ -31,6 +31,9 @@ I really want to do some additional analysis around positions, production, and o
 
 I want to investigate if any of my baked in assumptions need adjusting, such as where the replacement value cutoff should be and positional distributions.
 
+#### Blogs
+I have written a few posts on the Ottoneu community message boards analyzing aspects of the game, including one on [NBA schedule artifacts and their impact on scoring](https://community.ottoneu.com/t/nba-schedule-artifacts-and-player-fantasy-scoring/14413?u=higginsford) and one on [arbitration analysis for the 2024 season](https://community.ottoneu.com/t/2024-ottobasket-arb-analysis/14414/4).
+
 ### Polish App
 The app is currently functional but could use some smoothing out in some areas, both in what's visible to the users and under the hood. The best example right now is that the user cannot filter for a certain player if league data has not been brought in.
 
@@ -53,6 +56,5 @@ Many, many thanks to [Kostya Medvedovsky](https://twitter.com/kmedved/) for crea
     - user input?
     - running each player with minutes at 36? Removing the minutes delta from players who share the position with them?
   - add [wampum.codes](https://foundation.mozilla.org/en/blog/indigenous-wisdom-model-software-design-and-development/) file?
-  - use datasette as a backend to display the data?
   - Do some analysis on inflation
 </details>

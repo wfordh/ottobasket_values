@@ -4,9 +4,9 @@ from zoneinfo import ZoneInfo
 import pandas as pd
 import streamlit as st
 
-from leagues import get_league_rosters, get_league_scoring
-from pipeline import ottobasket_values_pipeline
-from transform import get_roster_depth
+from leagues import get_league_rosters, get_league_scoring  # type: ignore
+from pipeline import ottobasket_values_pipeline  # type: ignore
+from transform import get_roster_depth  # type: ignore
 
 st.markdown("# League Values")
 st.sidebar.markdown("# League Values")
@@ -25,7 +25,10 @@ def find_format_cols(df):
     }
 
 
-values_df = ottobasket_values_pipeline(save_df=False, filter_cols=False)
+sheet_id = "1GgwZpflcyoRYMP0yL2hrbNwndJjVFm34x3jXnUooSfA"
+values_df = pd.read_csv(
+    f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=csv&gid=0"
+)
 
 
 league_input = st.sidebar.text_input("League ID", placeholder="1")

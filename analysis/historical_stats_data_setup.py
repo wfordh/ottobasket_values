@@ -187,8 +187,9 @@ def get_otto_values_df(
     )
     if season > "2021-22":
         # maybe shouldn't do this if looking at age curves
+        # works for 2023-24 (and hopefully moving forward). read in retrodiction_values.csv for 2022-23
         ottoneu_season_positions = pd.read_csv(
-            f"./data/{season}_preseason_projections/retrodiction_values.csv"
+            f"./data/{season}_preseason_projections/ottobasket_projections_{season}.csv"
         )
         mappings = pd.read_csv("./data/mappings_update_2023-09-14.csv")
         season_df = season_df.merge(

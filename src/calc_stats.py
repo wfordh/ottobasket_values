@@ -1,6 +1,9 @@
 from typing import Dict, List, Union
 
+import numpy as np
 import pandas as pd
+
+from utils import get_sgp_rollup
 
 # use enums here?
 simple_scoring_values = {
@@ -160,14 +163,7 @@ def calc_fantasy_pts(
     )
 
 
-def calc_categories_value(
-    df: pd.DataFrame, is_rollup: bool = True
-) -> Union[pd.Series, pd.DataFrame]:
-    """
-    Calculates players' value in each category according the the normalization /
-    z-scores methodology. The values are then summed and either the sum or all
-    of the values may be returned, depending on the use case.
-    """
+def calc_z_score_values():
     roto_cols = [
         "pts_game",
         "reb_game",
@@ -222,6 +218,70 @@ def calc_categories_value(
     value_df["total_value"] = value_df.drop(
         ["player", "nba_player_id", "aFGM", "aFG3M"], axis=1
     ).sum(axis=1)
+    return value_df
+
+
+def calc_sgp_values(df: pd.DataFrame) -> pd.DataFrame:
+    # need to 1) get sgp data
+    # 2) balance the weeks (22-csw)*lss + csw*css / 22
+    # 3)
+
+    NUM_WEEKS = 22
+    sgp_rollup = get_sgp_rollup().tail(2)
+    current_week = sgp_rollup.week.values.tolist().pop()
+    current_season = sgp_rollup.season.values.tolist().pop()
+
+    sgp_values = (
+        (
+            (NUM_WEEKS - current_week)
+            * sgp_rollup.loc[sgp_rollup.season != current_season].drop(
+                ["season", "week"], axis=1
+            )
+            + current_week
+            * sgp_rollup.loc[sgp_rollup.season == current_season].drop(
+                ["season", "week"], axis=1
+            )
+        )
+        / NUM_WEEKS
+    ).to_dict()
+
+    columns = ["pts", "reb", "ast", "stl", "blk", "ftm", "tov", "fg%", "3pt%"]
+    for col in columns:
+        if col == "fg%":
+            df[f"{col}_sgp"] = df.apply(
+                lambda row: (
+                    (row.field_goals_made + sgp_values["avg_team_fgm"])
+                    / (row.field_goal_attempts + sgp_values["avg_team_fga"])
+                    - sgp_values["avg_team_fg_pct"]
+                )
+                / sgp_values[col],
+                axis=1,
+            )
+        elif col == "3pt%":
+            df[f"{col}_sgp"] = df.apply(
+                lambda row: (
+                    (row.three_points_made + sgp_values["avg_team_fg3m"])
+                    / (row.three_point_attempts + sgp_values["avg_team_fg3a"])
+                    - sgp_values["avg_team_fg3_pct"]
+                )
+                / sgp_values[col],
+                axis=1,
+            )
+        else:
+            df[f"{col}_sgp"] = df[col].apply(lambda row: row / sgp_values[col])
+    df["total_value"] = df[[col for col in df.columns if "sgp" in col]].sum(axis=1)
+    return df
+
+
+def calc_categories_value(
+    df: pd.DataFrame, is_rollup: bool = True
+) -> Union[pd.Series, pd.DataFrame]:
+    """
+    Calculates players' value in each category according the the normalization /
+    z-scores methodology. The values are then summed and either the sum or all
+    of the values may be returned, depending on the use case.
+    """
+    value_df = calc_sgp_values(df)
 
     return value_df.total_value if is_rollup else value_df
 
@@ -281,4 +341,55 @@ def calc_player_values(
             else 0
         ),
         axis=1,
+    )
+
+
+def calc_sgp_slopes(df: pd.DataFrame) -> dict:
+    columns = ["pts", "reb", "ast", "stl", "blk", "ftm", "tov", "fg%", "3pt%"]
+    num_teams = 12  # make an arg?
+    stat_diffs = dict()
+    for col in columns:
+        sorted_values = df[col].sort_values(ascending=True).tolist()
+        stat_diffs[col] = np.polyfit(range(1, num_teams + 1), sorted_values, deg=1)[0]
+        # stat_diffs[col] = (df[col].max() - df[col].min()) / (num_teams - 1)
+        if col == "tov":
+            stat_diffs[col] = -1.0 * stat_diffs[col]
+    return stat_diffs
+
+
+def ratio_stat_sgp(df: pd.DataFrame):
+    #
+    num_teams = 12
+    num_players = 3 + 2 + 1 + 1 + 1 + 2  # 3 G 2 F 1 C 1 G/F 1 F/C 2 UTIL
+    # should this just be the number of above replacement level? no, since repl level is figured out later
+    total_players = num_teams * num_players
+    # need projected FGA for total_players
+    # use avg FG% - but projected or from last year???
+    # need to bank the values for: num FGA / player and num FGM / player
+    # use that to get proj FG% for average player to serve as baseline to comp
+    # get num FGM and FGA for (num_players - 1)
+
+    # let's just use past stuff for now
+    total_fga = df.fga.sum()
+    total_fgm = df.fgm.sum()
+    avg_fg_pct = total_fgm / total_fga
+
+    avg_fga = total_fga / total_players
+    avg_fgm = total_fgm / total_players
+
+    team_minus_one_fga = (num_players - 1) * avg_fga
+    team_minus_one_fgm = (num_players - 1) * avg_fgm
+
+    total_fg3a = df["3pta"].sum()
+    total_fg3m = df["3ptm"].sum()
+    avg_fg3_pct = total_fg3m / total_fg3a
+
+    avg_fg3a = total_fg3a / total_players
+    avg_fg3m = total_fg3m / total_players
+
+    team_minus_one_fg3a = (num_players - 1) * avg_fg3a
+    team_minus_one_fg3m = (num_players - 1) * avg_fg3m
+    return (
+        (team_minus_one_fga, team_minus_one_fgm, avg_fg_pct),
+        (team_minus_one_fg3a, team_minus_one_fg3m, avg_fg3_pct),
     )

@@ -3,6 +3,9 @@ The pipeline for pulling the stats and deriving the values for each player, scor
 type, and minutes type. It forms the basis for the homepage of the app.
 """
 
+import argparse
+import logging
+import os
 from typing import Union
 
 import pandas as pd
@@ -13,12 +16,25 @@ import darko
 import drip
 ## not ideal, but will figure it out later
 from transform import get_scoring_minutes_combo, prep_stats_df
+from utils import _setup_gdrive, _upload_data
+
+logging.basicConfig(level=logging.INFO)
+
+parser = argparse.ArgumentParser()
+
+parser.add_argument(
+    "-s",
+    "--save_method",
+    help="Where to save the data. Local, GDrive, or not at all.",
+    choices=["local", "gdrive"],
+    type=str,
+)
 
 
 # code for the pipeline here
 @st.cache_data(ttl=12 * 60 * 60)  # type: ignore
 def ottobasket_values_pipeline(
-    save_df: bool = False, filter_cols: bool = True
+    save_method: Union[str, None] = "local", filter_cols: bool = True
 ) -> Union[None, pd.DataFrame]:
     stats_df = prep_stats_df()
 
@@ -42,8 +58,8 @@ def ottobasket_values_pipeline(
         "minutes_ytd",
     ]
     all_values_df = current_minutes_df.merge(
-        ros_df, how="left", on=join_cols, suffixes=["", "_ros"]
-    ).merge(ytd_df, how="left", on=join_cols, suffixes=["", "_ytd"])
+        ros_df, how="left", on=join_cols, suffixes=("", "_ros")
+    ).merge(ytd_df, how="left", on=join_cols, suffixes=("", "_ytd"))
     # need to rename the columns from the base dataframe in the merge
     # to accurately reflect their source
     all_values_df.rename(
@@ -60,13 +76,24 @@ def ottobasket_values_pipeline(
         ]
     all_values_df.drop_duplicates(inplace=True)
 
-    if save_df:
+    if save_method == "local":
+        logging.info("Saving locally!")
         all_values_df.to_csv("./data/all_values_df.csv", index=False)
+    elif save_method == "gdrive":
+        logging.info("Uploading to GDrive!")
+        client_key_string = os.environ.get("SERVICE_BLOB", None)
+        gc = _setup_gdrive(client_key_string)
+        sheet_key = "1GgwZpflcyoRYMP0yL2hrbNwndJjVFm34x3jXnUooSfA"
+        _upload_data(gc, all_values_df, sheet_key)
     return all_values_df
 
 
 def main():
-    ottobasket_values_pipeline(True)
+    args = parser.parse_args()
+    command_args = dict(vars(args))
+    save_method = command_args.pop("save_method", None)
+    logging.info(f"Save method is {save_method}")
+    ottobasket_values_pipeline(save_method)
 
 
 if __name__ == "__main__":

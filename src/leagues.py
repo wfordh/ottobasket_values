@@ -1,3 +1,4 @@
+# mypy: ignore-errors
 import logging
 import time
 
@@ -11,13 +12,17 @@ from bs4 import BeautifulSoup
 @st.cache_data(ttl=12 * 60 * 60)  # type: ignore
 def get_league_scoring(league_id: int) -> str:
     """Scrapes the league's settings page. Returns the scoring type."""
-    league_url = f"https://ottoneu.fangraphs.com/basketball/{league_id}/settings"
-    resp = requests.get(league_url)
-    soup = BeautifulSoup(resp.content, "html.parser")
-    # pytype: disable=attribute-error
-    table = soup.find("main").find("table").find("tbody").find_all("tr")  # type: ignore
-    points_row = table[2]  # better way to do this??
-    scoring = points_row.find_all("td")[-1].get_text().strip().lower().replace(" ", "_")
+    sheet_key = "14TkjXjFSWDQsHZy6Qt77elLnVpi1HwrpbqzVC4JKDjc"
+    df = pd.read_csv(
+        f"https://docs.google.com/spreadsheets/d/{sheet_key}/export?format=csv&gid=0"
+    )
+    scoring = (
+        df.loc[df.league_id == league_id, "points_system"]
+        .values[0]
+        .strip()
+        .lower()
+        .replace(" ", "_")
+    )
     # pytype: enable=attribute-error
     if scoring == "traditional_points":
         return "trad_points"
@@ -72,3 +77,86 @@ def get_average_values() -> pd.DataFrame:
             # "position": "ottoneu_position",
         }
     )
+
+
+def get_league_settings(league_id: int) -> dict:
+    """
+    Pulls the settings of interest for each league
+    """
+    league_url = f"https://ottoneu.fangraphs.com/basketball/{league_id}/settings"
+    r = requests.get(league_url)
+    soup = BeautifulSoup(r.content, "html.parser")
+    table = soup.find("table")
+    body = table.find("tbody")
+    rows = body.find_all("tr")
+    dimensions_of_interest = [
+        "Roster Settings",
+        "Playoff Settings",
+        "Points System",
+        "Matchups Per Week",
+    ]
+    league_settings = dict()
+    for row in rows:
+        row_data = row.find_all("td")
+        if row_data[0].text in dimensions_of_interest:
+            dim = row_data[0].text.strip().lower().replace(" ", "_")
+            league_settings[dim] = row_data[1].text.strip()
+    return league_settings
+
+
+def get_league_first_year(league_id: int) -> str:
+    league_url = f"https://ottoneu.fangraphs.com/basketball/{league_id}/draft_history"
+    r = requests.get(league_url)
+    soup = BeautifulSoup(r.content, "html.parser")
+    drafts = (
+        soup.find("main")
+        .find("div", {"class": "page-header__secondary"})
+        .find("div", {"class": "page-header__section"})
+        .find_all("h5")
+    )
+    first_year = drafts.pop()
+    return first_year.text.strip()
+
+
+def get_standings_page(league_id: int, season: str) -> pd.DataFrame:
+    # make season map
+    # 4 = 2023-24, 3 = 2022-23, 2 = 2021-22
+    season_map = {"2024-25": 5, "2023-24": 4, "2022-23": 3, "2021-22": 2, "2020-21": 1}
+    url = f"https://ottoneu.fangraphs.com/basketball/{league_id}/standings/{season_map[season]}"
+    r = requests.get(url, timeout=None)
+    soup = BeautifulSoup(r.content, "html.parser")
+    tables = soup.find_all("table")
+    main_table = get_table(tables[1])
+    shots_table = get_table(tables[2])
+    # why is the suffix _foo???
+    overall_table = main_table.merge(
+        shots_table, how="inner", on=["team", "g", "mins"], suffixes=("", "_foo")
+    )
+    for col in overall_table.columns:
+        if col == "team":
+            continue
+        overall_table[col] = overall_table[col].astype(float)
+    return overall_table
+
+
+def get_table(table) -> pd.DataFrame:
+    """
+    Helper function used in get_standings_page()
+    """
+    headers = [
+        th.text.lower().strip() for th in table.find("thead").find("tr").find_all("th")
+    ]
+    rows = [
+        [td.text.strip() for td in row.find_all("td")]
+        for row in table.find("tbody").find_all("tr")
+    ]
+    return pd.DataFrame(rows, columns=headers)
+
+
+def get_schedule_week(league_id: int = 26) -> int:
+    url = f"https://ottoneu.fangraphs.com/basketball/{league_id}/"
+    r = requests.get(url)
+    soup = BeautifulSoup(r.content, "html.parser")
+    schedule_header = soup.find("h3").text.strip().split()
+    schedule_week = int(schedule_header[-2])
+    return schedule_week

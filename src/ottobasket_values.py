@@ -16,7 +16,10 @@ def convert_df(df):
 
 
 st.title("Ottobasket Player Values")
-values_df = ottobasket_values_pipeline(False)
+sheet_id = "1GgwZpflcyoRYMP0yL2hrbNwndJjVFm34x3jXnUooSfA"
+values_df = pd.read_csv(
+    f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=csv&gid=0"
+)
 format_cols = {
     col: "${:.0f}" if "value" in col else "{:.0f}"
     for col in values_df.columns
@@ -79,7 +82,7 @@ if position_input:
     values_df = values_df.loc[values_df.ottoneu_position.isin(position_input)]
 
 display_df = values_df[base_columns].copy().set_index("player")
-st.dataframe(display_df.style.format(format_cols))
+st.dataframe(display_df.style.format(format_cols))  # type: ignore
 now = datetime.datetime.now(tz=ZoneInfo("US/Pacific"))
 st.markdown(
     "About page / README can be found [here](https://github.com/wfordh/ottobasket_values/blob/main/README.md)"
