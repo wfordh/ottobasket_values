@@ -1,8 +1,8 @@
-name: Minutes Forecast Run
+name: Leagues Info Run
 
 on: #push
   schedule:
-    - cron: 0 8 * 1,2,3,4,8,9,10,11,12 *
+    - cron: 5 4 15 5,8,9,10,11 * 
 
 jobs:
   build:
@@ -13,11 +13,7 @@ jobs:
       with:
         python-version: 3.9.12
     - run: pip install -r requirements.txt
-    - name: minutes script run
+    - name: script run
       env: 
           SERVICE_BLOB: ${{ secrets.SERVICE_BLOB }}
-      run: python3 src/ros_minutes_projections.py 
-    - name: values script run
-      env:
-          SERVICE_BLOB: ${{ secrets.SERVICE_BLOB }}
-      run: python3 src/pipeline.py -s "gdrive"
+      run: python3 src/leagues_info.py 

@@ -1,3 +1,6 @@
+# ignore service account json
+otto*.json
+
 # ignore most of data folder for now
 /data/*
 !/data/mappings.csv
@@ -10,3 +13,7 @@
 
 # ignore env file
 .env
+
+# ignore DS Store
+.DS_Store
+*/.DS_Store

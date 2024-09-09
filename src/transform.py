@@ -6,37 +6,8 @@ import drip
 # from hashtag_rookies import get_hashtag_rookie_per_game_stats
 from calc_stats import (calc_categories_value, calc_fantasy_pts,
                         calc_per_game_projections, calc_player_values)
-
-
-def get_name_map() -> pd.DataFrame:
-    """Gets the mapping for names and IDs."""
-    return pd.read_csv("./data/mappings_update_2023-09-14.csv")
-
-
-def get_hashtag_ros_projections() -> pd.DataFrame:
-    """Gets the hashtagbasketball projections from the Google sheet."""
-    sheet_id = "1RiXnGk2OFnGRmW9QNQ_1CFde0xfSZpyC9Cn3OLLojsY"  # env variable?
-    df = pd.read_csv(
-        f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=csv&gid=0"
-    )
-    return df[["name", "pid", "games_forecast", "minutes_forecast"]]
-
-
-def get_hashtag_rookie_projections() -> pd.DataFrame:
-    sheet_id = "1RiXnGk2OFnGRmW9QNQ_1CFde0xfSZpyC9Cn3OLLojsY"  # env variable?
-    df = pd.read_csv(
-        f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=csv&gid=0"
-    )
-    rookies = pd.read_csv("data/rookies.csv")
-    hashtag_rookies = [int(pid) for pid in rookies.hashtag_id.dropna().tolist()]
-    return df.loc[df.pid.isin(hashtag_rookies)]
-
-
-def get_ottoneu_leaderboard() -> pd.DataFrame:
-    """Gets the results from the Ottoneu leaderboard for the current season."""
-    return pd.read_csv(
-        "https://ottoneu.fangraphs.com/basketball/31/ajax/player_leaderboard?positions[]=G&positions[]=F&positions[]=C&minimum_minutes=0&sort_by=salary&sort_direction=DESC&free_agents_only=false&include_my_team=false&export=export"
-    ).rename(columns={"id": "ottoneu_player_id"})
+from utils import (get_hashtag_rookie_projections, get_hashtag_ros_projections,
+                   get_name_map, get_ottoneu_leaderboard)
 
 
 def combine_darko_drip_df(
@@ -230,12 +201,17 @@ def prep_stats_df() -> pd.DataFrame:
     leaderboards = get_ottoneu_leaderboard()
 
     stats_df = combine_darko_drip_df(darko_df, drip_df, name_map)
-    stats_df = stats_df.loc[stats_df.nba_player_id.notna()].copy()
+    stats_df = stats_df.loc[
+        stats_df.nba_player_id.notna() & stats_df.tm_id.notna()
+    ].copy()
     # stick with inner join for now
     stats_df = stats_df.merge(
         hashtag_minutes, left_on="hashtag_id", right_on="pid", how="left"
     ).merge(leaderboards, on="ottoneu_player_id", how="left", suffixes=("", "_ytd"))
     stats_df["total_ros_minutes"] = stats_df.minutes_forecast * stats_df.games_forecast
+
+    stats_df.minutes_ytd.fillna(0, inplace=True)
+    stats_df.total_ros_minutes.fillna(0, inplace=True)
 
     return stats_df
 
