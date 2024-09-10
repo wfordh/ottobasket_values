@@ -1,5 +1,7 @@
+import argparse
+
 import pandas as pd
-from nba_api.stats.endpoints import playerindex
+from nba_api.stats.endpoints import playerindex  # type: ignore
 
 import ros_minutes_projections as rmp
 from leagues import get_average_values
@@ -12,9 +14,22 @@ nba_to_ottoneu_name_map = {
 add season arg for CLI use?
 """
 
+parser = argparse.ArgumentParser()
+
+parser.add_argument(
+    "-s",
+    "--season",
+    help="The season to use for analysis, eg 2023-24.",
+    required=True,
+    type=str,
+)
+
 
 def main():
-    existing_data = pd.read_csv("./data/mappings.csv")
+    args = parser.parse_args()
+    command_args = dict(vars(args))
+    SEASON = command_args.pop("season", None)
+    mappings = pd.read_csv("./data/mappings.csv")
     # ottoneu data
     values = get_average_values()
 
@@ -26,11 +41,11 @@ def main():
     rmp._shutdown_chrome_scraper(driver)
 
     # nba data
-    nba_raw = playerindex.PlayerIndex(season="2023-24").get_dict()["resultSets"][0]
+    nba_raw = playerindex.PlayerIndex(season=SEASON).get_dict()["resultSets"][0]
     nba_data = pd.DataFrame(nba_raw["rowSet"], columns=nba_raw["headers"])
     # only want new players and a few columns
     nba_data_new = nba_data.loc[
-        nba_data.FROM_YEAR == "2023",
+        nba_data.FROM_YEAR == SEASON.split("-")[0],
         ["PERSON_ID", "PLAYER_LAST_NAME", "PLAYER_FIRST_NAME", "TEAM_ID"],
     ]
     nba_data_new["name"] = (
@@ -42,13 +57,21 @@ def main():
     )
     rookies[["name", "ottoneu_player_id", "pid", "PERSON_ID"]].rename(
         columns={"pid": "hashtag_id", "PERSON_ID": "nba_player_id"}
-    ).dropna(subset="nba_player_id").to_csv("./data/rookies.csv", index=False)
+    ).dropna(subset="nba_player_id").to_csv(f"./data/rookies_{SEASON}.csv", index=False)
 
     ###
     # do the steps above, but don't write to CSV
-    # rookies.assign(stats_player_id = None, espn_id = None, bref_id = None, ottoneu_position = None)[mappings.columns]
-    # rookies.dropna(subset="ottoneu_player_id").set_index("ottoneu_player_id")
-    # mappings.dropna(subset="ottoneu_player_id").set_index("ottoneu_player_id")
+    rookies = rookies.assign(
+        stats_player_id=None, espn_id=None, bref_id=None, ottoneu_position=None
+    )
+    rookies = (
+        rookies[mappings.columns]
+        .dropna(subset="ottoneu_player_id")
+        .set_index("ottoneu_player_id")
+    )
+    mappings.dropna(subset="ottoneu_player_id").set_index("ottoneu_player_id").update(
+        rookies
+    ).to_csv("data/mappings_update_test.csv")
     # mappings.update(rookies)
     # mappings.reset_index()
     # won't have the players in mappings who don't have an ottoneu ID, ie those w/ espn/bref IDs

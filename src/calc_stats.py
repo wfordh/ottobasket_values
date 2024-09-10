@@ -233,16 +233,21 @@ def calc_sgp_values(df: pd.DataFrame) -> pd.DataFrame:
 
     sgp_values = (
         (
-            (NUM_WEEKS - current_week)
-            * sgp_rollup.loc[sgp_rollup.season != current_season].drop(
-                ["season", "week"], axis=1
-            )
-            + current_week
-            * sgp_rollup.loc[sgp_rollup.season == current_season].drop(
-                ["season", "week"], axis=1
+            (
+                (NUM_WEEKS - current_week)
+                * sgp_rollup.loc[sgp_rollup.season != current_season].drop(
+                    ["season", "week"], axis=1
+                )
+            ).add(
+                current_week
+                * sgp_rollup.loc[sgp_rollup.season == current_season].drop(
+                    ["season", "week"], axis=1
+                ),
+                fill_value=0,
             )
         )
-        / NUM_WEEKS
+        .div(NUM_WEEKS)
+        .sum()
     ).to_dict()
 
     columns = ["pts", "reb", "ast", "stl", "blk", "ftm", "tov", "fg%", "3pt%"]
@@ -250,8 +255,8 @@ def calc_sgp_values(df: pd.DataFrame) -> pd.DataFrame:
         if col == "fg%":
             df[f"{col}_sgp"] = df.apply(
                 lambda row: (
-                    (row.field_goals_made + sgp_values["avg_team_fgm"])
-                    / (row.field_goal_attempts + sgp_values["avg_team_fga"])
+                    (row.fgm_game + sgp_values["avg_team_fgm"])
+                    / (row.fga_game + sgp_values["avg_team_fga"])
                     - sgp_values["avg_team_fg_pct"]
                 )
                 / sgp_values[col],
@@ -260,15 +265,17 @@ def calc_sgp_values(df: pd.DataFrame) -> pd.DataFrame:
         elif col == "3pt%":
             df[f"{col}_sgp"] = df.apply(
                 lambda row: (
-                    (row.three_points_made + sgp_values["avg_team_fg3m"])
-                    / (row.three_point_attempts + sgp_values["avg_team_fg3a"])
+                    (row.fg3m_game + sgp_values["avg_team_fg3m"])
+                    / (row.fg3a_game + sgp_values["avg_team_fg3a"])
                     - sgp_values["avg_team_fg3_pct"]
                 )
                 / sgp_values[col],
                 axis=1,
             )
         else:
-            df[f"{col}_sgp"] = df[col].apply(lambda row: row / sgp_values[col])
+            df[f"{col}_sgp"] = df[f"{col}_game"].apply(
+                lambda row: row / sgp_values[col]
+            )
     df["total_value"] = df[[col for col in df.columns if "sgp" in col]].sum(axis=1)
     return df
 
