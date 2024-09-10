@@ -4,9 +4,10 @@ from zoneinfo import ZoneInfo
 import pandas as pd
 import streamlit as st
 
-from calc_stats import calc_categories_value, calc_per_game_projections
-from leagues import get_league_rosters
-from transform import prep_stats_df
+from calc_stats import (calc_categories_value,  # type: ignore
+                        calc_per_game_projections)
+from leagues import get_league_rosters  # type: ignore
+from transform import prep_stats_df  # type: ignore
 
 
 # from utils import convert_df, ottoneu_streamlit_footer
@@ -20,28 +21,33 @@ st.markdown("# Categories Value Breakdown")
 
 stats_df = prep_stats_df()
 
-league_input = st.sidebar.text_input("League ID", placeholder="1")
+league_input = st.sidebar.number_input("League ID", placeholder="1", min_value=1)
 if league_input:
     # make this an input?
     projection_type = "rest_of_season"
     df = calc_per_game_projections(stats_df, projection_type=projection_type)
     cats_df = calc_categories_value(df, is_rollup=False)
-    cats_df = cats_df.merge(
-        df[
-            [
-                "ottoneu_player_id",
-                "nba_player_id",
-                "total_ros_minutes",
-                "ottoneu_position",
-            ]
-        ],
-        how="left",
-        on="nba_player_id",
-    )
+
+    # commented out 9/10/24. these columns already in cats_df,
+    # don't think I need the join anymore, keeping for now
+
+    # cats_df = cats_df.merge(
+    #     df[
+    #         [
+    #             "ottoneu_player_id",
+    #             "nba_player_id",
+    #             "total_ros_minutes",
+    #             "ottoneu_position",
+    #         ]
+    #     ],
+    #     how="inner",
+    #     on="nba_player_id",
+    # )
     league_salaries = get_league_rosters(league_input)
     league_values_df = league_salaries.merge(
         cats_df, on="ottoneu_player_id", how="left"
     )
+
     league_values_df.player.fillna(
         league_values_df.player_name, inplace=True
     )  # swap player_name for ottoneu_name??
@@ -58,7 +64,17 @@ if league_input:
     )
     if team_or_league_input == "Teams":
         display_df = league_values_df.groupby(["team_id", "team_name"])[
-            ["vPTS", "vREB", "vAST", "vBLK", "vSTL", "vTOV", "vFTM", "vFGM", "vFG3M"]
+            [
+                "pts_sgp",
+                "reb_sgp",
+                "ast_sgp",
+                "blk_sgp",
+                "stl_sgp",
+                "tov_sgp",
+                "ftm_sgp",
+                "fg%_sgp",
+                "3pt%_sgp",
+            ]
         ].sum()
         st.dataframe(display_df.style.format(format_cols))
     else:
@@ -68,15 +84,15 @@ if league_input:
                 "player",
                 "ottoneu_position",
                 "total_ros_minutes",
-                "vPTS",
-                "vREB",
-                "vAST",
-                "vBLK",
-                "vSTL",
-                "vTOV",
-                "vFTM",
-                "vFGM",
-                "vFG3M",
+                "pts_sgp",
+                "reb_sgp",
+                "ast_sgp",
+                "blk_sgp",
+                "stl_sgp",
+                "tov_sgp",
+                "ftm_sgp",
+                "fg%_sgp",
+                "3pt%_sgp",
                 "total_value",
             ]
         ].set_index("player")

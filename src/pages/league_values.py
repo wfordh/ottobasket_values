@@ -31,7 +31,7 @@ values_df = pd.read_csv(
 )
 
 
-league_input = st.sidebar.text_input("League ID", placeholder="1")
+league_input = st.sidebar.number_input("League ID", placeholder="1", min_value=1)
 if league_input:
     try:
         league_salaries = get_league_rosters(league_input)
