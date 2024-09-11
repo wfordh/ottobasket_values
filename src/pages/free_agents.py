@@ -6,9 +6,10 @@ from zoneinfo import ZoneInfo
 import pandas as pd
 import streamlit as st
 
-from leagues import get_average_values, get_league_rosters, get_league_scoring
-from pipeline import ottobasket_values_pipeline
-from transform import get_scoring_minutes_combo, prep_stats_df
+from leagues import (get_average_values, get_league_rosters,  # type: ignore
+                     get_league_scoring)
+from pipeline import ottobasket_values_pipeline  # type: ignore
+from transform import get_scoring_minutes_combo, prep_stats_df  # type: ignore
 
 
 def ottoneu_streamlit_footer():
@@ -30,7 +31,7 @@ def ottoneu_streamlit_footer():
     )
 
 
-def convert_df(df: pd.DataFrame) -> str:
+def convert_df(df: pd.DataFrame) -> bytes:
     # Index is set to either player or team at all times
     return df.to_csv(index=True).encode("utf-8")
 
@@ -42,7 +43,7 @@ format_cols = {
 }
 
 
-league_input = st.sidebar.text_input("League ID", placeholder="1")
+league_input = st.sidebar.number_input("League ID", placeholder="1", min_value=1)
 if league_input:
     try:
         league_salaries = get_league_rosters(league_input)
