@@ -526,7 +526,7 @@ ottoneu_player_id,name,nba_player_id,stats_player_id,bref_id,espn_id,hashtag_id,
 20167,Max Christie,1631108,1340703,,,38582,G
 5526,Walker Kessler,1631117,1243728,,,38790,C
 5508,Drew Timme,1631166,,,,,F
-8214,Johnny Juzang,1630548,1186159,,,,G
+8214,Johnny Juzang,1630548,1186159,,,39851,G
 13387,Kofi Cockburn,,,,,,C
 9255,Andre Jackson Jr.,1641748,1231279,,,111232,G
 21503,Michael Foster Jr.,1630701,1357746,,,,F
@@ -578,8 +578,6 @@ ottoneu_player_id,name,nba_player_id,stats_player_id,bref_id,espn_id,hashtag_id,
 23375,Anthony Black,1641710,1401385,,,111206,G
 23549,GG Jackson,1641713,1405584,,,111241,F
 23562,Dillon Mitchell,,,,,,F
-22574,Zaccharie Risacher,,,,,,F
-24576,Kel'el Ware,,,,,,C
 21456,Blake Wesley,1631104,1325125,weslebl01,,38946,G
 22988,Ousmane Dieng,1631172,1375876,diengou01,,39834,F
 6057,Armando Bacot,,,,,,F/C
@@ -589,22 +587,18 @@ ottoneu_player_id,name,nba_player_id,stats_player_id,bref_id,espn_id,hashtag_id,
 23560,Brandon Miller,1641706,1401381,,,110400,F
 8901,Jake LaRavia,1631222,1175125,laravja01,,38948,F
 24371,Jordan Walsh,1641775,1401388,,,111234,F
-24102,Bobi Klintman,,,,,,F
 22190,Lefteris Mantzoukas,,,,,,F
-24263,Kyle Filipowski,,,,,,C
 24628,Yohan Traore,,,,,,F
 23966,Chris Livingston,1641753,1408196,,,,F
 22371,James Nnaji,1641762,,,,,C
 22549,Sidy Cissoko,1631321,1432656,,,111240,F
 23039,Leonard Miller,1631159,1376841,,,111229,F
-23071,Baba,,,,,,F
 22995,Gabriele Procida,,,,,,G
 20775,Arthur Kaluma,,,,,,F
 374,Jared Harper,,,,,,G
 23887,Amari Bailey,1641735,1408246,,,,G
-22585,Miller Baba,,,,,,F
+22585,Baba Miller,,,,,,F
 23018,Darius Days,1630620,1137208,,,,F
-22700,Nikola Djurisic,,,,,,G
 21379,Moussa Diabate,1631217,1324359,,,,F
 13101,Jaren Holmes,,,,,,G
 12518,Scotty Pippen Jr.,1630590,1176798,pippesc02,,,G
@@ -695,7 +689,7 @@ ottoneu_player_id,name,nba_player_id,stats_player_id,bref_id,espn_id,hashtag_id,
 25843,Matas Buzelis,1641824,,,,120011,F
 28413,Melvin Ajinca,1642351,,,,,F
 2588,N'Faly Dante,1642368,,,,,C
-28419,Nikola Djurisic,1642365,,,,120059,F
+22700,Nikola Djurisic,1642365,,,,120059,F
 22948,Nikola Topic,1642260,,,,,G
 6831,Oso Ighodaro,1642345,,,,,F
 1321,PJ Hall,1641790,,,,120033,C
@@ -717,3 +711,7 @@ ottoneu_player_id,name,nba_player_id,stats_player_id,bref_id,espn_id,hashtag_id,
 25999,Yves Missi,1642274,,,,120029,C
 22574,Zaccharie Risacher,1642258,,,,120005,F
 5935,Zach Edey,1641744,,,,120018,C
+26173,AJ Johnson,1642358,,,,,G
+25190,Ariel Hukporti,1630574,,,,120070,C
+21390,K.J. Simpson,1642354,,,,,G
+25840,Ron Holland,1641842,,,,120010,F
