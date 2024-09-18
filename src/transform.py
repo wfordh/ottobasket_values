@@ -218,7 +218,7 @@ def prep_stats_df() -> pd.DataFrame:
 
 @st.cache_data(ttl=12 * 60 * 60)  # type: ignore
 def get_scoring_minutes_combo(
-    projection_type: str, stats_df: pd.DataFrame
+    projection_type: str, stats_df: pd.DataFrame, is_rollup: bool = True
 ) -> pd.DataFrame:
     """
     Finds the per game projections and player values for each scoring type based
@@ -240,7 +240,7 @@ def get_scoring_minutes_combo(
         df = temp_df.reset_index()
     for scoring_type in scoring_types:
         if scoring_type == "categories":
-            df[f"{scoring_type}"] = calc_categories_value(df)
+            df[f"{scoring_type}"] = calc_categories_value(df, is_rollup)
         else:
             simple_scoring = True if scoring_type == "simple_points" else False
             df[f"{scoring_type}"] = calc_fantasy_pts(
