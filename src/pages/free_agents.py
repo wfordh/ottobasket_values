@@ -6,8 +6,8 @@ from zoneinfo import ZoneInfo
 import pandas as pd
 import streamlit as st
 
-from leagues import (get_average_values, get_league_rosters,  # type: ignore
-                     get_league_scoring)
+from leagues import get_league_rosters  # type: ignore
+from leagues import get_average_values, get_league_scoring
 from pipeline import ottobasket_values_pipeline  # type: ignore
 from transform import get_scoring_minutes_combo, prep_stats_df  # type: ignore
 
@@ -36,19 +36,29 @@ def convert_df(df: pd.DataFrame) -> bytes:
     return df.to_csv(index=True).encode("utf-8")
 
 
-stats_df = prep_stats_df()
-ros_df = get_scoring_minutes_combo("rest_of_season", stats_df)
-format_cols = {
-    col: "{:.0f}" for col in ros_df.columns if col not in ["player", "ottoneu_position"]
-}
+def select_format(x):
+    if "sgp" in x:
+        return "{:.1f}"
+    elif x not in ["player", "ottoneu_position"]:
+        return "{:.0f}"
+    else:
+        return x
 
+
+stats_df = prep_stats_df()
 
 league_input = st.sidebar.number_input("League ID", placeholder="1", min_value=1)
 if league_input:
     try:
         league_salaries = get_league_rosters(league_input)
+        # get league info
+        league_scoring = get_league_scoring(league_input)
+
     except pd.errors.ParserError:
         st.error("Invalid league ID. Try again!")
+
+    ros_df = get_scoring_minutes_combo("rest_of_season", stats_df, is_rollup=False)
+    format_cols = {col: select_format(col) for col in ros_df.columns}
 
     league_values_df = ros_df.merge(league_salaries, on="ottoneu_player_id", how="left")
     league_values_df = league_values_df.loc[league_values_df.salary.isna()].copy()
@@ -72,19 +82,25 @@ if league_input:
     league_values_df = league_values_df.merge(
         average_values_df, how="left", on="ottoneu_player_id"
     )
-    display_df = league_values_df[
-        [
-            "player",
-            "ottoneu_position",
-            "games_forecast",
-            "total_ros_minutes",
-            f"{league_scoring}",
-            f"{league_scoring}_ppg",
-            f"{league_scoring}_value",
-            "ottoneu av",
-            "ottoneu roster%",
-        ]
-    ].rename(columns={f"{league_scoring}": f"{league_scoring}_proj_production"})
+    display_cols = [
+        "player",
+        "ottoneu_position",
+        "games_forecast",
+        "total_ros_minutes",
+        f"{league_scoring}",
+        f"{league_scoring}_ppg",
+        f"{league_scoring}_value",
+        "ottoneu av",
+        "ottoneu roster%",
+    ]
+
+    if league_scoring == "categories":
+        display_cols.extend([col for col in league_values_df.columns if "sgp" in col])
+
+    display_df = league_values_df[display_cols].rename(
+        columns={f"{league_scoring}": f"{league_scoring}_proj_production"}
+    )
+
     display_df.sort_values(
         by=[f"{league_scoring}_value", f"{league_scoring}_proj_production"],
         ascending=False,
