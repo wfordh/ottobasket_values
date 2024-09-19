@@ -240,7 +240,12 @@ def get_scoring_minutes_combo(
         df = temp_df.reset_index()
     for scoring_type in scoring_types:
         if scoring_type == "categories":
-            df[f"{scoring_type}"] = calc_categories_value(df, is_rollup)
+            if not is_rollup:
+                df = calc_categories_value(df, is_rollup).rename(
+                    columns={"total_value": "categories"}
+                )  # type: ignore
+            else:
+                df[f"{scoring_type}"] = calc_categories_value(df, is_rollup)
         else:
             simple_scoring = True if scoring_type == "simple_points" else False
             df[f"{scoring_type}"] = calc_fantasy_pts(
