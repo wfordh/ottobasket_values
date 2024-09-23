@@ -75,6 +75,9 @@ def ottobasket_values_pipeline(
             join_cols + [col for col in all_values_df.columns if "value" in col]
         ]
     all_values_df.drop_duplicates(inplace=True)
+    all_values_df = all_values_df.loc[
+        (all_values_df.total_ros_minutes > 0) | (all_values_df.minutes_ytd > 0)
+    ]
 
     if save_method == "local":
         logging.info("Saving locally!")
@@ -84,7 +87,7 @@ def ottobasket_values_pipeline(
         client_key_string = os.environ.get("SERVICE_BLOB", None)
         gc = _setup_gdrive(client_key_string)
         sheet_key = "1GgwZpflcyoRYMP0yL2hrbNwndJjVFm34x3jXnUooSfA"
-        _upload_data(gc, all_values_df, sheet_key)
+        _upload_data(gc, all_values_df, sheet_key, clear=True)
     return all_values_df
 
 

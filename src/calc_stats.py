@@ -221,11 +221,12 @@ def calc_z_score_values():
     return value_df
 
 
-def calc_sgp_values(df: pd.DataFrame) -> pd.DataFrame:
+def calc_sgp_values(stats_df: pd.DataFrame) -> pd.DataFrame:
     # need to 1) get sgp data
     # 2) balance the weeks (22-csw)*lss + csw*css / 22
     # 3)
 
+    df = stats_df.copy()
     NUM_WEEKS = 22
     sgp_rollup = get_sgp_rollup().tail(2)
     current_week = sgp_rollup.week.values.tolist().pop()

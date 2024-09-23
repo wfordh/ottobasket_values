@@ -11,7 +11,7 @@ from utils import (get_hashtag_rookie_projections, get_hashtag_ros_projections,
 
 
 def combine_darko_drip_df(
-    darko_df: pd.DataFrame, drip_df: pd.DataFrame, name_mapping
+    darko_df: pd.DataFrame, drip_df: pd.DataFrame, name_mapping: pd.DataFrame
 ) -> pd.DataFrame:
     """
     Merges the DARKO and DRIP dataframes into one and takes the mean of each
@@ -202,9 +202,10 @@ def prep_stats_df() -> pd.DataFrame:
 
     stats_df = combine_darko_drip_df(darko_df, drip_df, name_map)
     stats_df = stats_df.loc[
-        stats_df.nba_player_id.notna() & stats_df.tm_id.notna()
+        stats_df.nba_player_id.notna()  # & stats_df.tm_id.notna() # need to somehow remove old players but keep rooks
     ].copy()
     # stick with inner join for now
+
     stats_df = stats_df.merge(
         hashtag_minutes, left_on="hashtag_id", right_on="pid", how="left"
     ).merge(leaderboards, on="ottoneu_player_id", how="left", suffixes=("", "_ytd"))
@@ -238,6 +239,7 @@ def get_scoring_minutes_combo(
         temp_df = df.set_index("hashtag_id")
         temp_df.update(hashtag_rookies)
         df = temp_df.reset_index()
+
     for scoring_type in scoring_types:
         if scoring_type == "categories":
             if not is_rollup:
