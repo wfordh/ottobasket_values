@@ -39,6 +39,8 @@ def convert_df(df: pd.DataFrame) -> bytes:
 def select_format(x):
     if "sgp" in x:
         return "{:.1f}"
+    elif x == "categories_value":
+        return "${:.0f}"
     elif x not in ["player", "ottoneu_position"]:
         return "{:.0f}"
     else:
