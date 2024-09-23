@@ -11,7 +11,7 @@ from utils import (get_hashtag_rookie_projections, get_hashtag_ros_projections,
 
 
 def combine_darko_drip_df(
-    darko_df: pd.DataFrame, drip_df: pd.DataFrame, name_mapping
+    darko_df: pd.DataFrame, drip_df: pd.DataFrame, name_mapping: pd.DataFrame
 ) -> pd.DataFrame:
     """
     Merges the DARKO and DRIP dataframes into one and takes the mean of each
@@ -202,9 +202,10 @@ def prep_stats_df() -> pd.DataFrame:
 
     stats_df = combine_darko_drip_df(darko_df, drip_df, name_map)
     stats_df = stats_df.loc[
-        stats_df.nba_player_id.notna() & stats_df.tm_id.notna()
+        stats_df.nba_player_id.notna()  # & stats_df.tm_id.notna() # need to somehow remove old players but keep rooks
     ].copy()
     # stick with inner join for now
+
     stats_df = stats_df.merge(
         hashtag_minutes, left_on="hashtag_id", right_on="pid", how="left"
     ).merge(leaderboards, on="ottoneu_player_id", how="left", suffixes=("", "_ytd"))
@@ -230,7 +231,9 @@ def get_scoring_minutes_combo(
     df = calc_per_game_projections(stats_df.copy(), projection_type=projection_type)
 
     if projection_type == "rest_of_season":
-        hashtag_rookies = get_hashtag_rookie_projections().set_index("pid")
+        hashtag_rookies = get_hashtag_rookie_projections().set_index(
+            "pid"
+        )  # .rename(columns={"pid": "hashtag_id"})
         hashtag_rookies["fg_pct"] = hashtag_rookies.fgm_game / hashtag_rookies.fga_game
         hashtag_rookies["fg3_pct"] = (
             hashtag_rookies.fg3m_game / hashtag_rookies.fg3a_game
@@ -238,14 +241,20 @@ def get_scoring_minutes_combo(
         temp_df = df.set_index("hashtag_id")
         temp_df.update(hashtag_rookies)
         df = temp_df.reset_index()
+
     for scoring_type in scoring_types:
         if scoring_type == "categories":
+            print(df.columns)
             if not is_rollup:
                 df = calc_categories_value(df, is_rollup).rename(
                     columns={"total_value": "categories"}
                 )  # type: ignore
+                print(is_rollup)
+                print(df.columns)
             else:
                 df[f"{scoring_type}"] = calc_categories_value(df, is_rollup)
+                print(is_rollup)
+                print(df.columns)
         else:
             simple_scoring = True if scoring_type == "simple_points" else False
             df[f"{scoring_type}"] = calc_fantasy_pts(
