@@ -213,6 +213,8 @@ def prep_stats_df() -> pd.DataFrame:
 
     stats_df.minutes_ytd.fillna(0, inplace=True)
     stats_df.total_ros_minutes.fillna(0, inplace=True)
+    stats_df.minutes.fillna(0, inplace=True)
+    stats_df.tm_id.fillna(0, inplace=True)
 
     return stats_df
 
