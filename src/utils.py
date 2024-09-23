@@ -67,7 +67,6 @@ def get_hashtag_rookie_projections() -> pd.DataFrame:
         f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=csv&gid=0"
     )
     rookies = pd.read_csv("data/rookies.csv")
-    # print(rookies)
     hashtag_rookies = [int(pid) for pid in rookies.hashtag_id.dropna().tolist()]
     return df.loc[df.pid.isin(hashtag_rookies)]
 
