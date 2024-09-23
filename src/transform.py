@@ -201,10 +201,7 @@ def prep_stats_df() -> pd.DataFrame:
     leaderboards = get_ottoneu_leaderboard()
 
     stats_df = combine_darko_drip_df(darko_df, drip_df, name_map)
-    stats_df = stats_df.loc[
-        stats_df.nba_player_id.notna()  # & stats_df.tm_id.notna() # need to somehow remove old players but keep rooks
-    ].copy()
-    # stick with inner join for now
+    stats_df = stats_df.loc[stats_df.nba_player_id.notna()].copy()
 
     stats_df = stats_df.merge(
         hashtag_minutes, left_on="hashtag_id", right_on="pid", how="left"
