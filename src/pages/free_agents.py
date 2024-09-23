@@ -42,7 +42,7 @@ def select_format(x):
     elif x not in ["player", "ottoneu_position"]:
         return "{:.0f}"
     else:
-        return x
+        return "{}"
 
 
 stats_df = prep_stats_df()
