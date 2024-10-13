@@ -63,7 +63,7 @@ if league_input:
         "All league or group by team", ["League", "Teams"], 0
     )
     if team_or_league_input == "Teams":
-        display_df = league_values_df.groupby(["team_id", "team_name"])[
+        display_df = league_values_df.groupby(["team_name"])[
             [
                 "pts_sgp",
                 "reb_sgp",
