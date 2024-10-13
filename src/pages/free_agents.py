@@ -55,7 +55,6 @@ if league_input:
         league_salaries = get_league_rosters(league_input)
         # get league info
         league_scoring = get_league_scoring(league_input)
-
     except pd.errors.ParserError:
         st.error("Invalid league ID. Try again!")
 
@@ -68,7 +67,6 @@ if league_input:
     league_values_df.ottoneu_position.fillna(league_values_df.position, inplace=True)
     # fill the rest of columns NA's with 0
     league_values_df.fillna(0, inplace=True)
-    league_scoring = get_league_scoring(league_input)
     if league_scoring == "categories":
         scoring_col = f"{league_scoring}_value"
     elif league_scoring == "simple_points":

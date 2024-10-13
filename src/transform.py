@@ -279,11 +279,11 @@ def get_roster_depth(
     for team_name, team_data in team_values:
         team_data.drop_duplicates(inplace=True)
         team_data[f"{scoring_col}_position"] = find_surplus_positions(
-            team_data, scoring_type=league_scoring
+            team_data, scoring_type=f"{scoring_col}_{minutes_format}"
         )
         draftable_players = get_draftable_players(
             team_data,
-            scoring_type=league_scoring,
+            scoring_type=f"{scoring_col}_{minutes_format}",
             num_centers=1,
             num_forwards=2,
             num_guards=3,
@@ -296,7 +296,7 @@ def get_roster_depth(
             lambda p: 1 if p in draftable_players else 0
         )
         prospects = (
-            team_data.sort_values(by=league_scoring, ascending=True)
+            team_data.sort_values(by=f"{scoring_col}_{minutes_format}", ascending=True)
             .head(n_other)
             .nba_player_id.tolist()
         )
