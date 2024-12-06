@@ -90,13 +90,15 @@ if league_input:
         f"{league_scoring}",
         f"{league_scoring}_ppg",
         f"{league_scoring}_value",
-        "ottoneu av",
-        "ottoneu roster%",
+        "avg salary",
+        "median salary",
+        "roster%",
     ]
 
     if league_scoring == "categories":
         display_cols.extend([col for col in league_values_df.columns if "sgp" in col])
 
+    print(league_values_df.columns)
     display_df = league_values_df[display_cols].rename(
         columns={f"{league_scoring}": f"{league_scoring}_proj_production"}
     )
