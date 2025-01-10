@@ -68,9 +68,11 @@ def get_average_values() -> pd.DataFrame:
     """
     Pulls the average values and roster percentages across all of Ottoneu basketball.
     Returns a dataframe.
+
+    Move to utils.py?
     """
     df = pd.read_csv("https://ottoneu.fangraphs.com/basketball/average_values?csv=1")
-    df.columns = pd.Index([col.lower() for col in df.columns])
+    df.columns = pd.Index([col.lower().replace(" ", "_") for col in df.columns])
     return df.rename(
         columns={
             "id": "ottoneu_player_id",
