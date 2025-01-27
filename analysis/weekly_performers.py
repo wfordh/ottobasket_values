@@ -97,14 +97,6 @@ def main():
         )
     )
 
-    print(
-        comp_stat_values.loc[
-            comp_stat_values.player_name.isin(
-                ["Amen Thompson", "Josh Hart", "Jayson Tatum"]
-            )
-        ]
-    )
-
     comp_stat_values = (
         comp_stat_values.loc[
             (
