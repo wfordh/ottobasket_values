@@ -4,18 +4,13 @@ import sys
 from datetime import date, datetime, timedelta
 
 import pandas as pd
+from great_tables import GT
 
 sys.path.append(os.path.abspath("src"))
 
-import darko  # type: ignore
-import drip  # type: ignore
 from leagues import get_average_values, get_league_leaderboard  # type: ignore
-from transform import combine_darko_drip_df  # type: ignore
-from transform import (get_hashtag_ros_projections, get_name_map,
-                       get_scoring_minutes_combo)
-from utils import _setup_gdrive, _upload_data  # type: ignore
 
-LEAGUE_ID = 26
+LEAGUE_ID = 39  # must be trad points league
 
 
 def get_last_week_average_values(sheet_key: str) -> pd.DataFrame:
@@ -30,50 +25,29 @@ def clean_avg_vals_df(avg_vals: pd.DataFrame) -> pd.DataFrame:
         for col in avg_vals.columns
     ]
     avg_vals.columns = pd.Index(avg_vals_cols)
-    avg_vals["ottoneu_av"] = avg_vals.ottoneu_av.str.replace("$", "").astype(float)
+    avg_vals["avg_salary"] = avg_vals.avg_salary.str.replace("$", "").astype(float)
     try:
-        avg_vals["ottoneu_roster_pct"] = avg_vals.ottoneu_roster_pct.str.replace(
-            "%", ""
-        ).astype(float)
+        avg_vals["roster_pct"] = avg_vals.roster_pct.str.replace("%", "").astype(float)
     except AttributeError:
+        logging.info("Could not adjust 'roster pct' column!")
         pass
 
     return avg_vals
-
-
-def prep_weekly_performers_stats_df(stats_segment_df: pd.DataFrame) -> pd.DataFrame:
-    drip_df = drip.get_current_drip()
-    drip_df = drip.transform_drip(drip_df)
-
-    darko_df = darko.get_current_darko()
-    darko_df = darko.transform_darko(darko_df)
-
-    name_map = get_name_map()
-
-    hashtag_minutes = get_hashtag_ros_projections()
-    stats_df = combine_darko_drip_df(darko_df, drip_df, name_map)
-    stats_df = stats_df.loc[stats_df.nba_player_id.notna()].copy()
-    # stick with inner join for now
-    stats_df = stats_df.merge(
-        hashtag_minutes, left_on="hashtag_id", right_on="pid", how="left"
-    ).merge(stats_segment_df, on="ottoneu_player_id", how="left", suffixes=("", "_ytd"))
-    stats_df["total_ros_minutes"] = stats_df.minutes_forecast * stats_df.games_forecast
-    return stats_df
 
 
 def main():
     sheet_key = "15clwCO60P7lIxJU8B91tRRRZA7X0g7-tTqdnc-K1pa0"
     today = date.today().strftime("%Y-%m-%d")
     last_week = (date.today() - timedelta(days=7)).strftime("%Y-%m-%d")
-    first_day_of_season = "2023-10-24"
+    first_day_of_season = "2024-10-22"
     logging.info(f"Today: {today}")
     logging.info(f"Last Monday: {last_week}")
 
-    current_avg_vals = get_average_values()
-    current_avg_vals = clean_avg_vals_df(current_avg_vals)
+    avg_vals = get_average_values()
+    avg_vals = clean_avg_vals_df(avg_vals)
 
-    last_week_avg_vals = get_last_week_average_values(sheet_key)
-    last_week_avg_vals = clean_avg_vals_df(last_week_avg_vals)
+    # last_week_avg_vals = get_last_week_average_values(sheet_key)
+    # last_week_avg_vals = clean_avg_vals_df(last_week_avg_vals)
 
     last_week_stats = get_league_leaderboard(
         league_id=LEAGUE_ID, start_date=last_week, end_date=today
@@ -82,85 +56,55 @@ def main():
         league_id=LEAGUE_ID, start_date=first_day_of_season, end_date=last_week
     )
 
+    avg_vals.to_csv("data/test_current_avg_vals.csv", index=False)
+    print(avg_vals.isna().sum())
+
     # analysis time
     ## roster stats
-    avg_vals = current_avg_vals.merge(
-        last_week_avg_vals,
-        how="outer",
-        on=["ottoneu_player_id", "name", "position"],
-        suffixes=["_current", "_last_week"],
-    )
-    avg_vals["ottoneu_av_current"] = avg_vals["ottoneu_av_current"].fillna(0)
-    avg_vals["ottoneu_av_last_week"] = avg_vals["ottoneu_av_last_week"].fillna(0)
+    avg_vals["avg_salary_current"] = avg_vals["avg_salary"].fillna(0)
 
-    avg_vals["ottoneu_roster_pct_current"] = avg_vals[
-        "ottoneu_roster_pct_current"
-    ].fillna(0)
-    avg_vals["ottoneu_roster_pct_last_week"] = avg_vals[
-        "ottoneu_roster_pct_last_week"
-    ].fillna(0)
+    avg_vals["roster_pct_current"] = avg_vals["roster_pct"].fillna(0)
 
-    avg_vals["av_diff"] = avg_vals.ottoneu_av_current - avg_vals.ottoneu_av_last_week
-    avg_vals["roster_diff"] = (
-        avg_vals.ottoneu_roster_pct_current - avg_vals.ottoneu_roster_pct_last_week
-    )
     avg_vals.fillna(0, inplace=True)
 
-    ### pick out top and bottom five for each??
-    top_riser_ids = list()
-    top_riser_ids.extend(
-        avg_vals.sort_values(by="av_diff", ascending=False)
-        .ottoneu_player_id.head(10)
-        .tolist()
-    )
-    top_riser_ids.extend(
-        avg_vals.sort_values(by="roster_diff", ascending=False)
-        .ottoneu_player_id.head(10)
-        .tolist()
+    print(
+        avg_vals.loc[avg_vals.name.isin(["Amen Thompson", "Josh Hart", "Jayson Tatum"])]
     )
 
-    top_faller_ids = list()
-    top_faller_ids.extend(
-        avg_vals.sort_values(by="av_diff", ascending=True)
-        .ottoneu_player_id.head(10)
-        .tolist()
-    )
-    top_faller_ids.extend(
-        avg_vals.sort_values(by="roster_diff", ascending=True)
-        .ottoneu_player_id.head(10)
-        .tolist()
-    )
-
-    ## game stats
-    # feels like overkill but necessary w/ how get_scoring_minutes_combo is set up
-    last_week_stats = prep_weekly_performers_stats_df(last_week_stats)
-    season_minus_week_stats = prep_weekly_performers_stats_df(season_minus_week_stats)
-
-    last_week_stat_values = get_scoring_minutes_combo("year_to_date", last_week_stats)
-    season_minus_week_stat_values = get_scoring_minutes_combo(
-        "year_to_date", season_minus_week_stats
-    )
     stat_keep_cols = [
-        "player",
+        "player_name",
         "ottoneu_player_id",
-        "ottoneu_position",
+        "positions",
         "games_played",
         "minutes",
-        "simple_points",
-        "simple_points_value",
-        "trad_points",
-        "trad_points_value",
-        "categories",
-        "categories_value",
+        "fantasy_points_avg",
     ]
 
     # also get games_played and minutes / minutes_avg from the leaderboard?
-    comp_stat_values = last_week_stat_values[stat_keep_cols].merge(
-        season_minus_week_stat_values[stat_keep_cols],
-        how="outer",
-        on=["player", "ottoneu_player_id", "ottoneu_position"],
-        suffixes=["_last_week", "_season_minus_one"],
+    comp_stat_values = (
+        last_week_stats[stat_keep_cols]
+        .merge(
+            season_minus_week_stats[stat_keep_cols],
+            how="outer",
+            on=["player_name", "ottoneu_player_id", "positions"],
+            suffixes=["_last_week", "_season_minus_one"],
+        )
+        .merge(
+            avg_vals.drop(["name", "position"], axis=1),
+            how="outer",
+            left_on=["ottoneu_player_id"],
+            right_on=["ottoneu_player_id"],
+        )
     )
+
+    print(
+        comp_stat_values.loc[
+            comp_stat_values.player_name.isin(
+                ["Amen Thompson", "Josh Hart", "Jayson Tatum"]
+            )
+        ]
+    )
+
     comp_stat_values = (
         comp_stat_values.loc[
             (
@@ -173,145 +117,181 @@ def main():
         .copy()
     )
 
-    comp_stat_values["simple_prod_diff"] = (
-        comp_stat_values.simple_points_last_week
-        / comp_stat_values.games_played_last_week
-    ) / (
-        comp_stat_values.simple_points_season_minus_one
-        / comp_stat_values.games_played_season_minus_one
-    )
-    comp_stat_values["simple_value_diff"] = (
-        comp_stat_values.simple_points_value_last_week
-        - comp_stat_values.simple_points_value_season_minus_one
-    )
-
     comp_stat_values["trad_prod_diff"] = (
-        comp_stat_values.trad_points_last_week / comp_stat_values.games_played_last_week
-    ) / (
-        comp_stat_values.trad_points_season_minus_one
-        / comp_stat_values.games_played_season_minus_one
-    )
-    comp_stat_values["trad_value_diff"] = (
-        comp_stat_values.trad_points_value_last_week
-        - comp_stat_values.trad_points_value_season_minus_one
-    )
+        comp_stat_values.fantasy_points_avg_last_week
+    ) - (comp_stat_values.fantasy_points_avg_season_minus_one)
 
-    comp_stat_values["cats_prod_diff"] = (
-        comp_stat_values.categories_last_week / comp_stat_values.games_played_last_week
-    ) / (
-        comp_stat_values.categories_season_minus_one
-        / comp_stat_values.games_played_season_minus_one
-    )
-    comp_stat_values["cats_value_diff"] = (
-        comp_stat_values.categories_value_last_week
-        - comp_stat_values.categories_value_season_minus_one
-    )
     comp_stat_values.fillna(0, inplace=True)
-
-    ### pick out players over some sort of threshold??
 
     ### do some sort of formatting for the selected players?
     ### how do I deliver the results? another google sheet? slack? email?
-    top_performer_ids = list()
-    top_performer_ids.extend(
-        comp_stat_values.sort_values(by="simple_prod_diff", ascending=True)
-        .ottoneu_player_id.head()
-        .tolist()
-    )
-    top_performer_ids.extend(
-        comp_stat_values.sort_values(by="simple_value_diff", ascending=True)
-        .ottoneu_player_id.head()
-        .tolist()
-    )
-    top_performer_ids.extend(
-        comp_stat_values.sort_values(by="trad_prod_diff", ascending=True)
-        .ottoneu_player_id.head()
-        .tolist()
-    )
-    top_performer_ids.extend(
-        comp_stat_values.sort_values(by="trad_value_diff", ascending=True)
-        .ottoneu_player_id.head()
-        .tolist()
-    )
-    top_performer_ids.extend(
-        comp_stat_values.sort_values(by="cats_prod_diff", ascending=True)
-        .ottoneu_player_id.head()
-        .tolist()
-    )
-    top_performer_ids.extend(
-        comp_stat_values.sort_values(by="cats_value_diff", ascending=True)
-        .ottoneu_player_id.head()
-        .tolist()
-    )
-
-    bottom_performer_ids = list()
-    bottom_performer_ids.extend(
-        comp_stat_values.sort_values(by="simple_prod_diff", ascending=False)
-        .ottoneu_player_id.head()
-        .tolist()
-    )
-    bottom_performer_ids.extend(
-        comp_stat_values.sort_values(by="simple_value_diff", ascending=False)
-        .ottoneu_player_id.head()
-        .tolist()
-    )
-    bottom_performer_ids.extend(
-        comp_stat_values.sort_values(by="trad_prod_diff", ascending=False)
-        .ottoneu_player_id.head()
-        .tolist()
-    )
-    bottom_performer_ids.extend(
-        comp_stat_values.sort_values(by="trad_value_diff", ascending=False)
-        .ottoneu_player_id.head()
-        .tolist()
-    )
-    bottom_performer_ids.extend(
-        comp_stat_values.sort_values(by="cats_prod_diff", ascending=False)
-        .ottoneu_player_id.head()
-        .tolist()
-    )
-    bottom_performer_ids.extend(
-        comp_stat_values.sort_values(by="cats_value_diff", ascending=False)
-        .ottoneu_player_id.head()
-        .tolist()
+    gt = (
+        GT(
+            comp_stat_values.sort_values(
+                by="fantasy_points_avg_last_week", ascending=False
+            )[
+                [
+                    "player_name",
+                    "positions",
+                    "roster_pct_current",
+                    "avg_salary_current",
+                    "fantasy_points_avg_season_minus_one",
+                    "fantasy_points_avg_last_week",
+                ]
+            ].head(
+                10
+            )
+        )
+        .tab_header(title="Top Players of Last Week")
+        .tab_spanner(
+            label="Trad FPPG",
+            columns=[
+                "fantasy_points_avg_last_week",
+                "fantasy_points_avg_season_minus_one",
+            ],
+        )
+        .tab_spanner(
+            label="Player Info",
+            columns=[
+                "player_name",
+                "positions",
+                "roster_pct_current",
+                "avg_salary_current",
+            ],
+        )
+        .cols_label(
+            player_name="Name",
+            positions="Positions",
+            roster_pct_current="Roster %",
+            avg_salary_current="Avg Salary",
+            fantasy_points_avg_last_week="Last Week",
+            fantasy_points_avg_season_minus_one="Before Last Week",
+        )
+        .fmt_number(
+            columns=[
+                "fantasy_points_avg_last_week",
+                "fantasy_points_avg_season_minus_one",
+            ],
+            decimals=1,
+        )
+        .fmt_currency(columns=["avg_salary_current"], currency="USD")
+        .fmt_percent(columns=["roster_pct_current"], decimals=1, scale_values=False)
+        .cols_move_to_end("fantasy_points_avg_last_week")
     )
 
-    # upload current_avg_vals to drive in place of the old one
-    client_key_string = os.environ.get("SERVICE_BLOB", None)
-    gc = _setup_gdrive(client_key_string)
-    _upload_data(gc, current_avg_vals, sheet_key, wks_num=0, clear=True)
-    _upload_data(
-        gc,
-        avg_vals.loc[avg_vals.ottoneu_player_id.isin(top_riser_ids)],
-        sheet_key=sheet_key,
-        wks_num=1,
-        clear=True,
+    gt.save("analysis/images/weekly_performers_best.png")
+
+    gt = (
+        GT(
+            comp_stat_values.sort_values(by="trad_prod_diff", ascending=False)[
+                [
+                    "player_name",
+                    "positions",
+                    "roster_pct_current",
+                    "avg_salary_current",
+                    "fantasy_points_avg_season_minus_one",
+                    "fantasy_points_avg_last_week",
+                ]
+            ].head(10)
+        )
+        .tab_header(
+            title="Biggest Risers of Last Week",
+            subtitle="Largest Difference in FPPG Between Last Week and Season Before Last Week",
+        )
+        .tab_spanner(
+            label="Trad FPPG",
+            columns=[
+                "fantasy_points_avg_last_week",
+                "fantasy_points_avg_season_minus_one",
+            ],
+        )
+        .tab_spanner(
+            label="Player Info",
+            columns=[
+                "player_name",
+                "positions",
+                "roster_pct_current",
+                "avg_salary_current",
+            ],
+        )
+        .cols_label(
+            player_name="Name",
+            positions="Positions",
+            roster_pct_current="Roster %",
+            avg_salary_current="Avg Salary",
+            fantasy_points_avg_last_week="Last Week",
+            fantasy_points_avg_season_minus_one="Before Last Week",
+        )
+        .fmt_number(
+            columns=[
+                "fantasy_points_avg_last_week",
+                "fantasy_points_avg_season_minus_one",
+            ],
+            decimals=1,
+        )
+        .fmt_currency(columns=["avg_salary_current"], currency="USD")
+        .fmt_percent(columns=["roster_pct_current"], decimals=1, scale_values=False)
+        .cols_move_to_end("fantasy_points_avg_last_week")
     )
-    _upload_data(
-        gc,
-        avg_vals.loc[avg_vals.ottoneu_player_id.isin(top_faller_ids)],
-        sheet_key=sheet_key,
-        wks_num=2,
-        clear=True,
+
+    gt.save("analysis/images/weekly_performers_diff.png")
+
+    gt = (
+        GT(
+            comp_stat_values.loc[comp_stat_values.roster_pct_current <= 50]
+            .sort_values(by="fantasy_points_avg_last_week", ascending=False)[
+                [
+                    "player_name",
+                    "positions",
+                    "roster_pct_current",
+                    "avg_salary_current",
+                    "fantasy_points_avg_season_minus_one",
+                    "fantasy_points_avg_last_week",
+                ]
+            ]
+            .head(10)
+        )
+        .tab_header(
+            title="Best Free Agents of Last Week",
+            subtitle="Rostered in 50% or less of leagues",
+        )
+        .tab_spanner(
+            label="Trad FPPG",
+            columns=[
+                "fantasy_points_avg_last_week",
+                "fantasy_points_avg_season_minus_one",
+            ],
+        )
+        .tab_spanner(
+            label="Player Info",
+            columns=[
+                "player_name",
+                "positions",
+                "roster_pct_current",
+                "avg_salary_current",
+            ],
+        )
+        .cols_label(
+            player_name="Name",
+            positions="Positions",
+            roster_pct_current="Roster %",
+            avg_salary_current="Avg Salary",
+            fantasy_points_avg_last_week="Last Week",
+            fantasy_points_avg_season_minus_one="Before Last Week",
+        )
+        .fmt_number(
+            columns=[
+                "fantasy_points_avg_last_week",
+                "fantasy_points_avg_season_minus_one",
+            ],
+            decimals=1,
+        )
+        .fmt_currency(columns=["avg_salary_current"], currency="USD")
+        .fmt_percent(columns=["roster_pct_current"], decimals=1, scale_values=False)
+        .cols_move_to_end("fantasy_points_avg_last_week")
     )
-    _upload_data(
-        gc,
-        comp_stat_values.loc[
-            comp_stat_values.ottoneu_player_id.isin(top_performer_ids)
-        ],
-        sheet_key=sheet_key,
-        wks_num=3,
-        clear=True,
-    )
-    _upload_data(
-        gc,
-        comp_stat_values.loc[
-            comp_stat_values.ottoneu_player_id.isin(bottom_performer_ids)
-        ],
-        sheet_key=sheet_key,
-        wks_num=4,
-        clear=True,
-    )
+
+    gt.save("analysis/images/weekly_performers_free_agents.png")
 
 
 if __name__ == "__main__":
