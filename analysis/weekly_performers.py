@@ -1,38 +1,29 @@
+import io
 import logging
 import os
 import sys
+import tempfile
 from datetime import date, datetime, timedelta
 
 import pandas as pd
-from great_tables import GT
+from fluent_discourse import Discourse  # type: ignore
+from great_tables import GT, md
 
 sys.path.append(os.path.abspath("src"))
 
 from leagues import get_average_values, get_league_leaderboard  # type: ignore
+from utils import clean_avg_vals_df  # type: ignore
+
+logging.basicConfig(level=logging.INFO)
 
 LEAGUE_ID = 39  # must be trad points league
 
 
 def get_last_week_average_values(sheet_key: str) -> pd.DataFrame:
+    """Not needed anymore."""
     return pd.read_csv(
         f"https://docs.google.com/spreadsheets/d/{sheet_key}/gviz/tq?tqx=out:csv&gid=284274620"
     )
-
-
-def clean_avg_vals_df(avg_vals: pd.DataFrame) -> pd.DataFrame:
-    avg_vals_cols = [
-        col.replace("(", "").replace(")", "").replace(" ", "_").replace("%", "_pct")
-        for col in avg_vals.columns
-    ]
-    avg_vals.columns = pd.Index(avg_vals_cols)
-    avg_vals["avg_salary"] = avg_vals.avg_salary.str.replace("$", "").astype(float)
-    try:
-        avg_vals["roster_pct"] = avg_vals.roster_pct.str.replace("%", "").astype(float)
-    except AttributeError:
-        logging.info("Could not adjust 'roster pct' column!")
-        pass
-
-    return avg_vals
 
 
 def main():
@@ -40,14 +31,14 @@ def main():
     today = date.today().strftime("%Y-%m-%d")
     last_week = (date.today() - timedelta(days=7)).strftime("%Y-%m-%d")
     first_day_of_season = "2024-10-22"
+    last_schedule_week = (
+        datetime.today() - datetime.strptime(first_day_of_season, "%Y-%m-%d")
+    ).days // 7
     logging.info(f"Today: {today}")
     logging.info(f"Last Monday: {last_week}")
 
     avg_vals = get_average_values()
     avg_vals = clean_avg_vals_df(avg_vals)
-
-    # last_week_avg_vals = get_last_week_average_values(sheet_key)
-    # last_week_avg_vals = clean_avg_vals_df(last_week_avg_vals)
 
     last_week_stats = get_league_leaderboard(
         league_id=LEAGUE_ID, start_date=last_week, end_date=today
@@ -56,9 +47,6 @@ def main():
         league_id=LEAGUE_ID, start_date=first_day_of_season, end_date=last_week
     )
 
-    avg_vals.to_csv("data/test_current_avg_vals.csv", index=False)
-    print(avg_vals.isna().sum())
-
     # analysis time
     ## roster stats
     avg_vals["avg_salary_current"] = avg_vals["avg_salary"].fillna(0)
@@ -66,10 +54,6 @@ def main():
     avg_vals["roster_pct_current"] = avg_vals["roster_pct"].fillna(0)
 
     avg_vals.fillna(0, inplace=True)
-
-    print(
-        avg_vals.loc[avg_vals.name.isin(["Amen Thompson", "Josh Hart", "Jayson Tatum"])]
-    )
 
     stat_keep_cols = [
         "player_name",
@@ -117,7 +101,7 @@ def main():
 
     ### do some sort of formatting for the selected players?
     ### how do I deliver the results? another google sheet? slack? email?
-    gt = (
+    gt_best = (
         GT(
             comp_stat_values.sort_values(
                 by="fantasy_points_avg_last_week", ascending=False
@@ -130,9 +114,9 @@ def main():
                     "fantasy_points_avg_season_minus_one",
                     "fantasy_points_avg_last_week",
                 ]
-            ].head(
-                10
-            )
+            ]
+            .head(10)
+            .reset_index(drop=True)
         )
         .tab_header(title="Top Players of Last Week")
         .tab_spanner(
@@ -156,8 +140,8 @@ def main():
             positions="Positions",
             roster_pct_current="Roster %",
             avg_salary_current="Avg Salary",
-            fantasy_points_avg_last_week="Last Week",
-            fantasy_points_avg_season_minus_one="Before Last Week",
+            fantasy_points_avg_last_week=f"Week {last_schedule_week+1}",
+            fantasy_points_avg_season_minus_one=f"Weeks 1-{last_schedule_week}",
         )
         .fmt_number(
             columns=[
@@ -169,11 +153,33 @@ def main():
         .fmt_currency(columns=["avg_salary_current"], currency="USD")
         .fmt_percent(columns=["roster_pct_current"], decimals=1, scale_values=False)
         .cols_move_to_end("fantasy_points_avg_last_week")
+        .data_color(
+            columns=[
+                "fantasy_points_avg_last_week",
+                "fantasy_points_avg_season_minus_one",
+            ],
+            palette="PRGn",
+            domain=[
+                min(
+                    comp_stat_values.fantasy_points_avg_season_minus_one.min(),
+                    comp_stat_values.fantasy_points_avg_last_week.min(),
+                ),
+                max(
+                    comp_stat_values.fantasy_points_avg_season_minus_one.max(),
+                    comp_stat_values.fantasy_points_avg_last_week.max(),
+                ),
+            ],
+        )
+        .tab_source_note(
+            source_note=md(
+                "BlueSky: @wfordh | Traditional fantasy points: https://ottoneu.fangraphs.com/basketball/help/rosters_and_scoring"
+            )
+        )
     )
 
-    gt.save("analysis/images/weekly_performers_best.png")
+    gt_best.save("analysis/images/weekly_performers_best.png")
 
-    gt = (
+    gt_diff = (
         GT(
             comp_stat_values.sort_values(by="trad_prod_diff", ascending=False)[
                 [
@@ -184,11 +190,13 @@ def main():
                     "fantasy_points_avg_season_minus_one",
                     "fantasy_points_avg_last_week",
                 ]
-            ].head(10)
+            ]
+            .head(10)
+            .reset_index(drop=True)
         )
         .tab_header(
             title="Biggest Risers of Last Week",
-            subtitle="Largest Difference in FPPG Between Last Week and Season Before Last Week",
+            subtitle=f"Largest Difference in FPPG Between Week {last_schedule_week+1} and Weeks 1-{last_schedule_week}",
         )
         .tab_spanner(
             label="Trad FPPG",
@@ -211,8 +219,8 @@ def main():
             positions="Positions",
             roster_pct_current="Roster %",
             avg_salary_current="Avg Salary",
-            fantasy_points_avg_last_week="Last Week",
-            fantasy_points_avg_season_minus_one="Before Last Week",
+            fantasy_points_avg_last_week=f"Week {last_schedule_week+1}",
+            fantasy_points_avg_season_minus_one=f"Weeks 1-{last_schedule_week}",
         )
         .fmt_number(
             columns=[
@@ -224,11 +232,33 @@ def main():
         .fmt_currency(columns=["avg_salary_current"], currency="USD")
         .fmt_percent(columns=["roster_pct_current"], decimals=1, scale_values=False)
         .cols_move_to_end("fantasy_points_avg_last_week")
+        .data_color(
+            columns=[
+                "fantasy_points_avg_last_week",
+                "fantasy_points_avg_season_minus_one",
+            ],
+            palette="PRGn",
+            domain=[
+                min(
+                    comp_stat_values.fantasy_points_avg_season_minus_one.min(),
+                    comp_stat_values.fantasy_points_avg_last_week.min(),
+                ),
+                max(
+                    comp_stat_values.fantasy_points_avg_season_minus_one.max(),
+                    comp_stat_values.fantasy_points_avg_last_week.max(),
+                ),
+            ],
+        )
+        .tab_source_note(
+            source_note=md(
+                "BlueSky: @wfordh | Traditional fantasy points: https://ottoneu.fangraphs.com/basketball/help/rosters_and_scoring"
+            )
+        )
     )
 
-    gt.save("analysis/images/weekly_performers_diff.png")
+    gt_diff.save("analysis/images/weekly_performers_diff.png")
 
-    gt = (
+    gt_fa = (
         GT(
             comp_stat_values.loc[comp_stat_values.roster_pct_current <= 50]
             .sort_values(by="fantasy_points_avg_last_week", ascending=False)[
@@ -242,6 +272,7 @@ def main():
                 ]
             ]
             .head(10)
+            .reset_index(drop=True)
         )
         .tab_header(
             title="Best Free Agents of Last Week",
@@ -268,8 +299,8 @@ def main():
             positions="Positions",
             roster_pct_current="Roster %",
             avg_salary_current="Avg Salary",
-            fantasy_points_avg_last_week="Last Week",
-            fantasy_points_avg_season_minus_one="Before Last Week",
+            fantasy_points_avg_last_week=f"Week {last_schedule_week+1}",
+            fantasy_points_avg_season_minus_one=f"Weeks 1-{last_schedule_week}",
         )
         .fmt_number(
             columns=[
@@ -281,9 +312,57 @@ def main():
         .fmt_currency(columns=["avg_salary_current"], currency="USD")
         .fmt_percent(columns=["roster_pct_current"], decimals=1, scale_values=False)
         .cols_move_to_end("fantasy_points_avg_last_week")
+        .data_color(
+            columns=[
+                "fantasy_points_avg_last_week",
+                "fantasy_points_avg_season_minus_one",
+            ],
+            palette="PRGn",
+            domain=[
+                min(
+                    comp_stat_values.fantasy_points_avg_season_minus_one.min(),
+                    comp_stat_values.fantasy_points_avg_last_week.min(),
+                ),
+                max(
+                    comp_stat_values.fantasy_points_avg_season_minus_one.max(),
+                    comp_stat_values.fantasy_points_avg_last_week.max(),
+                ),
+            ],
+        )
+        .tab_source_note(
+            source_note=md(
+                "BlueSky: @wfordh | Traditional fantasy points: https://ottoneu.fangraphs.com/basketball/help/rosters_and_scoring"
+            )
+        )
     )
 
-    gt.save("analysis/images/weekly_performers_free_agents.png")
+    gt_fa.save("analysis/images/weekly_performers_free_agents.png")
+
+    ## take this out when pushing to prod!!!
+    print("discourse client")
+    client = Discourse(
+        base_url="http://community.ottoneu.com",
+        username="higginsford",
+        api_key="7b4ff3d9d12748cf092878c10f8c29939b7bceee6cc530eb943d131781e0049c",
+    )
+    topic_id = "14414"
+    category_id = "50"
+    markdown_url = "![image|581x455](upload://c4MB1Yzppr5Omv68MoJBQINqqiB.png)"
+    print("making tempfile")
+    fp_best = tempfile.NamedTemporaryFile(suffix=".png")
+    gt_best.save(fp_best.name)
+
+    print("making content")
+    content = f"""
+        attempt using raw html w/ inline css: {gt_best.as_raw_html(inline_css=True)}\n
+        attempt using tempfile and markdown link: '![image|866x543](upload://{fp_best})'
+    """
+
+    data = {"topic_id": topic_id, "raw": content, "category": category_id, "title": ""}
+    print("posting to discourse")
+    client.t[topic_id].json.post(data)
+
+    fp_best.close()
 
 
 if __name__ == "__main__":
