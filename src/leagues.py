@@ -60,7 +60,7 @@ def get_league_leaderboard(
     """
     if (start_date and not end_date) or (not start_date and end_date):
         logging.warn("Need either both dates or neither!")
-    base_url = f"https://ottoneu.fangraphs.com/basketball/26/ajax/player_leaderboard?positions[]=G&positions[]=F&positions[]=C&minimum_minutes=0&sort_by=salary&sort_direction=DESC&free_agents_only={free_agents_only}&include_my_team=false&export=export&game_range_start_date={start_date}&game_range_end_date={end_date}"
+    base_url = f"https://ottoneu.fangraphs.com/basketball/{league_id}/ajax/player_leaderboard?positions[]=G&positions[]=F&positions[]=C&minimum_minutes=0&sort_by=salary&sort_direction=DESC&free_agents_only={free_agents_only}&include_my_team=false&export=export&game_range_start_date={start_date}&game_range_end_date={end_date}"
     return pd.read_csv(base_url).rename(columns={"id": "ottoneu_player_id"})
 
 
@@ -68,9 +68,11 @@ def get_average_values() -> pd.DataFrame:
     """
     Pulls the average values and roster percentages across all of Ottoneu basketball.
     Returns a dataframe.
+
+    Move to utils.py?
     """
     df = pd.read_csv("https://ottoneu.fangraphs.com/basketball/average_values?csv=1")
-    df.columns = pd.Index([col.lower() for col in df.columns])
+    df.columns = pd.Index([col.lower().replace(" ", "_") for col in df.columns])
     return df.rename(
         columns={
             "id": "ottoneu_player_id",

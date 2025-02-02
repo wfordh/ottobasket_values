@@ -90,8 +90,8 @@ if league_input:
         f"{league_scoring}",
         f"{league_scoring}_ppg",
         f"{league_scoring}_value",
-        "avg salary",
-        "median salary",
+        "avg_salary",
+        "median_salary",
         "roster%",
     ]
 
