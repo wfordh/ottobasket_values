@@ -6,7 +6,9 @@ type, and minutes type. It forms the basis for the homepage of the app.
 import argparse
 import logging
 import os
+from datetime import datetime
 from typing import Union
+from zoneinfo import ZoneInfo
 
 import pandas as pd
 import streamlit as st
@@ -15,8 +17,8 @@ import darko
 # all of the relative imports here
 import drip
 ## not ideal, but will figure it out later
-from transform import get_scoring_minutes_combo, prep_stats_df
-from utils import _setup_gdrive, _upload_data
+from transform import get_scoring_minutes_combo, prep_stats_df  # type: ignore
+from utils import _setup_gdrive, _upload_data  # type: ignore
 
 logging.basicConfig(level=logging.INFO)
 
@@ -88,6 +90,11 @@ def ottobasket_values_pipeline(
         gc = _setup_gdrive(client_key_string)
         sheet_key = "1GgwZpflcyoRYMP0yL2hrbNwndJjVFm34x3jXnUooSfA"
         _upload_data(gc, all_values_df, sheet_key, clear=True)
+
+        # add the run date
+        now = datetime.now(tz=ZoneInfo("US/Pacific")).strftime("%Y-%m-%d %H:%M:%S")
+        now_df = pd.DataFrame([now], columns=["most_recent_run"])
+        _upload_data(gc, now_df, sheet_key, wks_num=1, clear=False)
     return all_values_df
 
 
