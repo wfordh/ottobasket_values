@@ -17,8 +17,8 @@ jobs:
       env:
         SERVICE_BLOB: ${{ secrets.SERVICE_BLOB }}
       run: python3 analysis/check_player_mappings.py -s gdrive
-    - name: send push notification
-      uses: techulus/push-github-acton@1.0.0
+    - name: Send Push Notification
+      uses: techulus/push-github-action@1.2.1
       env:
         API_KEY: ${{ secrets.TECHULUS_API_KEY }}
         MESSAGE: "Checked for missing player mappings. See Google Sheet for details."
