@@ -8,8 +8,8 @@ import pandas as pd
 sys.path.append(os.path.abspath("src"))
 
 from leagues import get_average_values  # type: ignore
-from utils import (_setup_gdrive, _upload_data,  # type: ignore
-                   clean_avg_vals_df, get_name_map)
+from utils import _upload_data  # type: ignore
+from utils import _setup_gdrive, clean_avg_vals_df, get_name_map
 
 logging.basicConfig(level=logging.INFO)
 
@@ -87,7 +87,7 @@ def main():
         client_key_string = os.environ.get("SERVICE_BLOB", None)
         gc = _setup_gdrive(client_key_string)
         sheet_key = "1M5n0yZGIWbZSwrju2q014dGjvWJ1JQIsHanDyRaI0Sw"
-        _upload_data(gc, missing, sheet_key, clear=True)
+        _upload_data(gc, missing.fillna(""), sheet_key, clear=True)
 
 
 if __name__ == "__main__":
