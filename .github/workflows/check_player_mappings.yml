@@ -1,0 +1,24 @@
+name: Check Player Mappings
+
+on: 
+  schedule:
+    - cron: '4 0 10 1,2,3,4,5,9,10,11,12 *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v4
+      with:
+        python-version: 3.9.12
+    - run: pip install -r requirements.txt
+    - name: mapping script run
+      env:
+        SERVICE_BLOB: ${{ secrets.SERVICE_BLOB }}
+      run: python3 analysis/check_player_mappings.py -s gdrive
+    - name: Send Push Notification
+      uses: techulus/push-github-action@1.2.1
+      env:
+        API_KEY: ${{ secrets.TECHULUS_API_KEY }}
+        MESSAGE: "Checked for missing player mappings. See Google Sheet for details."

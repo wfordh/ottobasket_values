@@ -1,10 +1,9 @@
 import datetime
-from zoneinfo import ZoneInfo
 
 import pandas as pd
 import streamlit as st
 
-from pipeline import ottobasket_values_pipeline
+from pipeline import ottobasket_values_pipeline  # type: ignore
 
 st.set_page_config(page_title="Ottobasket Values")
 st.sidebar.markdown("Ottobasket Values")
@@ -20,6 +19,11 @@ sheet_id = "1GgwZpflcyoRYMP0yL2hrbNwndJjVFm34x3jXnUooSfA"
 values_df = pd.read_csv(
     f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=csv&gid=0"
 )
+
+most_recent_run_date = pd.read_csv(
+    f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=csv&gid=1905916816"
+).values[0][0]
+
 format_cols = {
     col: "${:.0f}" if "value" in col else "{:.0f}"
     for col in values_df.columns
@@ -83,12 +87,11 @@ if position_input:
 
 display_df = values_df[base_columns].copy().set_index("player")
 st.dataframe(display_df.style.format(format_cols))  # type: ignore
-now = datetime.datetime.now(tz=ZoneInfo("US/Pacific"))
 st.markdown(
     "About page / README can be found [here](https://github.com/wfordh/ottobasket_values/blob/main/README.md)"
 )
 st.text("ros = rest of season. ytd = year to date. Full glossary found in the sidebar.")
-st.text(f"Last updated: {now.strftime('%Y-%m-%d %I:%M %p (Pacific)')}")
+st.text(f"Last updated: {most_recent_run_date}")
 values_csv = convert_df(display_df)
 st.download_button(
     "Press to download",

@@ -1,8 +1,11 @@
 import json
+import logging
 from typing import Optional
 
 import gspread  # type: ignore
 import pandas as pd
+
+logging.basicConfig(level=logging.INFO)
 
 
 def _setup_gdrive(client_key_string: Optional[str]) -> gspread.client.Client:
@@ -76,3 +79,19 @@ def get_ottoneu_leaderboard() -> pd.DataFrame:
     return pd.read_csv(
         "https://ottoneu.fangraphs.com/basketball/31/ajax/player_leaderboard?positions[]=G&positions[]=F&positions[]=C&minimum_minutes=0&sort_by=salary&sort_direction=DESC&free_agents_only=false&include_my_team=false&export=export"
     ).rename(columns={"id": "ottoneu_player_id"})
+
+
+def clean_avg_vals_df(avg_vals: pd.DataFrame) -> pd.DataFrame:
+    avg_vals_cols = [
+        col.replace("(", "").replace(")", "").replace(" ", "_").replace("%", "_pct")
+        for col in avg_vals.columns
+    ]
+    avg_vals.columns = pd.Index(avg_vals_cols)
+    avg_vals["avg_salary"] = avg_vals.avg_salary.str.replace("$", "").astype(float)
+    try:
+        avg_vals["roster_pct"] = avg_vals.roster_pct.str.replace("%", "").astype(float)
+    except AttributeError:
+        logging.info("Could not adjust 'roster pct' column!")
+        pass
+
+    return avg_vals

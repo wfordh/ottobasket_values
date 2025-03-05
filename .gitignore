@@ -17,3 +17,6 @@ otto*.json
 # ignore DS Store
 .DS_Store
 */.DS_Store
+
+# ignore webdrivers
+*driver*
