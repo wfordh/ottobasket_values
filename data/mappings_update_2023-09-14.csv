@@ -531,7 +531,6 @@ ottoneu_player_id,name,nba_player_id,stats_player_id,bref_id,espn_id,hashtag_id,
 9255,Andre Jackson Jr.,1641748,1231279,,,111232,G
 21503,Michael Foster Jr.,1630701,1357746,,,,F
 19863,MarJon Beauchamp,1630699,1357744,,,39835,F
-7000,Oscar Tshiebwe,1631131,,,,,F
 13840,Caleb Love,,,,,,G
 4698,Taevion Kinsey,1641795,,,,,
 10990,Mark Williams,1631109,1230361,,,38835,C
@@ -625,7 +624,6 @@ ottoneu_player_id,name,nba_player_id,stats_player_id,bref_id,espn_id,hashtag_id,
 23162,Noah Clowney,1641730,1401380,,,111217,F
 25832,Bilal Coulibaly,1641731,1437526,,,109467,G/F
 13727,Mouhamadou Gueye,1631338,,,,,F
-20961,Mouhamed Gueye,1631243,1325101,,,,F
 20134,Jordan Hawkins,1641722,1327798,,,111210,G
 23321,Taylor Hendricks,1641707,1405861,,,111207,F
 23869,Jalen Hood-Schifino,1641720,1402780,,,111213,G
@@ -667,7 +665,6 @@ ottoneu_player_id,name,nba_player_id,stats_player_id,bref_id,espn_id,hashtag_id,
 9679,Isaiah Crawford,1642384,,,,,F
 26003,Ja'Kobe Walter,1642266,1458461,,,120012,G
 18083,Jack McVeigh,1629098,882431,,,,F
-11304,Jalen Bridges,1641779,1193172,,,,F
 1515,Jamal Shead,1642347,1231795,,,120046,G
 25916,Jared McCain,1642272,1458807,,,120009,G
 26752,Jaylen Wells,1642377,1423140,,,120079,F
@@ -677,7 +674,6 @@ ottoneu_player_id,name,nba_player_id,stats_player_id,bref_id,espn_id,hashtag_id,
 24438,Jonathan Mogbo,1642367,1404902,,,120048,F
 22354,Juan Nunez,1642361,,,,120042,G
 24062,Judah Mintz,1641758,,,,,G
-26324,Justin Edwards,1642348,1465002,,,,G
 22970,Karlo Matkovic,1631255,1349638,,,120096,F
 24576,Kel'el Ware,1642276,1405458,,,120030,C
 2031,Keshad Johnson,1642352,1177278,,,120066,F
@@ -743,3 +739,12 @@ ottoneu_player_id,name,nba_player_id,stats_player_id,bref_id,espn_id,hashtag_id,
 7877,Tyrese Martin,1631213,1134107,,,120171,G
 18406,Trevelin Queen,1630243,1138673,,,27626,G
 21511,Lindy Waters III,1630322,944248,,,37944,F
+21,Jordan Goodwin,1630692,1062104,,,35208,G
+2488,Damion Baugh,1641878,1175108,,,120196,G
+7000,Oscar Tshiebwe,1631131,1175089,,,120108,F
+11304,Jalen Bridges,1641779,1193172,,,120050,F
+18433,Bismack Biyombo,202687,599797,,,9497,C
+20961,Mouhamed Gueye,1631243,1325101,,,111235,F
+25827,Jaylen Clark,1641740,1231198,,,111249,G
+26324,Justin Edwards,1642348,1465002,,,120032,G
+31216,Yuki Kawamura,1642530,1453977,,,,G
