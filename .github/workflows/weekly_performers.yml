@@ -2,7 +2,7 @@ name: Weekly Performers Run
 
 on: #push
   schedule:
-    - cron: 0 9 * 1,2,3,4,8,9,10,11,12 1
+    - cron: 0 9 * 1,2,3,4,10,11,12 1
 
 jobs:
   build:
@@ -16,4 +16,5 @@ jobs:
     - name: script run
       env: 
           SERVICE_BLOB: ${{ secrets.SERVICE_BLOB }}
+          DISCOURSE_API_KEY: ${{ secrets.DISCOURSE_API_KEY }}
       run: python3 analysis/weekly_performers.py
