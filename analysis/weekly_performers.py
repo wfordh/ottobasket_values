@@ -42,6 +42,9 @@ def discourse_img_upload(
         headers={"Api-Username": client._username, "Api-Key": client._api_key},
     )
 
+    assert response.ok
+    assert response.json()["short_url"]
+
     return response.json()
 
 
@@ -67,7 +70,7 @@ def main():
         league_id=LEAGUE_ID, start_date=last_week, end_date=today
     )
     season_minus_week_stats = get_league_leaderboard(
-        league_id=LEAGUE_ID, start_date=first_day_of_season, end_date=last_week
+        league_id=LEAGUE_ID, start_date=FIRST_DAY_OF_SEASON, end_date=last_week
     )
 
     # analysis time
@@ -368,6 +371,8 @@ def main():
         username="higginsford",
         api_key=os.environ.get("DISCOURSE_API_KEY", None),
     )
+
+    assert client.api_key
     topic_id = 15278
     logging.info("Making the tempfiles to save the tables to as images.")
 
