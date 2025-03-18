@@ -1,4 +1,7 @@
-import io
+"""
+Need to update FIRST_DAY_OF_SEASON, LAST_DAY_OF_SEASON, and topic_id before every season.
+"""
+
 import logging
 import os
 import sys
@@ -6,6 +9,7 @@ import tempfile
 from datetime import date, datetime, timedelta
 
 import pandas as pd
+import requests
 from fluent_discourse import Discourse  # type: ignore
 from great_tables import GT, md
 
@@ -26,13 +30,35 @@ def get_last_week_average_values(sheet_key: str) -> pd.DataFrame:
     )
 
 
+def discourse_img_upload(
+    client: Discourse, tmp_file: tempfile.NamedTemporaryFile
+) -> dict:
+    # upload an image and return the JSON blob from the request
+    response = requests.post(
+        f"{client._base_url}/uploads.json",
+        # files={"files[]": (fp_best.name, fp_best.read(), "image/png")},
+        files={"files[]": open(tmp_file.name, "rb")},
+        data={"type": "composer"},
+        headers={"Api-Username": client._username, "Api-Key": client._api_key},
+    )
+
+    assert response.ok
+    assert response.json()["short_url"]
+
+    return response.json()
+
+
 def main():
     sheet_key = "15clwCO60P7lIxJU8B91tRRRZA7X0g7-tTqdnc-K1pa0"
     today = date.today().strftime("%Y-%m-%d")
     last_week = (date.today() - timedelta(days=7)).strftime("%Y-%m-%d")
-    first_day_of_season = "2024-10-22"
+    FIRST_DAY_OF_SEASON = "2024-10-22"
+    LAST_DAY_OF_SEASON = "2025-04-15"
+    if (today < FIRST_DAY_OF_SEASON) or (today > LAST_DAY_OF_SEASON):
+        logging.warning("Today's date is out of bounds for the season. Exiting!")
+        sys.exit()
     last_schedule_week = (
-        datetime.today() - datetime.strptime(first_day_of_season, "%Y-%m-%d")
+        datetime.today() - datetime.strptime(FIRST_DAY_OF_SEASON, "%Y-%m-%d")
     ).days // 7
     logging.info(f"Today: {today}")
     logging.info(f"Last Monday: {last_week}")
@@ -44,7 +70,7 @@ def main():
         league_id=LEAGUE_ID, start_date=last_week, end_date=today
     )
     season_minus_week_stats = get_league_leaderboard(
-        league_id=LEAGUE_ID, start_date=first_day_of_season, end_date=last_week
+        league_id=LEAGUE_ID, start_date=FIRST_DAY_OF_SEASON, end_date=last_week
     )
 
     # analysis time
@@ -177,7 +203,7 @@ def main():
         )
     )
 
-    gt_best.save("analysis/images/weekly_performers_best.png")
+    # gt_best.save("analysis/images/weekly_performers_best.png")
 
     gt_diff = (
         GT(
@@ -256,7 +282,7 @@ def main():
         )
     )
 
-    gt_diff.save("analysis/images/weekly_performers_diff.png")
+    # gt_diff.save("analysis/images/weekly_performers_diff.png")
 
     gt_fa = (
         GT(
@@ -336,33 +362,42 @@ def main():
         )
     )
 
-    gt_fa.save("analysis/images/weekly_performers_free_agents.png")
+    # gt_fa.save("analysis/images/weekly_performers_free_agents.png")
 
     ## take this out when pushing to prod!!!
-    print("discourse client")
+    logging.info("Creating the Discourse client object.")
     client = Discourse(
-        base_url="http://community.ottoneu.com",
+        base_url="https://community.ottoneu.com",
         username="higginsford",
-        api_key="7b4ff3d9d12748cf092878c10f8c29939b7bceee6cc530eb943d131781e0049c",
+        api_key=os.environ.get("DISCOURSE_API_KEY", None),
     )
-    topic_id = "14414"
-    category_id = "50"
-    markdown_url = "![image|581x455](upload://c4MB1Yzppr5Omv68MoJBQINqqiB.png)"
-    print("making tempfile")
+
+    assert client.api_key
+    topic_id = 15278
+    logging.info("Making the tempfiles to save the tables to as images.")
+
     fp_best = tempfile.NamedTemporaryFile(suffix=".png")
     gt_best.save(fp_best.name)
 
-    print("making content")
-    content = f"""
-        attempt using raw html w/ inline css: {gt_best.as_raw_html(inline_css=True)}\n
-        attempt using tempfile and markdown link: '![image|866x543](upload://{fp_best})'
-    """
+    fp_fa = tempfile.NamedTemporaryFile(suffix=".png")
+    gt_fa.save(fp_fa.name)
 
-    data = {"topic_id": topic_id, "raw": content, "category": category_id, "title": ""}
-    print("posting to discourse")
-    client.t[topic_id].json.post(data)
+    fp_diff = tempfile.NamedTemporaryFile(suffix=".png")
+    gt_diff.save(fp_diff.name)
+
+    logging.info("Uploading the images to Discourse")
+    response_best = discourse_img_upload(client, fp_best)
+    response_diff = discourse_img_upload(client, fp_diff)
+    response_fa = discourse_img_upload(client, fp_fa)
+
+    content = f"![image|781x506]({response_best['short_url']})\n\n![image|781x506]({response_diff['short_url']})\n\n![image|781x506]({response_fa['short_url']})"
+    data = {"topic_id": topic_id, "raw": content}
+    logging.info("Posting to Discourse")
+    client.posts.json.post(data)
 
     fp_best.close()
+    fp_fa.close()
+    fp_diff.close()
 
 
 if __name__ == "__main__":
