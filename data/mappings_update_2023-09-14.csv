@@ -734,7 +734,7 @@ ottoneu_player_id,name,nba_player_id,stats_player_id,bref_id,espn_id,hashtag_id,
 23006,Gui Santos,1630611,1391940,,,39844,F
 11936,Adama Sanogo,1641766,1231223,,,111257,C
 11988,David Roddy,1631223,1193593,,,38945,F
-231,A.J. Lawson,1630639,,,,35171,G
+231,A.J. Lawson,1630639,1137214,,,35171,G
 20669,Maxwell Lewis,1641721,1343033,,,111236,F
 7877,Tyrese Martin,1631213,1134107,,,120171,G
 18406,Trevelin Queen,1630243,1138673,,,27626,G
@@ -749,3 +749,4 @@ ottoneu_player_id,name,nba_player_id,stats_player_id,bref_id,espn_id,hashtag_id,
 26324,Justin Edwards,1642348,1465002,,,120032,G
 31216,Yuki Kawamura,1642530,1453977,,,,G
 3211,Brandon Williams,1630314,1134688,,,37446,G
+25837,Colin Castleton,1630658,1133800,,,,C
