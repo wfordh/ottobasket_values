@@ -651,7 +651,7 @@ ottoneu_player_id,name,nba_player_id,stats_player_id,bref_id,espn_id,hashtag_id,
 9707,Antonio Reeves,1641810,1193678,,,120057,G
 24102,Bobi Klintman,1641752,1406013,,,120040,F
 26399,Bronny James,1642355,1463593,,,120060,G
-26305,Cam Christie,1642353,1340703,,,120056,G
+26305,Cam Christie,1642353,1460155,,,120056,G
 25987,Carlton Carrington,1642267,1460336,,,120039,G
 26461,Cody Williams,1642262,1458830,,,120006,F
 21447,DaRon Holmes II,1641747,,,,120022,F
@@ -668,7 +668,7 @@ ottoneu_player_id,name,nba_player_id,stats_player_id,bref_id,espn_id,hashtag_id,
 1515,Jamal Shead,1642347,1231795,,,120046,G
 25916,Jared McCain,1642272,1458807,,,120009,G
 26752,Jaylen Wells,1642377,1423140,,,120079,F
-12747,Jaylin Williams,1642444,,,,38695,F
+12747,Jaylin Williams,1642444,,,,,F
 20964,Jaylon Tyson,1642281,1342747,,,120023,G
 27635,Johnny Furphy,1642277,1475759,,,120021,G
 24438,Jonathan Mogbo,1642367,1404902,,,120048,F
@@ -682,13 +682,13 @@ ottoneu_player_id,name,nba_player_id,stats_player_id,bref_id,espn_id,hashtag_id,
 25900,Kyshawn George,1642273,1460113,,,120020,G
 22993,Luke Travers,1631247,1352114,,,120172,G
 25843,Matas Buzelis,1641824,1501940,,,120011,F
-28413,Melvin Ajinca,1642351,,,,,F
+29532,Melvin Ajinca,1642351,,,,,F
 2588,N'Faly Dante,1642368,,,,,C
 22700,Nikola Djurisic,1642365,,,,120059,F
 22948,Nikola Topic,1642260,,,,,G
 6831,Oso Ighodaro,1642345,1232477,,,120051,F
 1321,PJ Hall,1641790,1232490,,,120033,C
-28429,Pacome Dadiet,1642359,1500956,,,120031,G
+29545,Pacome Dadiet,1642359,1500956,,,120031,G
 1782,Pelle Larsson,1641796,1231950,,,120067,G
 11643,Quinten Post,1642366,1193672,,,120068,F/C
 26696,Reed Sheppard,1642263,1465031,,,120004,G
@@ -699,10 +699,10 @@ ottoneu_player_id,name,nba_player_id,stats_player_id,bref_id,espn_id,hashtag_id,
 26152,Tidjane Salaun,1642275,1504463,,,120027,F
 21032,Trey Alexander,1641725,1323633,,,,G
 9013,Tristan da Silva,1641783,1232528,,,120016,F
-28402,Tristen Newton,1641803,1174846,,,,G
+29537,Tristen Newton,1641803,1174846,,,,G
 8036,Tyler Kolek,1642278,1232325,,,120026,G
 25842,Tyler Smith,1641890,1429357,,,120017,F
-28420,Ulrich Chomche,1642279,1517205,,,,F
+29539,Ulrich Chomche,1642279,1517205,,,,F
 25999,Yves Missi,1642274,1458495,,,120029,C
 22574,Zaccharie Risacher,1642258,1432544,,,120005,F
 5935,Zach Edey,1641744,1231414,,,120018,C
