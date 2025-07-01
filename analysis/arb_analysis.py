@@ -28,8 +28,12 @@ def main():
     args = parser.parse_args()
     command_args = dict(vars(args))
     season = command_args.pop("season", None)
-    pre_df = pd.read_csv(f"./data/pre_arb_values_{season}.csv")
-    post_df = pd.read_csv(f"./data/post_arb_values_{season}.csv")
+    pre_df = pd.read_csv(f"./data/pre_arb_values_{season}.csv").rename(
+        columns={"Avg Salary": "ottoneu_av"}
+    )
+    post_df = pd.read_csv(f"./data/post_arb_values_{season}.csv").rename(
+        columns={"Avg Salary": "ottoneu_av"}
+    )
     mappings = pd.read_csv("data/mappings_update_2023-09-14.csv")
     year_end_values = pd.read_csv(f"data/final_{season}_values.csv")
     leagues_info = pd.read_csv("data/league_settings.csv")
@@ -39,6 +43,7 @@ def main():
     )
     new_cols = [col.lower().replace(" ", "_") for col in all_values.columns]
     all_values.columns = new_cols
+    logging.info(all_values.columns)
     all_values = all_values[
         ["id", "name", "position", "ottoneu_av_pre", "ottoneu_av_post"]
     ].merge(
@@ -51,9 +56,9 @@ def main():
     all_values["ottoneu_av_post"] = all_values.ottoneu_av_post.str.replace(
         "$", ""
     ).astype(float)
-    all_values["ottoneu_av_pre"] = all_values.ottoneu_av_pre.str.replace(
-        "$", ""
-    ).astype(float)
+    all_values["ottoneu_av_pre"] = (
+        all_values.ottoneu_av_pre.str.replace("$", "").astype(float) + 3
+    )
     all_values.dropna(inplace=True)
     all_values["arb_amount"] = (
         all_values.ottoneu_av_post - all_values.ottoneu_av_pre
