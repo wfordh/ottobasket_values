@@ -7,19 +7,28 @@ to be run daily as a cron job during the relevant months.
 import json
 import os
 import time
+from random import uniform
 
 import gspread  # type: ignore
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 from selenium import webdriver
+from selenium.common.exceptions import (NoSuchElementException,
+                                        StaleElementReferenceException)
 from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.firefox.service import Service
+from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.select import Select
+from selenium.webdriver.support.ui import WebDriverWait
 from webdriver_manager.firefox import GeckoDriverManager
 
 from utils import _setup_gdrive, _upload_data
+
+
+def _sleep_unif(a=2, b=4):
+    return time.sleep(uniform(a, b))
 
 
 def _setup_chrome_scraper() -> webdriver.firefox.webdriver.WebDriver:
@@ -35,6 +44,38 @@ def _shutdown_chrome_scraper(driver: webdriver.firefox.webdriver.WebDriver) -> N
     driver.quit()
 
 
+def _login_to_hashtag(url: str, driver: webdriver.firefox.webdriver.WebDriver) -> None:
+    driver.get(url)
+    _sleep_unif(1, 4)
+    username_field = driver.find_element(By.ID, "ContentPlaceHolder1_myLogin_UserName")
+    password_field = driver.find_element(By.ID, "ContentPlaceHolder1_myLogin_Password")
+    username_value = os.environ.get("HASHTAG_USERNAME", None)
+    password_value = os.environ.get("HASHTAG_PASSWORD", None)
+    username_field.send_keys(username_value)
+    _sleep_unif()
+    print("sent username")
+    password_field.send_keys(password_value)
+    _sleep_unif()
+    print("sent password")
+    login_button = driver.find_element(By.ID, "ContentPlaceHolder1_myLogin_LoginButton")
+    login_button.click()
+    print("logged in!")
+    _sleep_unif(250, 270)
+    print("waited for patreon connection")
+
+
+def _get_element_with_waiting(
+    element_id: str, driver: webdriver.firefox.webdriver.WebDriver
+):
+    ignored_exceptions = (
+        NoSuchElementException,
+        StaleElementReferenceException,
+    )
+    return WebDriverWait(driver, 15, ignored_exceptions=ignored_exceptions).until(
+        expected_conditions.presence_of_element_located((By.ID, element_id))
+    )
+
+
 def _get_projections_page(
     url: str, driver: webdriver.firefox.webdriver.WebDriver
 ) -> str:
@@ -44,19 +85,27 @@ def _get_projections_page(
     200, with a sleep period added for courtesy and to prevent blacklisting.
     """
     driver.get(url)
-    time.sleep(1.2)
+    _sleep_unif()
     num_players_dropdown = Select(
-        driver.find_element(By.ID, "ContentPlaceHolder1_DDSHOW")
+        _get_element_with_waiting("ContentPlaceHolder1_DDSHOW", driver)
     )
+    _sleep_unif()
     # "All" is represented as 900 in the webpage
     num_players_dropdown.select_by_value("900")
-    time.sleep(2.1)
-    totals_dropdown = Select(driver.find_element(By.ID, "ContentPlaceHolder1_DDRANK"))
+    _sleep_unif()
+    totals_dropdown = Select(
+        _get_element_with_waiting("ContentPlaceHolder1_DDRANK", driver)
+    )
+    _sleep_unif()
     totals_dropdown.select_by_value("TOT")
     # for getting the stats for rookies
-    three_point_perc_checkbox = driver.find_element(By.ID, "ContentPlaceHolder1_CB3PP")
+    three_point_perc_checkbox = _get_element_with_waiting(
+        "ContentPlaceHolder1_CB3PP", driver
+    )
+    _sleep_unif()
     three_point_perc_checkbox.click()
-    time.sleep(3)
+    _get_element_with_waiting("ContentPlaceHolder1_CB3PP", driver).click()
+    _sleep_unif()
     content = driver.page_source
     return content
 
@@ -180,15 +229,20 @@ def _get_fantasypros_projections() -> pd.DataFrame:
 def main():
     client_key_string = os.environ.get("SERVICE_BLOB", None)
     driver = _setup_chrome_scraper()
-    projections_url = "https://hashtagbasketball.com/fantasy-basketball-projections"
-    rankings_url = "https://hashtagbasketball.com/fantasy-basketball-rankings"
+    login_url = "https://hashtagbasketball.com/premium/login"
+    projections_url = (
+        "https://hashtagbasketball.com/import-v2/fantasy-basketball-projections"
+    )
+    rankings_url = "https://hashtagbasketball.com/import-v2/fantasy-basketball-rankings"
+    _login_to_hashtag(login_url, driver)
     proj_content = _get_projections_page(projections_url, driver)
-    rankings_content = _get_projections_page(rankings_url, driver)
+    # rankings_content = _get_projections_page(rankings_url, driver)
     proj_data = _extract_projections(True, proj_content)
-    rankings_data = _extract_projections(False, rankings_content)
+    # rankings_data = _extract_projections(False, rankings_content)
     try:
-        data = proj_data.merge(rankings_data, how="left", on="pid")
+        data = proj_data  # .merge(rankings_data, how="left", on="pid")
         data.fillna(0, inplace=True)
+        print(data.shape)
         # commented out on 2/25/23 since hashtagbasketball switched back to
         # forecasting as expected with the rest of the season without including
         # the season to date
