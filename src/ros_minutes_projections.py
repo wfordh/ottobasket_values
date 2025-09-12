@@ -99,8 +99,13 @@ def _get_projections_page(
     _sleep_unif()
     totals_dropdown.select_by_value("TOT")
     # for getting the stats for rookies
-    _get_element_with_waiting("ContentPlaceHolder1_CB3PP", driver).click()
+    three_point_perc_checkbox = _get_element_with_waiting(
+        "ContentPlaceHolder1_CB3PP", driver
+    )
     _sleep_unif()
+    three_point_perc_checkbox.click()
+    # _get_element_with_waiting("ContentPlaceHolder1_CB3PP", driver).click()
+    # _sleep_unif()
     content = driver.page_source
     return content
 
