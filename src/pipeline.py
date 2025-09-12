@@ -74,12 +74,30 @@ def ottobasket_values_pipeline(
     )
     if filter_cols:
         all_values_df = all_values_df[
-            join_cols + [col for col in all_values_df.columns if "value" in col]
+            join_cols
+            + [col for col in all_values_df.columns if "value" in col]
+            + ["games_forecast_ros", "trad_points_ros", "simple_points_ros"]
         ]
+    all_values_df["tfppg_ros"] = all_values_df.apply(
+        lambda row: (
+            round(row.trad_points_ros / row.games_forecast_ros, 2)
+            if row.games_forecast_ros != 0
+            else 0
+        ),
+        axis=1,
+    )
+    all_values_df["sfppg_ros"] = all_values_df.apply(
+        lambda row: (
+            round(row.simple_points_ros / row.games_forecast_ros, 2)
+            if row.games_forecast_ros != 0
+            else 0
+        ),
+        axis=1,
+    )
     all_values_df.drop_duplicates(inplace=True)
     all_values_df = all_values_df.loc[
         (all_values_df.total_ros_minutes > 0) | (all_values_df.minutes_ytd > 0)
-    ]
+    ].fillna(0)
 
     if save_method == "local":
         logging.info("Saving locally!")
@@ -103,7 +121,7 @@ def main():
     command_args = dict(vars(args))
     save_method = command_args.pop("save_method", None)
     logging.info(f"Save method is {save_method}")
-    ottobasket_values_pipeline(save_method)
+    ottobasket_values_pipeline(save_method, filter_cols=True)
 
 
 if __name__ == "__main__":

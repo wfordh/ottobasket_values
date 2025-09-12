@@ -29,6 +29,8 @@ format_cols = {
     for col in values_df.columns
     if col not in ["player", "ottoneu_position"]
 }
+format_cols["tfppg_ros"] = "{:.2f}"
+format_cols["sfppg_ros"] = "{:.2f}"
 ros_check = st.sidebar.checkbox("Rest of Season columns", value=True)
 ytd_check = st.sidebar.checkbox("Year to Date columns", value=True)
 current_min_check = st.sidebar.checkbox("Current minutes columns")
@@ -42,8 +44,11 @@ if ros_check:
     base_columns.extend(
         [
             "total_ros_minutes",
+            "games_forecast_ros",
             "simple_points_value_ros",
+            "sfppg_ros",
             "trad_points_value_ros",
+            "tfppg_ros",
             "categories_value_ros",
         ]
     )
