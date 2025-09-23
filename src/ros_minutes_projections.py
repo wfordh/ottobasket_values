@@ -24,11 +24,7 @@ from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.ui import WebDriverWait
 from webdriver_manager.firefox import GeckoDriverManager
 
-from utils import _setup_gdrive, _upload_data
-
-
-def _sleep_unif(a=2, b=4):
-    return time.sleep(uniform(a, b))
+from utils import _setup_gdrive, _sleep_unif, _upload_data
 
 
 def _setup_chrome_scraper() -> webdriver.firefox.webdriver.WebDriver:
@@ -99,11 +95,12 @@ def _get_projections_page(
     _sleep_unif()
     totals_dropdown.select_by_value("TOT")
     # for getting the stats for rookies
-    three_point_perc_checkbox = _get_element_with_waiting(
-        "ContentPlaceHolder1_CB3PP", driver
-    )
-    _sleep_unif()
-    three_point_perc_checkbox.click()
+    _get_element_with_waiting("ContentPlaceHolder1_CB3PP", driver).click()
+    # three_point_perc_checkbox = _get_element_with_waiting(
+    #     "ContentPlaceHolder1_CB3PP", driver
+    # )
+    # _sleep_unif()
+    # three_point_perc_checkbox.click()
     _sleep_unif()
     content = driver.page_source
     return content
