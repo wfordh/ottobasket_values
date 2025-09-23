@@ -10,12 +10,13 @@ from bs4 import BeautifulSoup
 
 # not sure I need st.cache on all of them...
 @st.cache_data(ttl=12 * 60 * 60)  # type: ignore
-def get_league_scoring(league_id: int) -> str:
+def get_league_scoring(league_id: int, df: pd.DataFrame) -> str:
     """Scrapes the league's settings page. Returns the scoring type."""
-    sheet_key = "14TkjXjFSWDQsHZy6Qt77elLnVpi1HwrpbqzVC4JKDjc"
-    df = pd.read_csv(
-        f"https://docs.google.com/spreadsheets/d/{sheet_key}/export?format=csv&gid=0"
-    )
+    if df.empty:
+        sheet_key = "14TkjXjFSWDQsHZy6Qt77elLnVpi1HwrpbqzVC4JKDjc"
+        df = pd.read_csv(
+            f"https://docs.google.com/spreadsheets/d/{sheet_key}/export?format=csv&gid=0"
+        )
     scoring = (
         df.loc[df.league_id == league_id, "points_system"]
         .values[0]
@@ -162,3 +163,13 @@ def get_schedule_week(league_id: int = 26) -> int:
     schedule_header = soup.find("h3").text.strip().split()
     schedule_week = int(schedule_header[-2])
     return schedule_week
+
+
+def get_league_info() -> pd.DataFrame:
+    """
+    should probably merge this and the get_league_scoring function somehow since they pull the same sheet
+    """
+    sheet_key = "14TkjXjFSWDQsHZy6Qt77elLnVpi1HwrpbqzVC4JKDjc"
+    return pd.read_csv(
+        f"https://docs.google.com/spreadsheets/d/{sheet_key}/export?format=csv&gid=0"
+    )

@@ -1,5 +1,7 @@
 import json
 import logging
+import time
+from random import uniform
 from typing import Optional
 
 import gspread  # type: ignore
@@ -26,6 +28,10 @@ def _upload_data(
     if clear:
         worksheet.clear()
     worksheet.update([data.columns.values.tolist()] + data.values.tolist())
+
+
+def _sleep_unif(a=2, b=4):
+    return time.sleep(uniform(a, b))
 
 
 def get_existing_sgp_data() -> pd.DataFrame:
