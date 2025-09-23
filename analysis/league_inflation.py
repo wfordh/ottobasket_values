@@ -91,6 +91,7 @@ def get_league_inflation(
 
 def main():
     LEAGUE_ID = 26
+    # dumb way to do it so far but quick
     if 1 == 0:
         all_leagues = get_league_info()
         league_ids = all_leagues.league_id.unique().tolist()
