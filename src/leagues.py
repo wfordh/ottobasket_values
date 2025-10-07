@@ -1,6 +1,7 @@
 # mypy: ignore-errors
 import logging
 import time
+from typing import Union
 
 import pandas as pd
 import requests
@@ -10,9 +11,9 @@ from bs4 import BeautifulSoup
 
 # not sure I need st.cache on all of them...
 @st.cache_data(ttl=12 * 60 * 60)  # type: ignore
-def get_league_scoring(league_id: int, df: pd.DataFrame) -> str:
+def get_league_scoring(league_id: int, df: Union[pd.DataFrame, None] = None) -> str:
     """Scrapes the league's settings page. Returns the scoring type."""
-    if df.empty:
+    if not df or df.empty:
         sheet_key = "14TkjXjFSWDQsHZy6Qt77elLnVpi1HwrpbqzVC4JKDjc"
         df = pd.read_csv(
             f"https://docs.google.com/spreadsheets/d/{sheet_key}/export?format=csv&gid=0"
