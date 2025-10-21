@@ -26,7 +26,7 @@ def main():
     leagues_metadata = get_leagues_metadata()
     sgp_records = get_existing_sgp_data()
     # ASSIGN SEASON UP HERE?
-    SEASON = "2023-24"
+    SEASON = "2025-26"
     # same key that's used in sgp_records()
     sheet_key = "17NoW7CT-AvQ9-VtT22nzaXnVCYNgunGDlYeDeDEn_Mc"
 
