@@ -73,7 +73,7 @@ def main():
         league_id=LEAGUE_ID, start_date=FIRST_DAY_OF_SEASON, end_date=last_week
     )
 
-    # analysis time
+    # analysis time!
     ## roster stats
     avg_vals["avg_salary_current"] = avg_vals["avg_salary"].fillna(0)
 
