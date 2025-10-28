@@ -52,8 +52,8 @@ def main():
     sheet_key = "15clwCO60P7lIxJU8B91tRRRZA7X0g7-tTqdnc-K1pa0"
     today = date.today().strftime("%Y-%m-%d")
     last_week = (date.today() - timedelta(days=7)).strftime("%Y-%m-%d")
-    FIRST_DAY_OF_SEASON = "2024-10-22"
-    LAST_DAY_OF_SEASON = "2025-04-15"
+    FIRST_DAY_OF_SEASON = "2025-10-21"
+    LAST_DAY_OF_SEASON = "2026-04-12"
     if (today < FIRST_DAY_OF_SEASON) or (today > LAST_DAY_OF_SEASON):
         logging.warning("Today's date is out of bounds for the season. Exiting!")
         sys.exit()
@@ -73,7 +73,7 @@ def main():
         league_id=LEAGUE_ID, start_date=FIRST_DAY_OF_SEASON, end_date=last_week
     )
 
-    # analysis time
+    # analysis time!
     ## roster stats
     avg_vals["avg_salary_current"] = avg_vals["avg_salary"].fillna(0)
 
@@ -373,7 +373,7 @@ def main():
     )
 
     assert client.api_key
-    topic_id = 15278
+    topic_id = 15812
     logging.info("Making the tempfiles to save the tables to as images.")
 
     fp_best = tempfile.NamedTemporaryFile(suffix=".png")
