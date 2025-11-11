@@ -23,13 +23,6 @@ logging.basicConfig(level=logging.INFO)
 LEAGUE_ID = 39  # must be trad points league
 
 
-def get_last_week_average_values(sheet_key: str) -> pd.DataFrame:
-    """Not needed anymore."""
-    return pd.read_csv(
-        f"https://docs.google.com/spreadsheets/d/{sheet_key}/gviz/tq?tqx=out:csv&gid=284274620"
-    )
-
-
 def discourse_img_upload(
     client: Discourse, tmp_file: tempfile.NamedTemporaryFile
 ) -> dict:
@@ -42,7 +35,6 @@ def discourse_img_upload(
         headers={"Api-Username": client._username, "Api-Key": client._api_key},
     )
 
-    # assert response.ok, "Status code: " + str(response.status_code)
     response.raise_for_status()
     assert response.json()["short_url"]
 
@@ -223,7 +215,7 @@ def main():
         )
         .tab_header(
             title="Biggest Risers of Last Week",
-            subtitle=f"Largest Difference in FPPG Between Week {last_schedule_week} and Weeks 1-{last_schedule_week-1}",
+            subtitle=f"Largest Difference in FPPG Between Week {last_schedule_week+1} and Weeks 1-{last_schedule_week}",
         )
         .tab_spanner(
             label="Trad FPPG",
