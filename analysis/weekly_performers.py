@@ -42,7 +42,8 @@ def discourse_img_upload(
         headers={"Api-Username": client._username, "Api-Key": client._api_key},
     )
 
-    assert response.ok
+    # assert response.ok, "Status code: " + str(response.status_code)
+    response.raise_for_status()
     assert response.json()["short_url"]
 
     return response.json()
@@ -222,7 +223,7 @@ def main():
         )
         .tab_header(
             title="Biggest Risers of Last Week",
-            subtitle=f"Largest Difference in FPPG Between Week {last_schedule_week+1} and Weeks 1-{last_schedule_week}",
+            subtitle=f"Largest Difference in FPPG Between Week {last_schedule_week} and Weeks 1-{last_schedule_week-1}",
         )
         .tab_spanner(
             label="Trad FPPG",
