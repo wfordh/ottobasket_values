@@ -23,7 +23,9 @@ great-tables = "*"
 cairosvg = "*"
 scikit-learn = "1.5.2"
 pyarrow = "14.0.0"
-lets-plot = "==4.3.1"
+lets-plot = "*"
+pytest = "*"
+cairo2svg = "*"
 
 [dev-packages]
 black = "*"
