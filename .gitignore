@@ -7,6 +7,8 @@ otto*.json
 !/data/box_stats_revised.csv
 !/data/mappings_update_2023-09-14.csv
 !/data/rookies.csv
+!/data/yesterday_optimal_six_picks.csv
+!/data/yesterday_stats.csv
 
 # ignore the images in the analysis file
 /analysis/images/*

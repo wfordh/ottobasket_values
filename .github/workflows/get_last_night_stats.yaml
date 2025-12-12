@@ -1,0 +1,22 @@
+name: Get Last Night's Stats
+on:  
+  schedule:
+    - cron: 10 * * 1,2,3,4,5,6,10,11,12 *
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: 3.11.11
+      - run: pip install -r requirements.txt
+      - name: Get last night's stats
+        run: python3 analysis/get_last_night_stats.py > data/yesterday_stats.csv
+      - name: Get optimal Six Picks lineup for last night
+        run: python3 analysis/six_picks.py > data/yesterday_optimal_six_picks.csv
+      - uses: stefanzweifel/git-auto-commit-action@v7
