@@ -5,7 +5,7 @@ name = "pypi"
 
 [packages]
 pandas = "*"
-streamlit = "1.30.0"
+streamlit = "*"
 numpy = "1.26.2"
 requests = "2.31.0"
 beautifulsoup4 = "4.10.0"
@@ -25,6 +25,7 @@ scikit-learn = "1.5.2"
 pyarrow = "14.0.0"
 lets-plot = "*"
 pytest = "*"
+pulp = "*"
 
 [dev-packages]
 black = "*"
