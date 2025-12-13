@@ -57,7 +57,9 @@ def main():
         "$", ""
     ).astype(float)
     all_values["ottoneu_av_pre"] = (
-        all_values.ottoneu_av_pre.str.replace("$", "").astype(float) + 3
+        all_values.ottoneu_av_pre.str.replace("$", "")
+        .astype(float)
+        .apply(lambda row: row + 3 if row.nba_player_id != 0 else row + 1)
     )
     all_values.dropna(inplace=True)
     all_values["arb_amount"] = (
