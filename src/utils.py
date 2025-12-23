@@ -100,4 +100,4 @@ def clean_avg_vals_df(avg_vals: pd.DataFrame) -> pd.DataFrame:
         logging.info("Could not adjust 'roster pct' column!")
         pass
 
-    return avg_valsz
+    return avg_vals
