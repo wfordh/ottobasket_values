@@ -71,7 +71,7 @@ index_params = {
     "Height": "",
     "Historical": "1",
     "LeagueID": "00",
-    "Season": "2022-23",
+    "Season": "2024-25",
     "SeasonType": "Regular Season",
     "TeamID": "0",
     "Weight": "",
@@ -188,8 +188,12 @@ def get_otto_values_df(
     if season > "2021-22":
         # maybe shouldn't do this if looking at age curves
         # works for 2023-24 (and hopefully moving forward). read in retrodiction_values.csv for 2022-23
-        ottoneu_season_positions = pd.read_csv(
-            f"./data/{season}_preseason_projections/ottobasket_projections_{season}.csv"
+        ottoneu_season_positions = (
+            pd.read_csv("./data/2022-23_preseason_projections/retrodiction_values.csv")
+            if season == "2022-23"
+            else pd.read_csv(
+                f"./data/{season}_preseason_projections/ottobasket_projections_{season}.csv"
+            )
         )
         mappings = pd.read_csv("./data/mappings_update_2023-09-14.csv")
         season_df = season_df.merge(
@@ -270,9 +274,13 @@ def main():
     player_season_box_stats_list = [box_revised]
     # don't include this season
 
+    box_full = pd.read_csv("./data/box_stats_full.csv")
+    box_full_seasons = box_full.season.unique()
+    player_season_box_full_list = [box_full]
+
     for year in range(start_year, end_year):
         season = str(year) + "-" + str(year + 1)[-2:]
-        if season in box_revised_seasons:
+        if season in box_full_seasons:
             # skip season if it's already been pulled
             continue
         season_df = get_season_box_stats(season)
@@ -287,32 +295,35 @@ def main():
             inplace=True,
         )
         # these are the box_stats_revised columns
-        fantasy_df = season_df[
-            [
-                "nba_player_id",
-                "player",
-                "team",
-                "age",
-                "minutes",
-                "season",
-                "position",
-                "simple_points",
-                "simple_points_position",
-                "simple_points_value",
-                "trad_points",
-                "trad_points_position",
-                "trad_points_value",
-                "category_points",
-                "categories_position",
-                "categories_value",
-            ]
-        ].copy()
+        # fantasy_df = season_df[
+        #     [
+        #         "nba_player_id",
+        #         "player",
+        #         "team",
+        #         "age",
+        #         "minutes",
+        #         "season",
+        #         "position",
+        #         "simple_points",
+        #         "simple_points_position",
+        #         "simple_points_value",
+        #         "trad_points",
+        #         "trad_points_position",
+        #         "trad_points_value",
+        #         "category_points",
+        #         "categories_position",
+        #         "categories_value",
+        #     ]
+        # ].copy()
 
-        player_season_box_stats_list.append(fantasy_df)
+        # player_season_box_stats_list.append(fantasy_df)
+        player_season_box_full_list.append(season_df)
         # season_df.to_csv(f"./data/box_stats_{params['Season']}")
 
-    new_box_revised = pd.concat(player_season_box_stats_list)
-    new_box_revised.to_csv("./data/box_stats_revised.csv", index=False)
+    # new_box_revised = pd.concat(player_season_box_stats_list)
+    # new_box_revised.to_csv("./data/box_stats_revised.csv", index=False)
+    new_box_full = pd.concat(player_season_box_full_list)
+    new_box_full.to_csv("./data/box_stats_full.csv", index=False)
     # player_data_df = season_df.merge(player_idx_df, left_on="PERSON_ID", right_on="PLAYER_ID", how='left')
     # get year in league and age. year in league should be dense rank
     # rookie status needs to be done after bringing all the seasons together
