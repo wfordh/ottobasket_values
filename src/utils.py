@@ -101,3 +101,15 @@ def clean_avg_vals_df(avg_vals: pd.DataFrame) -> pd.DataFrame:
         pass
 
     return avg_vals
+
+
+def get_last_night_stats(sheet_num: int = 0) -> pd.DataFrame:
+    sheet_id = "1TOfcNsLBEZRP2GuXdu2oIqh6HnYf-hy4O6eqh15afCM"
+    if sheet_num == 0:
+        gid = 0
+    else:
+        gid = 381596704
+    df = pd.read_csv(
+        f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=csv&gid={gid}"
+    )
+    return df

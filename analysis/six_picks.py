@@ -16,7 +16,7 @@ from pulp import PULP_CBC_CMD, LpMaximize, LpProblem, LpVariable, lpSum
 
 sys.path.append(os.path.abspath("src"))
 
-from utils import get_name_map
+from utils import _setup_gdrive, _upload_data, get_name_map
 
 SALARY_CAP = 180
 
@@ -165,8 +165,14 @@ def main():
         player_ids = [
             int(v.name.rsplit("_")[1]) for v in prob.variables() if v.varValue != 0
         ]
-        df.loc[df.ottoneu_player_id.isin(player_ids)].to_csv(sys.stdout, index=False)
-        cleanup_and_save_images(player_ids, mappings)
+        # send this to google sheet
+        sheet_key = "1TOfcNsLBEZRP2GuXdu2oIqh6HnYf-hy4O6eqh15afCM"
+        client_key_string = os.environ.get("SERVICE_BLOB", None)
+        gc = _setup_gdrive(client_key_string)
+        best_lineup = df.loc[df.ottoneu_player_id.isin(player_ids)]
+        _upload_data(gc, best_lineup, sheet_key, wks_num=1, clear=True)
+
+        # cleanup_and_save_images(player_ids, mappings)
 
 
 if __name__ == "__main__":

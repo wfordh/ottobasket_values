@@ -17,16 +17,7 @@ jobs:
           python-version: 3.11.11
       - run: pip install -r requirements.txt
       - name: Get last night's stats
-        run: python3 analysis/get_last_night_stats.py > data/yesterday_stats.csv
+        run: python3 analysis/get_last_night_stats.py 
       - name: Get optimal Six Picks lineup for last night
-        run: python3 analysis/six_picks.py > data/yesterday_optimal_six_picks.csv
-      - name: Open branch
-        id: create_pr
-        uses: peter-evans/create-pull-request@v8
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
-      - name: Push and Merge PR
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
-        run: gh pr merge --merge --auto "${{ steps.create_pr.outputs.pull-request-number }}"
+        run: python3 analysis/six_picks.py 
 
