@@ -17,7 +17,11 @@ jobs:
           python-version: 3.11.11
       - run: pip install -r requirements.txt
       - name: Get last night's stats
+        env:
+          SERVICE_BLOB: ${{ secrets.SERVICE_BLOB }}
         run: python3 analysis/get_last_night_stats.py 
       - name: Get optimal Six Picks lineup for last night
+        env:
+          SERVICE_BLOB: ${{ secrets.SERVICE_BLOB }}
         run: python3 analysis/six_picks.py 
 
