@@ -26,6 +26,7 @@ scikit-learn = "1.5.2"
 lets-plot = "*"
 pytest = "*"
 pulp = "*"
+fluent-discourse = "*"
 
 [dev-packages]
 black = "*"
