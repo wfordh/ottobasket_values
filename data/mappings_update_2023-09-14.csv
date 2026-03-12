@@ -807,7 +807,7 @@ ottoneu_player_id,name,nba_player_id,stats_player_id,bref_id,espn_id,hashtag_id,
 19869,Will Richard,1642954,1323578,,,120263,G
 3131,Max Shulga,1642917,,,,,G
 32250,Saliou Niang,1643008,,,,,F
-20343,Jahmai Mashack,1642942,,,,,G
+20343,Jahmai Mashack,1642942,1328248,,,120265,G
 5827,Cam Spencer,1642285,1177001,,,120065,G
 6082,Quenton Jackson,1631245,1195699,,,120098,G
 20791,Ryan Nembhard,1642948,1323621,,,120280,G
@@ -821,4 +821,3 @@ ottoneu_player_id,name,nba_player_id,stats_player_id,bref_id,espn_id,hashtag_id,
 23021,Pat Spencer,1630311,1176145,,,120100,G
 2054,Dylan Cardwell,1642928,1251665,,,120282,C
 23070,Nae'Qwan Tomlin,1641772,1403628,,,120199,F
-31033,Mohamed Diawara,1642885,1437712,,,,F

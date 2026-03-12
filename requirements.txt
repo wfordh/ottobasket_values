@@ -2,6 +2,7 @@ altair==4.0.0
 beautifulsoup4==4.10.0
 black==24.10.0
 CairoSVG==2.8.2
+fluent-discourse==1.0.1
 great-tables==0.20.0
 gspread==6.2.1
 ipython==8.18.1
