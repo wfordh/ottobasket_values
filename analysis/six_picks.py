@@ -45,6 +45,27 @@ def cleanup_and_save_images(player_ids: list, mappings: pd.DataFrame):
 
 
 def get_sixpicks_leaderboard(date: str) -> pd.DataFrame:
+    url = f"https://ottoneu.fangraphs.com/sixpicks/basketball/leaderboard/date/{date}"
+    resp = requests.get(url)
+    soup = BeautifulSoup(resp.content, "html.parser")
+    table = soup.find("div", {"class": "left"}).find("table")
+    headers = [
+        th.text.strip().lower() for th in table.find("thead").find("tr").find_all("th")
+    ]
+    headers.insert(1, "ottoneu_user_id")
+    rows = list()
+    for tr in table.find("tbody").find_all("tr"):
+        row = list()
+        for i, td in enumerate(tr.find_all("td")):
+            if i == 1:
+                row.append(int(td.find("a")["href"].rsplit("/", maxsplit=1)[1]))
+            row.append(td.text.strip())
+        rows.append(row)
+
+    return pd.DataFrame(data=rows, columns=headers)
+
+
+def get_sixpicks_big_board(date: str) -> pd.DataFrame:
     url = f"https://ottoneu.fangraphs.com/sixpicks/basketball/board/{date}"
     resp = requests.get(url)
     soup = BeautifulSoup(resp.content, "html.parser")
@@ -93,7 +114,7 @@ def main():
     # set as env var? argparse?
     save = False
     yesterday = (date.today() - timedelta(days=1)).strftime("%Y-%m-%d")
-    df = get_sixpicks_leaderboard(yesterday)
+    df = get_sixpicks_big_board(yesterday)
     mappings = get_name_map()
     df = df.merge(
         mappings[["ottoneu_player_id", "ottoneu_position"]],

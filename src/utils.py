@@ -80,10 +80,11 @@ def get_hashtag_rookie_projections() -> pd.DataFrame:
     return df.loc[df.pid.isin(hashtag_rookies)]
 
 
+# should deprecate
 def get_ottoneu_leaderboard() -> pd.DataFrame:
     """Gets the results from the Ottoneu leaderboard for the current season."""
     return pd.read_csv(
-        "https://ottoneu.fangraphs.com/basketball/31/ajax/player_leaderboard?positions[]=G&positions[]=F&positions[]=C&minimum_minutes=0&sort_by=salary&sort_direction=DESC&free_agents_only=false&include_my_team=false&export=export"
+        "https://ottoneu.fangraphs.com/basketball/39/ajax/player_leaderboard?positions[]=G&positions[]=F&positions[]=C&minimum_minutes=0&sort_by=salary&sort_direction=DESC&free_agents_only=false&include_my_team=false&export=export"
     ).rename(columns={"id": "ottoneu_player_id"})
 
 
