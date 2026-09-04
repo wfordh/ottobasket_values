@@ -323,7 +323,7 @@ def calc_player_values(
         fantasy_df, scoring_type, draftable_players
     )
 
-    fantasy_df[f"points_above_repl"] = fantasy_df.apply(
+    points_above_repl_values = fantasy_df.apply(
         lambda row: (
             row[scoring_type] - replacement_values["C"]
             if row[f"{scoring_type}_position"] == "C"
@@ -335,6 +335,7 @@ def calc_player_values(
         ),
         axis="columns",
     )
+    fantasy_df[f"points_above_repl"] = points_above_repl_values
 
     total_league_value = fantasy_df.loc[
         fantasy_df.points_above_repl > 0

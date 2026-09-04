@@ -118,7 +118,7 @@ def get_season_box_stats(season: int) -> pd.DataFrame:
     }
 
     season_path = f"./data/box_stats_{season}.csv"
-    if not os.path.exists(season_path):
+    if os.path.exists(season_path):
         time.sleep(1.8)
         season_params["Season"] = season
         response = requests.get(
@@ -295,33 +295,33 @@ def main():
             inplace=True,
         )
         # these are the box_stats_revised columns
-        # fantasy_df = season_df[
-        #     [
-        #         "nba_player_id",
-        #         "player",
-        #         "team",
-        #         "age",
-        #         "minutes",
-        #         "season",
-        #         "position",
-        #         "simple_points",
-        #         "simple_points_position",
-        #         "simple_points_value",
-        #         "trad_points",
-        #         "trad_points_position",
-        #         "trad_points_value",
-        #         "category_points",
-        #         "categories_position",
-        #         "categories_value",
-        #     ]
-        # ].copy()
+        fantasy_df = season_df[
+            [
+                "nba_player_id",
+                "player",
+                "team",
+                "age",
+                "minutes",
+                "season",
+                "position",
+                "simple_points",
+                "simple_points_position",
+                "simple_points_value",
+                "trad_points",
+                "trad_points_position",
+                "trad_points_value",
+                "category_points",
+                "categories_position",
+                "categories_value",
+            ]
+        ].copy()
 
-        # player_season_box_stats_list.append(fantasy_df)
+        player_season_box_stats_list.append(fantasy_df)
         player_season_box_full_list.append(season_df)
-        # season_df.to_csv(f"./data/box_stats_{params['Season']}")
+        season_df.to_csv(f"./data/box_stats_{season}")
 
-    # new_box_revised = pd.concat(player_season_box_stats_list)
-    # new_box_revised.to_csv("./data/box_stats_revised.csv", index=False)
+    new_box_revised = pd.concat(player_season_box_stats_list)
+    new_box_revised.to_csv("./data/box_stats_revised.csv", index=False)
     new_box_full = pd.concat(player_season_box_full_list)
     new_box_full.to_csv("./data/box_stats_full.csv", index=False)
     # player_data_df = season_df.merge(player_idx_df, left_on="PERSON_ID", right_on="PLAYER_ID", how='left')
