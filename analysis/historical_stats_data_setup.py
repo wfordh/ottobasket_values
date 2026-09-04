@@ -118,7 +118,7 @@ def get_season_box_stats(season: int) -> pd.DataFrame:
     }
 
     season_path = f"./data/box_stats_{season}.csv"
-    if os.path.exists(season_path):
+    if not os.path.exists(season_path):
         time.sleep(1.8)
         season_params["Season"] = season
         response = requests.get(
