@@ -227,9 +227,9 @@ def main():
     driver = _setup_chrome_scraper()
     login_url = "https://hashtagbasketball.com/premium/login"
     projections_url = (
-        "https://hashtagbasketball.com/import-v2/fantasy-basketball-projections"
+        "https://hashtagbasketball.com/import-v4/fantasy-basketball-projections"
     )
-    rankings_url = "https://hashtagbasketball.com/import-v2/fantasy-basketball-rankings"
+    rankings_url = "https://hashtagbasketball.com/import-v4/fantasy-basketball-rankings"
     _login_to_hashtag(login_url, driver)
     proj_content = _get_projections_page(projections_url, driver)
     # rankings_content = _get_projections_page(rankings_url, driver)
