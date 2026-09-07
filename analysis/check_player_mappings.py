@@ -23,6 +23,13 @@ parser.add_argument(
     type=str,
 )
 
+parser.add_argument(
+    "-o",
+    "--offseason",
+    help="Offseason mode or not.",
+    action=argparse.BooleanOptionalAction,
+)
+
 
 def get_ottoneu_player_universe():
     ottoverse = pd.read_csv("https://ottoneu.fangraphs.com/basketball/player_universe")
@@ -36,14 +43,15 @@ def main():
     args = parser.parse_args()
     command_args = dict(vars(args))
     save_method = command_args.pop("save_method", None)
+    offseason_mode = command_args.pop("offseason_mode", False)
 
     ottoverse = get_ottoneu_player_universe()
     avg_values = clean_avg_vals_df(get_average_values())
 
     # can check check if ID is in avg values, no join necessary
-    target = ottoverse.loc[
-        ottoverse.ottoneu_player_id.isin(avg_values.ottoneu_player_id)
-    ]
+    target = ottoverse.copy()
+    if offseason_mode:
+        target = target.loc[target.ottoneu_player_id.isin(avg_values.ottoneu_player_id)]
     target = target.loc[
         ((target.level == "NBA") & (target.team != "FA"))
     ]  # this is basically who the mapping should include
