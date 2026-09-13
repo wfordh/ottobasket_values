@@ -251,8 +251,26 @@ def calc_sgp_values(stats_df: pd.DataFrame) -> pd.DataFrame:
         .sum()
     ).to_dict()
 
-    columns = ["pts", "reb", "ast", "stl", "blk", "ftm", "tov", "fg%", "3pt%"]
-    for col in columns:
+    sgp_columns = ["pts", "reb", "ast", "stl", "blk", "ftm", "tov", "fg%", "3pt%"]
+    stats_df_columns = [
+        "pts_game",
+        "reb_game",
+        "ast_game",
+        "stl_game",
+        "blk_game",
+        "ftm_game",
+        "tov_game",
+        "fg_pct",
+        "fg3_pct",
+    ]
+    stats_to_sgp_mapping = dict(zip(stats_df_columns, sgp_columns))
+    # need the intersection of actual stats_df cols and sgp_cols
+    columns_to_use = [
+        stats_to_sgp_mapping[col]
+        for col in df.columns
+        if col in stats_to_sgp_mapping.keys()
+    ]
+    for col in columns_to_use:
         if col == "fg%":
             df[f"{col}_sgp"] = df.apply(
                 lambda row: (

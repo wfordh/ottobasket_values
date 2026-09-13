@@ -213,6 +213,10 @@ def prep_stats_df() -> pd.DataFrame:
     stats_df.minutes.fillna(0, inplace=True)
     stats_df.tm_id.fillna(0, inplace=True)
 
+    stats_df.dropna(
+        subset=["total_ros_minutes", "minutes_ytd"], how="all", inplace=True
+    )
+
     return stats_df
 
 
