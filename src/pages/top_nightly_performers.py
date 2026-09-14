@@ -57,23 +57,26 @@ totals = pd.DataFrame.from_dict(
 )
 six_picks_df["ottoneu_player_id"] = six_picks_df.ottoneu_player_id.astype(str)
 six_picks_df = pd.concat([six_picks_df, totals], axis=0)
-st.html(
-    GT(six_picks_df.sort_values(by="ottoneu_position", ascending=False))
-    .tab_header(f"Top Six Picks Lineup for {yesterday}")
-    # .cols_move_to_start("player_headshot")
-    .cols_hide(["G", "F", "C", "nba_player_id", "ottoneu_player_id"])
-    .cols_label(
-        name="Name",
-        price="Price",
-        pick_pct="Pick %",
-        pts="FP",
-        ottoneu_position="Position",
-        ottoneu_player_id="",
+if not df.empty:
+    st.html(
+        GT(six_picks_df.sort_values(by="ottoneu_position", ascending=False))
+        .tab_header(f"Top Six Picks Lineup for {yesterday}")
+        # .cols_move_to_start("player_headshot")
+        .cols_hide(["G", "F", "C", "nba_player_id", "ottoneu_player_id"])
+        .cols_label(
+            name="Name",
+            price="Price",
+            pick_pct="Pick %",
+            pts="FP",
+            ottoneu_position="Position",
+            ottoneu_player_id="",
+        )
+        .fmt_currency("price", currency="USD")
+        .fmt_integer("pts")
+        .tab_style(style=style.text(style="italic"), locations=loc.body(rows=[-1]))
     )
-    .fmt_currency("price", currency="USD")
-    .fmt_integer("pts")
-    .tab_style(style=style.text(style="italic"), locations=loc.body(rows=[-1]))
-)
+else:
+    st.text("No games last night!")
 
 st.header("Overall Leaderboard")
 with st.container():

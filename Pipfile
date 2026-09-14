@@ -27,6 +27,8 @@ lets-plot = "*"
 pytest = "*"
 pulp = "*"
 fluent-discourse = "*"
+black = "*"
+isort = "*"
 
 [dev-packages]
 black = "*"
