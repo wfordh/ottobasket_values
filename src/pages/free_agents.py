@@ -66,7 +66,6 @@ if league_input:
     league_values_df.player.fillna(league_values_df.player_name, inplace=True)
     league_values_df.ottoneu_position.fillna(league_values_df.position, inplace=True)
     # fill the rest of columns NA's with 0
-    league_values_df.fillna(0, inplace=True)
     if league_scoring == "categories":
         scoring_col = f"{league_scoring}_value"
     elif league_scoring == "simple_points":
@@ -79,6 +78,7 @@ if league_input:
         league_values_df[f"{league_scoring}"] / league_values_df.games_forecast
     )
     average_values_df = get_average_values()
+    print(average_values_df.head())
     league_values_df = league_values_df.merge(
         average_values_df, how="left", on="ottoneu_player_id"
     )
@@ -98,11 +98,13 @@ if league_input:
     if league_scoring == "categories":
         display_cols.extend([col for col in league_values_df.columns if "sgp" in col])
 
-    print(league_values_df.columns)
     display_df = league_values_df[display_cols].rename(
         columns={f"{league_scoring}": f"{league_scoring}_proj_production"}
     )
-
+    display_df.fillna(
+        {"avg_salary": "$0", "median_salary": "$0", "roster%": "0%"}, inplace=True
+    )
+    display_df.fillna(0, inplace=True)
     display_df.sort_values(
         by=[f"{league_scoring}_value", f"{league_scoring}_proj_production"],
         ascending=False,

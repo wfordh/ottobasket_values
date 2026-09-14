@@ -41,10 +41,13 @@ if league_input:
     league_values_df = league_salaries.merge(
         values_df, on="ottoneu_player_id", how="left"
     )
-    league_values_df.player.fillna(
-        league_values_df.player_name, inplace=True
-    )  # swap player_name for ottoneu_name??
-    league_values_df.ottoneu_position.fillna(league_values_df.position, inplace=True)
+    league_values_df.fillna(
+        {
+            "player": league_values_df.player_name,
+            "ottoneu_position": league_values_df.position,
+        },
+        inplace=True,
+    )
     # fill the rest of columns NA's with 0
     league_values_df.fillna(0, inplace=True)
     league_scoring = get_league_scoring(league_input)
