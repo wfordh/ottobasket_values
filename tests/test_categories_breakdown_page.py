@@ -7,4 +7,4 @@ def test_categories_breakdown_page() -> None:
     ).run()
     assert not at.exception
     df = at.dataframe[0]
-    assert df.type == "arrow_data_frame"
+    assert df.type == "dataframe"
