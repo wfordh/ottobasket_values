@@ -35,6 +35,8 @@ if league_input:
     for cat in categories:
         if "pct" not in cat:
             punted_cat = cat + "_game"
+        else:
+            punted_cat = cat
         punt_df = df.drop(punted_cat, axis=1)
         punt_df[f"{scoring_type}"] = calc_categories_value(punt_df, is_rollup=True)
         punt_df[f"{scoring_type}_position"] = find_surplus_positions(
