@@ -61,7 +61,7 @@ def _login_to_hashtag(url: str, driver: webdriver.firefox.webdriver.WebDriver) -
 
 
 def _get_element_with_waiting(
-    element_id: str, driver: webdriver.firefox.webdriver.WebDriver,
+    element_id: str, driver: webdriver.firefox.webdriver.WebDriver
 ):
     ignored_exceptions = (
         NoSuchElementException,
@@ -231,8 +231,6 @@ def main():
     )
     rankings_url = "https://hashtagbasketball.com/import-v4/fantasy-basketball-rankings"
     _login_to_hashtag(login_url, driver)
-    # three_pt_pct_present = False
-    # while not three_pt_pct_present:
     proj_content = _get_projections_page(projections_url, driver)
     # rankings_content = _get_projections_page(rankings_url, driver)
     proj_data = _extract_projections(True, proj_content)
