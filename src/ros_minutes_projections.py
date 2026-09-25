@@ -67,9 +67,9 @@ def _get_element_with_waiting(
         NoSuchElementException,
         StaleElementReferenceException,
     )
-    return WebDriverWait(driver, timeout=20, ignored_exceptions=ignored_exceptions).until(
-        expected_conditions.presence_of_element_located((By.ID, element_id))
-    )
+    return WebDriverWait(
+        driver, timeout=20, ignored_exceptions=ignored_exceptions
+    ).until(expected_conditions.presence_of_element_located((By.ID, element_id)))
 
 
 def _get_projections_page(

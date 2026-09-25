@@ -3,11 +3,20 @@ import streamlit as st
 
 import darko
 import drip
+
 # from hashtag_rookies import get_hashtag_rookie_per_game_stats
-from calc_stats import (calc_categories_value, calc_fantasy_pts,
-                        calc_per_game_projections, calc_player_values)
-from utils import (get_hashtag_rookie_projections, get_hashtag_ros_projections,
-                   get_name_map, get_ottoneu_leaderboard)
+from calc_stats import (
+    calc_categories_value,
+    calc_fantasy_pts,
+    calc_per_game_projections,
+    calc_player_values,
+)
+from utils import (
+    get_hashtag_rookie_projections,
+    get_hashtag_ros_projections,
+    get_name_map,
+    get_ottoneu_leaderboard,
+)
 
 
 def combine_darko_drip_df(
@@ -218,7 +227,7 @@ def prep_stats_df() -> pd.DataFrame:
             "minutes": 0,
             "tm_id": 0,
         },
-        inplace=True
+        inplace=True,
     )
 
     return stats_df
