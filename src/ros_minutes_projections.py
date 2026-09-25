@@ -67,7 +67,7 @@ def _get_element_with_waiting(
         NoSuchElementException,
         StaleElementReferenceException,
     )
-    return WebDriverWait(driver, 15, ignored_exceptions=ignored_exceptions).until(
+    return WebDriverWait(driver, timeout=20, ignored_exceptions=ignored_exceptions).until(
         expected_conditions.presence_of_element_located((By.ID, element_id))
     )
 
@@ -248,7 +248,7 @@ def main():
         print("got projections")
         gc = _setup_gdrive(client_key_string)
         sheet_key = "1RiXnGk2OFnGRmW9QNQ_1CFde0xfSZpyC9Cn3OLLojsY"
-        _upload_data(gc, data, sheet_key)
+        _upload_data(gc, data, sheet_key, clear=True)
     except (KeyError, TypeError) as e:
         # again should prob use logging
         print(e)
