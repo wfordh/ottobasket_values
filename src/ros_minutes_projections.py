@@ -61,13 +61,13 @@ def _login_to_hashtag(url: str, driver: webdriver.firefox.webdriver.WebDriver) -
 
 
 def _get_element_with_waiting(
-    element_id: str, driver: webdriver.firefox.webdriver.WebDriver
+    element_id: str, driver: webdriver.firefox.webdriver.WebDriver,
 ):
     ignored_exceptions = (
         NoSuchElementException,
         StaleElementReferenceException,
     )
-    return WebDriverWait(driver, 15, ignored_exceptions=ignored_exceptions).until(
+    return WebDriverWait(driver, timeout=20, ignored_exceptions=ignored_exceptions).until(
         expected_conditions.presence_of_element_located((By.ID, element_id))
     )
 
@@ -231,6 +231,8 @@ def main():
     )
     rankings_url = "https://hashtagbasketball.com/import-v4/fantasy-basketball-rankings"
     _login_to_hashtag(login_url, driver)
+    # three_pt_pct_present = False
+    # while not three_pt_pct_present:
     proj_content = _get_projections_page(projections_url, driver)
     # rankings_content = _get_projections_page(rankings_url, driver)
     proj_data = _extract_projections(True, proj_content)
@@ -248,7 +250,7 @@ def main():
         print("got projections")
         gc = _setup_gdrive(client_key_string)
         sheet_key = "1RiXnGk2OFnGRmW9QNQ_1CFde0xfSZpyC9Cn3OLLojsY"
-        _upload_data(gc, data, sheet_key)
+        _upload_data(gc, data, sheet_key, clear=True)
     except (KeyError, TypeError) as e:
         # again should prob use logging
         print(e)

@@ -208,13 +208,17 @@ def prep_stats_df() -> pd.DataFrame:
     ).merge(leaderboards, on="ottoneu_player_id", how="left", suffixes=("", "_ytd"))
     stats_df["total_ros_minutes"] = stats_df.minutes_forecast * stats_df.games_forecast
 
-    stats_df.minutes_ytd.fillna(0, inplace=True)
-    stats_df.total_ros_minutes.fillna(0, inplace=True)
-    stats_df.minutes.fillna(0, inplace=True)
-    stats_df.tm_id.fillna(0, inplace=True)
-
     stats_df.dropna(
         subset=["total_ros_minutes", "minutes_ytd"], how="all", inplace=True
+    )
+    stats_df.fillna(
+        {
+            "minutes_ytd": 0,
+            "total_ros_minutes": 0,
+            "minutes": 0,
+            "tm_id": 0,
+        },
+        inplace=True
     )
 
     return stats_df
