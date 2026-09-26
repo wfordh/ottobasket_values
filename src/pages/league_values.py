@@ -80,10 +80,8 @@ if league_input:
         display_df = league_values_df.groupby("team_name")[
             [
                 "salary",
-                f"{scoring_col}_current",
                 f"{scoring_col}_ros",
                 f"{scoring_col}_ytd",
-                "current_surplus",
                 "ros_surplus",
                 "ytd_surplus",
             ]
@@ -113,13 +111,10 @@ if league_input:
                 "team_name",
                 "ottoneu_position",
                 "salary",
-                "minutes",
                 "total_ros_minutes",
                 "minutes_ytd",
-                f"{scoring_col}_current",
                 f"{scoring_col}_ros",
                 f"{scoring_col}_ytd",
-                "current_surplus",
                 "ros_surplus",
                 "ytd_surplus",
             ]
@@ -130,7 +125,7 @@ else:
     st.markdown("Please input a league ID!")
     display_df = pd.DataFrame()
 
-now = datetime.datetime.now(tz=ZoneInfo("US/Pacific"))
+now = datetime.datetime.now(tz=ZoneInfo("America/Los_Angeles"))
 st.markdown(
     "About page / README can be found [here](https://github.com/wfordh/ottobasket_values/blob/main/README.md)"
 )

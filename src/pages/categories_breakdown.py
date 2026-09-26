@@ -7,8 +7,11 @@ import streamlit as st
 from calc_stats import calc_categories_value  # type: ignore
 from calc_stats import calc_per_game_projections, calc_player_values
 from leagues import get_league_rosters  # type: ignore
-from transform import (find_surplus_positions,  # type: ignore
-                       get_draftable_players, prep_stats_df)
+from transform import (
+    find_surplus_positions,  # type: ignore
+    get_draftable_players,
+    prep_stats_df,
+)
 
 
 # from utils import convert_df, ottoneu_streamlit_footer
@@ -89,7 +92,7 @@ else:
     display_df = pd.DataFrame()
 
 # ottoneu_streamlit_footer("categories_breakdown", display_df)
-now = datetime.datetime.now(tz=ZoneInfo("US/Pacific"))
+now = datetime.datetime.now(tz=ZoneInfo("America/Los_Angeles"))
 st.markdown(
     "About page / README can be found [here](https://github.com/wfordh/ottobasket_values/blob/main/README.md)"
 )

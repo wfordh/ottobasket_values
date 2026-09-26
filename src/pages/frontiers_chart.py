@@ -76,8 +76,7 @@ chart = (
 )
 st.altair_chart(chart, use_container_width=True)
 
-st.text(
-    """
+st.text("""
 	This chart plots the players' projected production scaled to per 100 possessions
 	against their rest of season minutes projections and is meant to show the "frontier"
 	dividing the replacement level from above replacement level players. It could be
@@ -86,10 +85,9 @@ st.text(
 
 	You can zoom and pan on the chart, and if you hover over a point, then the player's
 	name will show up.
-	"""
-)
+	""")
 
-now = datetime.datetime.now(tz=ZoneInfo("US/Pacific"))
+now = datetime.datetime.now(tz=ZoneInfo("America/Los_Angeles"))
 st.markdown(
     "About page / README can be found [here](https://github.com/wfordh/ottobasket_values/blob/main/README.md)"
 )
