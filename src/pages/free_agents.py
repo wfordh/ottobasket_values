@@ -15,7 +15,7 @@ from transform import get_scoring_minutes_combo, prep_stats_df  # type: ignore
 def ottoneu_streamlit_footer():
     # get a CachedStFunctionWarning when using this in a utils.py file and
     # with every page
-    now = datetime.datetime.now(tz=ZoneInfo("US/Pacific"))
+    now = datetime.datetime.now(tz=ZoneInfo("America/Los_Angeles"))
     st.markdown(
         "About page / README can be found [here](https://github.com/wfordh/ottobasket_values/blob/main/README.md)"
     )
