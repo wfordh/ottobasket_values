@@ -19,16 +19,16 @@ nba-api = "*"
 # protobuf = "3.19.0"
 types-beautifulsoup4 = "*"
 polars = "*"
-pyarrow = "==13.0.0"
+# pyarrow = "==13.0.0"
 great-tables = "*"
 cairosvg = "*"
 scikit-learn = "1.5.2"
 lets-plot = "*"
 pytest = "*"
-pulp = "*"
 fluent-discourse = "*"
 black = "*"
 isort = "*"
+pulp = {extras = ["open_py"], version = "*"}
 
 [dev-packages]
 black = "*"
@@ -36,7 +36,7 @@ isort = "*"
 notebook = "*"
 
 [requires]
-python_version = "3.11.1"
+python_version = "3.12.15"
 
 [pipenv]
 allow_prereleases = true

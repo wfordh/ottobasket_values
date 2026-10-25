@@ -366,7 +366,7 @@ def main():
     )
 
     assert client.api_key
-    topic_id = 15812
+    topic_id = 17341
     logging.info("Making the tempfiles to save the tables to as images.")
 
     fp_best = tempfile.NamedTemporaryFile(suffix=".png")
