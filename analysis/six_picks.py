@@ -12,7 +12,7 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 from PIL import Image
-from pulp import PULP_CBC_CMD, LpMaximize, LpProblem, LpVariable, lpSum
+from pulp import PYGLPK, LpMaximize, LpProblem, LpVariable, lpSum, LpBinary, listSolvers
 
 sys.path.append(os.path.abspath("src"))
 
@@ -101,17 +101,18 @@ def summary(prob, df: pd.DataFrame):
     print(div)
     print("Constraints:")
     for constraint in constraints:
-        constraint_pretty = " + ".join(re.findall("[0-9\.]*\*1.0", constraint))
+        constraint_pretty = " + ".join(re.findall(r"[0-9\.]*\*1.0", constraint))
         if constraint_pretty != "":
             print("{} = {}".format(constraint_pretty, eval(constraint_pretty)))
     print(div)
     print("Score:")
-    score_pretty = " + ".join(re.findall("[0-9\.]+\*1.0", score))
+    score_pretty = " + ".join(re.findall(r"[0-9\.]+\*1.0", score))
     print("{} = {}".format(score_pretty, eval(score)))
 
 
 def main():
     # set as env var? argparse?
+    print(listSolvers(onlyAvailable=True))
     save = False
     yesterday = (date.today() - timedelta(days=1)).strftime("%Y-%m-%d")
     df = get_sixpicks_big_board(yesterday)
@@ -154,8 +155,11 @@ def main():
         "C": {"min": 1, "max": 3},
     }
 
-    _vars = {k: LpVariable.dict(k, v, cat="Binary") for k, v in points.items()}
+    
     prob = LpProblem("Fantasy", LpMaximize)
+    _vars = {k: prob.add_variable_dict(k, v, cat=LpBinary) for k, v in points.items()}
+    
+    
 
     rewards = []
     costs = []
@@ -179,7 +183,7 @@ def main():
     prob += lpSum(rewards)
     prob += lpSum(costs) <= SALARY_CAP
 
-    result = prob.solve(PULP_CBC_CMD(msg=False))
+    result = prob.solve(PYGLPK(msg=True))
     if save:
         summary(prob, df)
     else:
