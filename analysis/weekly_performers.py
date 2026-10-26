@@ -45,8 +45,8 @@ def main():
     sheet_key = "15clwCO60P7lIxJU8B91tRRRZA7X0g7-tTqdnc-K1pa0"
     today = date.today().strftime("%Y-%m-%d")
     last_week = (date.today() - timedelta(days=7)).strftime("%Y-%m-%d")
-    FIRST_DAY_OF_SEASON = "2025-10-21"
-    LAST_DAY_OF_SEASON = "2026-04-12"
+    FIRST_DAY_OF_SEASON = "2026-10-20"
+    LAST_DAY_OF_SEASON = "2027-04-12"
     if (today < FIRST_DAY_OF_SEASON) or (today > LAST_DAY_OF_SEASON):
         logging.warning("Today's date is out of bounds for the season. Exiting!")
         sys.exit()
