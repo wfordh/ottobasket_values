@@ -45,8 +45,9 @@ def main():
     sheet_key = "15clwCO60P7lIxJU8B91tRRRZA7X0g7-tTqdnc-K1pa0"
     today = date.today().strftime("%Y-%m-%d")
     last_week = (date.today() - timedelta(days=7)).strftime("%Y-%m-%d")
-    FIRST_DAY_OF_SEASON = "2025-10-21"
-    LAST_DAY_OF_SEASON = "2026-04-12"
+    # check here: https://www.nba.com/news/key-dates
+    FIRST_DAY_OF_SEASON = "2026-10-20"
+    LAST_DAY_OF_SEASON = "2027-04-12"
     if (today < FIRST_DAY_OF_SEASON) or (today > LAST_DAY_OF_SEASON):
         logging.warning("Today's date is out of bounds for the season. Exiting!")
         sys.exit()
@@ -117,6 +118,7 @@ def main():
     ) - (comp_stat_values.fantasy_points_avg_season_minus_one)
 
     comp_stat_values.fillna(0, inplace=True)
+    print(comp_stat_values.shape)
 
     ### do some sort of formatting for the selected players?
     ### how do I deliver the results? another google sheet? slack? email?
@@ -357,7 +359,6 @@ def main():
 
     # gt_fa.save("analysis/images/weekly_performers_free_agents.png")
 
-    ## take this out when pushing to prod!!!
     logging.info("Creating the Discourse client object.")
     client = Discourse(
         base_url="https://community.ottoneu.com",
