@@ -34,6 +34,7 @@ pulp = {extras = ["open_py"], version = "*"}
 black = "*"
 isort = "*"
 notebook = "*"
+pip-system-certs = "*"
 
 [requires]
 python_version = "3.12.15"

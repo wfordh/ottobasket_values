@@ -45,6 +45,7 @@ def main():
     sheet_key = "15clwCO60P7lIxJU8B91tRRRZA7X0g7-tTqdnc-K1pa0"
     today = date.today().strftime("%Y-%m-%d")
     last_week = (date.today() - timedelta(days=7)).strftime("%Y-%m-%d")
+    # check here: https://www.nba.com/news/key-dates
     FIRST_DAY_OF_SEASON = "2026-10-20"
     LAST_DAY_OF_SEASON = "2027-04-12"
     if (today < FIRST_DAY_OF_SEASON) or (today > LAST_DAY_OF_SEASON):
@@ -117,6 +118,7 @@ def main():
     ) - (comp_stat_values.fantasy_points_avg_season_minus_one)
 
     comp_stat_values.fillna(0, inplace=True)
+    print(comp_stat_values.shape)
 
     ### do some sort of formatting for the selected players?
     ### how do I deliver the results? another google sheet? slack? email?
@@ -357,40 +359,40 @@ def main():
 
     # gt_fa.save("analysis/images/weekly_performers_free_agents.png")
 
-    ## take this out when pushing to prod!!!
-    logging.info("Creating the Discourse client object.")
-    client = Discourse(
-        base_url="https://community.ottoneu.com",
-        username="higginsford",
-        api_key=os.environ.get("DISCOURSE_API_KEY", None),
-    )
+    if False:
+        logging.info("Creating the Discourse client object.")
+        client = Discourse(
+            base_url="https://community.ottoneu.com",
+            username="higginsford",
+            api_key=os.environ.get("DISCOURSE_API_KEY", None),
+        )
 
-    assert client.api_key
-    topic_id = 17341
-    logging.info("Making the tempfiles to save the tables to as images.")
+        assert client.api_key
+        topic_id = 17341
+        logging.info("Making the tempfiles to save the tables to as images.")
 
-    fp_best = tempfile.NamedTemporaryFile(suffix=".png")
-    gt_best.save(fp_best.name)
+        fp_best = tempfile.NamedTemporaryFile(suffix=".png")
+        gt_best.save(fp_best.name)
 
-    fp_fa = tempfile.NamedTemporaryFile(suffix=".png")
-    gt_fa.save(fp_fa.name)
+        fp_fa = tempfile.NamedTemporaryFile(suffix=".png")
+        gt_fa.save(fp_fa.name)
 
-    fp_diff = tempfile.NamedTemporaryFile(suffix=".png")
-    gt_diff.save(fp_diff.name)
+        fp_diff = tempfile.NamedTemporaryFile(suffix=".png")
+        gt_diff.save(fp_diff.name)
 
-    logging.info("Uploading the images to Discourse")
-    response_best = discourse_img_upload(client, fp_best)
-    response_diff = discourse_img_upload(client, fp_diff)
-    response_fa = discourse_img_upload(client, fp_fa)
+        logging.info("Uploading the images to Discourse")
+        response_best = discourse_img_upload(client, fp_best)
+        response_diff = discourse_img_upload(client, fp_diff)
+        response_fa = discourse_img_upload(client, fp_fa)
 
-    content = f"![image|781x506]({response_best['short_url']})\n\n![image|781x506]({response_diff['short_url']})\n\n![image|781x506]({response_fa['short_url']})"
-    data = {"topic_id": topic_id, "raw": content}
-    logging.info("Posting to Discourse")
-    client.posts.json.post(data)
+        content = f"![image|781x506]({response_best['short_url']})\n\n![image|781x506]({response_diff['short_url']})\n\n![image|781x506]({response_fa['short_url']})"
+        data = {"topic_id": topic_id, "raw": content}
+        logging.info("Posting to Discourse")
+        client.posts.json.post(data)
 
-    fp_best.close()
-    fp_fa.close()
-    fp_diff.close()
+        fp_best.close()
+        fp_fa.close()
+        fp_diff.close()
 
 
 if __name__ == "__main__":

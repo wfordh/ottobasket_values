@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "805fd0489b50741711aad005a3a5529e4a41aec65a3949f9bd88fd9dbb48fbad"
+            "sha256": "0e5e463e395b945af5daf3ba61a3c437670c48cc9b3b74f8e4af08db28016a9a"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -3903,6 +3903,23 @@
             ],
             "markers": "sys_platform != 'win32' and sys_platform != 'emscripten'",
             "version": "==4.9.0"
+        },
+        "pip": {
+            "hashes": [
+                "sha256:3a8e5c800492787f33a4114ef54444546c340df428974ebba17e0fd47e11af2f",
+                "sha256:fd7f4dfa8190e014013b9f08f3e973f4e4c26ffd179a204895533a7254813a70"
+            ],
+            "markers": "python_version >= '3.10'",
+            "version": "==26.2.2"
+        },
+        "pip-system-certs": {
+            "hashes": [
+                "sha256:19c8bf9957bcce7d69c4dbc2d0b2ef13de1984d53f50a59012e6dbbad0af67c6",
+                "sha256:3fbb5de62e374a99b688b1ad06e64ee5c4aeb633ef23e3a677d32e3e84fd863c"
+            ],
+            "index": "pypi",
+            "markers": "python_version >= '3.10'",
+            "version": "==5.3"
         },
         "platformdirs": {
             "hashes": [
