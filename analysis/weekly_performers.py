@@ -367,30 +367,30 @@ def main():
 
     assert client.api_key
     topic_id = 17341
-    # logging.info("Making the tempfiles to save the tables to as images.")
+    logging.info("Making the tempfiles to save the tables to as images.")
 
-    # fp_best = tempfile.NamedTemporaryFile(suffix=".png")
-    # gt_best.save(fp_best.name)
+    fp_best = tempfile.NamedTemporaryFile(suffix=".png")
+    gt_best.save(fp_best.name)
 
-    # fp_fa = tempfile.NamedTemporaryFile(suffix=".png")
-    # gt_fa.save(fp_fa.name)
+    fp_fa = tempfile.NamedTemporaryFile(suffix=".png")
+    gt_fa.save(fp_fa.name)
 
-    # fp_diff = tempfile.NamedTemporaryFile(suffix=".png")
-    # gt_diff.save(fp_diff.name)
+    fp_diff = tempfile.NamedTemporaryFile(suffix=".png")
+    gt_diff.save(fp_diff.name)
 
-    # logging.info("Uploading the images to Discourse")
-    # response_best = discourse_img_upload(client, fp_best)
-    # response_diff = discourse_img_upload(client, fp_diff)
-    # response_fa = discourse_img_upload(client, fp_fa)
+    logging.info("Uploading the images to Discourse")
+    response_best = discourse_img_upload(client, fp_best)
+    response_diff = discourse_img_upload(client, fp_diff)
+    response_fa = discourse_img_upload(client, fp_fa)
 
-    # content = f"![image|781x506]({response_best['short_url']})\n\n![image|781x506]({response_diff['short_url']})\n\n![image|781x506]({response_fa['short_url']})"
-    # data = {"topic_id": topic_id, "raw": content}
-    # logging.info("Posting to Discourse")
-    # client.posts.json.post(data)
+    content = f"![image|781x506]({response_best['short_url']})\n\n![image|781x506]({response_diff['short_url']})\n\n![image|781x506]({response_fa['short_url']})"
+    data = {"topic_id": topic_id, "raw": content}
+    logging.info("Posting to Discourse")
+    client.posts.json.post(data)
 
-    # fp_best.close()
-    # fp_fa.close()
-    # fp_diff.close()
+    fp_best.close()
+    fp_fa.close()
+    fp_diff.close()
 
 
 if __name__ == "__main__":
