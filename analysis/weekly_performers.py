@@ -118,7 +118,6 @@ def main():
     ) - (comp_stat_values.fantasy_points_avg_season_minus_one)
 
     comp_stat_values.fillna(0, inplace=True)
-    print(comp_stat_values.shape)
 
     ### do some sort of formatting for the selected players?
     ### how do I deliver the results? another google sheet? slack? email?

@@ -95,6 +95,15 @@ def clean_avg_vals_df(avg_vals: pd.DataFrame) -> pd.DataFrame:
     ]
     avg_vals.columns = pd.Index(avg_vals_cols)
     avg_vals["avg_salary"] = avg_vals.avg_salary.str.replace("$", "").astype(float)
+    avg_vals["avg_salary_new_leagues"] = avg_vals.avg_salary_new_leagues.str.replace(
+        "$", ""
+    ).astype(float)
+    avg_vals["avg_salary_adds_only"] = avg_vals.avg_salary_adds_only.str.replace(
+        "$", ""
+    ).astype(float)
+    avg_vals["median_salary"] = avg_vals.median_salary.str.replace("$", "").astype(
+        float
+    )
     try:
         avg_vals["roster_pct"] = avg_vals.roster_pct.str.replace("%", "").astype(float)
     except AttributeError:
